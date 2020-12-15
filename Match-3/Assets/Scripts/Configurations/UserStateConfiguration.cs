@@ -7,6 +7,7 @@ namespace Match3.Configurations
     {
         public string UserName;
         public long CoinsCount;
+        public int Rating;
         public int LastArenaID;
         public bool Sound;
         public int WinCount;

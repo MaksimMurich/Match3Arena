@@ -3,6 +3,7 @@ using Match3.Assets.Scripts.Services;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
 using Match3.Configurations;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +11,10 @@ namespace Match3.Systems.Game.Swap
 {
     public sealed class SwapSystem : IEcsRunSystem
     {
+        private readonly EcsWorld _world = null;
         private readonly GameField _gameField = null;
-        private readonly RoundConfiguration _configuration = null;
+        private readonly PlayerState _playerState = null;
+        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, SwapRequest> _filter = null;
         private readonly EcsFilter<ChangeFieldAnimating> _fieldChangers = null;
         private readonly EcsFilter<AnimateExplosion> _explosionAnimations = null;
@@ -19,7 +22,9 @@ namespace Match3.Systems.Game.Swap
 
         public void Run()
         {
-            if (_fieldChangers.GetEntitiesCount() > 0 || _chains.GetEntitiesCount() > 0 || _explosionAnimations.GetEntitiesCount() > 0)
+            bool swapLocked = _fieldChangers.GetEntitiesCount() > 0 || _chains.GetEntitiesCount() > 0 || _explosionAnimations.GetEntitiesCount() > 0;
+
+            if (swapLocked)
             {
                 return;
             }
@@ -59,6 +64,15 @@ namespace Match3.Systems.Game.Swap
                     AnimateSwapBackRequest secondRequest = new AnimateSwapBackRequest();
                     secondRequest.TargetPosition = cellPosition;
                     secondCell.Set<AnimateSwapBackRequest>() = secondRequest;
+                }
+                else
+                {
+                    if (_playerState.Active)
+                    {
+                        _playerState.StepsCount += 1;
+                    }
+
+                    _world.NewEntity().Set<NextPlayerRequest>();
                 }
             }
         }

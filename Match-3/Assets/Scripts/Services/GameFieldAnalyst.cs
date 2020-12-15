@@ -1,6 +1,8 @@
 ﻿using Leopotam.Ecs;
 using Match3.Components.Game;
+using Match3.Components.Game.Events;
 using Match3.Configurations;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,20 +10,20 @@ namespace Match3.Assets.Scripts.Services
 {
     public static class GameFieldAnalyst
     {
-        internal static bool HasChain(Dictionary<Vector2Int, EcsEntity> cells, RoundConfiguration _configuration)
+        public static bool HasChain(Dictionary<Vector2Int, EcsEntity> cells, InGameConfiguration configuraton)
         {
-            List<ChainEvent> chains = GetChains(cells, _configuration);
+            List<ChainEvent> chains = GetChains(cells, configuraton);
 
             return chains.Count > 0;
         }
 
-        public static List<ChainEvent> GetChains(Dictionary<Vector2Int, EcsEntity> cells, RoundConfiguration _configuration)
+        public static List<ChainEvent> GetChains(Dictionary<Vector2Int, EcsEntity> cells, InGameConfiguration configuration)
         {
             List<ChainEvent> result = new List<ChainEvent>();
 
-            for (int column = 0; column < _configuration.LevelWidth; column++)
+            for (int column = 0; column < configuration.LevelWidth; column++)
             {
-                for (int row = 0; row < _configuration.LevelHeight; row++)
+                for (int row = 0; row < configuration.LevelHeight; row++)
                 {
                     Vector2Int position = new Vector2Int(column, row);
 
@@ -30,19 +32,19 @@ namespace Match3.Assets.Scripts.Services
                         continue;
                     }
 
-                    result.AddRange(GetCellChains(cells, _configuration, position));
+                    result.AddRange(GetCellChains(cells, configuration, position));
                 }
             }
 
             return result;
         }
 
-        public static bool CheckCellInChain(Dictionary<Vector2Int, EcsEntity> cells, RoundConfiguration _configuration, Vector2Int position)
+        public static bool CheckCellInChain(Dictionary<Vector2Int, EcsEntity> cells, InGameConfiguration configuration, Vector2Int position)
         {
             Vector2Int direction = new Vector2Int(0, 1);
             ChainEvent horisontalRight = GetChain(position, direction, cells);
 
-            if (horisontalRight.Size >= _configuration.MinRewardableChain)
+            if (horisontalRight.Size >= configuration.MinRewardableChain)
             {
                 return true;
             }
@@ -50,7 +52,7 @@ namespace Match3.Assets.Scripts.Services
             direction = new Vector2Int(0, -1);
             ChainEvent horisontalLeft = GetChain(position, direction, cells);
 
-            if (horisontalLeft.Size >= _configuration.MinRewardableChain)
+            if (horisontalLeft.Size >= configuration.MinRewardableChain)
             {
                 return true;
             }
@@ -58,7 +60,7 @@ namespace Match3.Assets.Scripts.Services
             direction = new Vector2Int(1, 0);
             ChainEvent verticalUp = GetChain(position, direction, cells);
 
-            if (verticalUp.Size >= _configuration.MinRewardableChain)
+            if (verticalUp.Size >= configuration.MinRewardableChain)
             {
                 return true;
             }
@@ -66,7 +68,7 @@ namespace Match3.Assets.Scripts.Services
             direction = new Vector2Int(-1, 0);
             ChainEvent verticalDown = GetChain(position, direction, cells);
 
-            if (verticalDown.Size >= _configuration.MinRewardableChain)
+            if (verticalDown.Size >= configuration.MinRewardableChain)
             {
                 return true;
             }
@@ -74,24 +76,185 @@ namespace Match3.Assets.Scripts.Services
             return false;
         }
 
-        private static List<ChainEvent> GetCellChains(Dictionary<Vector2Int, EcsEntity> cells, RoundConfiguration _configuration, Vector2Int position)
+        public static List<SwapPossibility> GetAllSwapPossibilities(int maxHealthReward, GameField gameField, InGameConfiguration configuration)
+        {
+            List<SwapPossibility> possibilities = new List<SwapPossibility>();
+
+            for (int column = 0; column < configuration.LevelWidth; column++)
+            {
+                for (int row = 0; row < configuration.LevelHeight; row++)
+                {
+                    Vector2Int position = new Vector2Int(column, row);
+
+                    if (!gameField.Cells.ContainsKey(position))
+                    {
+                        continue;
+                    }
+
+                    AddSwapIfPossible(gameField, configuration, possibilities, position, Vector2Int.up);
+                    AddSwapIfPossible(gameField, configuration, possibilities, position, Vector2Int.right);
+                }
+            }
+
+            possibilities.ForEach(p => p.SwapRewards.HealthReward = Math.Min(maxHealthReward, p.SwapRewards.HealthReward));
+
+            return possibilities;
+        }
+
+        private static void AddSwapIfPossible(GameField gameField, InGameConfiguration configuration, List<SwapPossibility> possibilities, Vector2Int position, Vector2Int direction)
+        {
+            bool swapIsPossible = CheckSwapCreateChains(position, direction, gameField.Cells, configuration);
+
+            if (swapIsPossible)
+            {
+                SwapPossibility possibility = CalculatePossibility(position, direction, gameField, configuration);
+                possibilities.Add(possibility);
+            }
+        }
+
+        private static bool CheckSwapCreateChains(Vector2Int position, Vector2Int direction, Dictionary<Vector2Int, EcsEntity> cells, InGameConfiguration configuration)
+        {
+            GameFieldModifier.SwapCellsWithoutChangeComponents(position, position + direction, cells);
+
+            bool result = CheckCellInChain(cells, configuration, position);
+            result = result || CheckCellInChain(cells, configuration, position + direction);
+
+            GameFieldModifier.SwapCellsWithoutChangeComponents(position, position + direction, cells); // swap cells back
+
+            return result;
+        }
+
+        private static SwapPossibility CalculatePossibility(Vector2Int position, Vector2Int direction, GameField field, InGameConfiguration configuration)
+        {
+            SwapPossibility result = new SwapPossibility() { FromX = position.x, FromY = position.y, ToX = position.x + direction.x, ToY = position.y + direction.y };
+
+            GameField fieldClone = GameFieldModifier.Clone(field);
+            GameFieldModifier.SwapCellsWithoutChangeComponents(position, position + direction, fieldClone.Cells);
+
+            result.SwapRewards = CalculateRewards(fieldClone.Cells, configuration);
+
+            return result;
+        }
+
+        private static SwapRewards CalculateRewards(Dictionary<Vector2Int, EcsEntity> cells, InGameConfiguration configuration)
+        {
+            SwapRewards result = new SwapRewards();
+
+            List<ChainEvent> chains = GetChains(cells, configuration);
+
+
+            while (chains.Count > 0)
+            {
+                AddChainsRewards(cells, ref result, chains);
+
+                // move cells down to empty spaces
+                MoveCellsDownToEmptySpaces(cells, configuration);
+                chains = GetChains(cells, configuration);
+            }
+
+            return result;
+        }
+
+        private static void MoveCellsDownToEmptySpaces(Dictionary<Vector2Int, EcsEntity> cells, InGameConfiguration configuration)
+        {
+            for (int column = 0; column < configuration.LevelWidth; column++)
+            {
+                for (int row = 0; row < configuration.LevelHeight; row++)
+                {
+                    Vector2Int position = new Vector2Int(column, row);
+                    EcsEntity cell = cells[position];
+
+                    if (!cell.Equals(EcsEntity.Null))
+                    {
+                        continue;
+                    }
+
+                    bool emptySpace = true;
+
+                    Vector2Int extenderPosition = position;
+
+                    while (emptySpace)
+                    {
+                        extenderPosition += Vector2Int.up;
+                        bool hasCellID = cells.ContainsKey(extenderPosition);
+
+                        if (!hasCellID)
+                        {
+                            break;
+                        }
+
+                        emptySpace = cells[extenderPosition].Equals(EcsEntity.Null);
+                    }
+                    GameFieldModifier.SwapCellsWithoutChangeComponents(position, extenderPosition, cells);
+                }
+            }
+        }
+
+        private static void AddChainsRewards(Dictionary<Vector2Int, EcsEntity> cells, ref SwapRewards result, List<ChainEvent> chains)
+        {
+            for (int i = 0; i < chains.Count; i++)
+            {
+                for (int cellNum = 0; cellNum < chains[i].Size; cellNum++)
+                {
+                    Vector2Int position = chains[i].Position + chains[i].Direction * cellNum;
+
+                    if (cells[position].Equals(EcsEntity.Null))
+                    {
+                        continue;
+                    }
+
+                    Cell cell = cells[position].Ref<Cell>().Unref();
+
+                    result.HealthReward += cell.Configuration.Health;
+                    result.DemageReward += cell.Configuration.Demage;
+
+                    cells[position] = EcsEntity.Null;
+                }
+            }
+        }
+
+        public static bool CheckIsCorrectSwap(Vector2Int cellId, Vector2Int direction, Dictionary<Vector2Int, EcsEntity> cells, InGameConfiguration configuration)
+        {
+            // swap
+            Vector2Int targetCellId = cellId + direction;
+            EcsEntity targetCell = cells[targetCellId];
+            cells[targetCellId] = cells[cellId];
+            cells[cellId] = targetCell;
+
+            bool hasChains = HasChain(cells, configuration);
+
+            // swap back
+            targetCell = cells[targetCellId];
+            cells[targetCellId] = cells[cellId];
+            cells[cellId] = targetCell;
+
+            return hasChains;
+        }
+
+        private static List<ChainEvent> GetCellChains(Dictionary<Vector2Int, EcsEntity> cells, InGameConfiguration configuration, Vector2Int position)
         {
             List<ChainEvent> result = new List<ChainEvent>();
 
             Vector2Int direction = new Vector2Int(0, 1);
             ChainEvent horisontal = GetChain(position, direction, cells);
 
-            if (horisontal.Size >= _configuration.MinRewardableChain)
+            if (horisontal.Size >= configuration.MinRewardableChain)
             {
-                result.Add(horisontal);
+                if (!result.Contains(horisontal))
+                {
+                    result.Add(horisontal);
+                }
             }
 
             direction = new Vector2Int(1, 0);
             ChainEvent vertical = GetChain(position, direction, cells);
 
-            if (vertical.Size >= _configuration.MinRewardableChain)
+            if (vertical.Size >= configuration.MinRewardableChain)
             {
-                result.Add(vertical);
+                if (!result.Contains(vertical))
+                {
+                    result.Add(vertical);
+                }
             }
 
             return result;
@@ -99,6 +262,7 @@ namespace Match3.Assets.Scripts.Services
 
         private static ChainEvent GetChain(Vector2Int startPosition, Vector2Int direction, Dictionary<Vector2Int, EcsEntity> cells)
         {
+
             Vector2Int position = startPosition;
 
             if (!cells.ContainsKey(position))
@@ -106,16 +270,18 @@ namespace Match3.Assets.Scripts.Services
                 return new ChainEvent();
             }
 
+            Vector2Int cellBefore = position - direction;
+
+            while (cells.ContainsKey(cellBefore) && GetCellType(cellBefore, cells) == GetCellType(position, cells))
+            {
+                startPosition = cellBefore;
+                position = cellBefore;
+                cellBefore -= direction;
+            }
+
             CellType cellType = GetCellType(position, cells);
 
             if (cellType == CellType.Unknown)
-            {
-                return new ChainEvent();
-            }
-
-            bool chained = CheckCellChainedBefore(direction, position, cellType, cells);
-
-            if (chained)
             {
                 return new ChainEvent();
             }
@@ -148,7 +314,7 @@ namespace Match3.Assets.Scripts.Services
 
         private static CellType GetCellType(Vector2Int position, Dictionary<Vector2Int, EcsEntity> cells)
         {
-            if (cells[position].Has<EmptySpace>())
+            if (cells[position].Equals(null) || cells[position].Owner == null || cells[position].Has<EmptySpace>())
             {
                 return CellType.Unknown;
             }

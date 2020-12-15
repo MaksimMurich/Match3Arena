@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Match3.Assets.Scripts.UnityComponents.UI.Lobby 
+namespace Match3.Assets.Scripts.UnityComponents.UI.Lobby
 {
     public class ArenasUIManager : MonoBehaviour
     {

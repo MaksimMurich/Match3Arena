@@ -6,7 +6,7 @@ namespace Match3.Systems.Game.Initialization
 {
     public sealed class SetCellConfigSpawnRangesSystem : IEcsInitSystem
     {
-        private readonly RoundConfiguration _configuration = null;
+        private readonly InGameConfiguration _configuration = null;
 
         public void Init()
         {
