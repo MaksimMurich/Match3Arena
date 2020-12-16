@@ -9,7 +9,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Animations
 {
     public sealed class UnscaleDeselectedCellSystem : IEcsRunSystem
     {
-        private readonly RoundConfiguration _configuration = null;
+        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, DeselectCellAnimationRequest> _filter = null;
 
         public void Run()
@@ -19,8 +19,15 @@ namespace Match3.Assets.Scripts.Systems.Game.Animations
             foreach (int index in _filter)
             {
                 Transform view = _filter.Get1(index).View.transform;
-                view.DOScale(1, configuration.SetectedCellScaleSeconds)
-                    .OnComplete(() => { OffsetCellBack(configuration, view); });
+
+
+                Sequence sequence = DOTween.Sequence();
+
+                sequence.Append(view.DOScaleX(1, configuration.SetectedCellScaleSeconds));
+                sequence.Join(view.DOScaleY(1, configuration.SetectedCellScaleSeconds)
+                    .OnComplete(() => { OffsetCellBack(configuration, view); }));
+
+                sequence.Play();
             }
         }
 

@@ -8,13 +8,19 @@ namespace Match3.Systems.Game.Swap
 {
     public sealed class UserSwapInputSystem : IEcsRunSystem
     {
-        private readonly InGameSceneData _sceneData = null;
-        private readonly RoundConfiguration _configuration = null;
         private readonly GameField _gameField = null;
+        private readonly PlayerState _playerState = null;
+        private readonly InGameSceneData _sceneData = null;
+        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, Selected> _filter = null;
 
         public void Run()
         {
+            if (!_playerState.Active)
+            {
+                return;
+            }
+
             Vector2 mousePosition = _sceneData.Camera.ScreenToWorldPoint(Input.mousePosition);
 
             foreach (int index in _filter)

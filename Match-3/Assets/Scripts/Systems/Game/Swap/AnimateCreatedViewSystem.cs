@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Leopotam.Ecs;
+using Match3.Assets.Scripts.Components.Common;
 using Match3.Components.Game;
 using Match3.Configurations;
 using UnityEngine;
@@ -8,11 +9,19 @@ namespace Match3.Systems.Game.Swap
 {
     public sealed class AnimateCreatedViewSystem : IEcsRunSystem
     {
-        private readonly RoundConfiguration _configuration = null;
+        private readonly EcsWorld _world = null;
+        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, AnimateCreatedViewRequest> _filter = null;
 
         public void Run()
         {
+            if (_filter.GetEntitiesCount() == 0)
+            {
+                return;
+            }
+
+            _world.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(_configuration.Sounds.DropDownCells);
+
             foreach (int index in _filter)
             {
                 EcsEntity entity = _filter.GetEntity(index);

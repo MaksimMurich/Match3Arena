@@ -8,7 +8,7 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
 {
     public sealed class CreateRandomCellsToEmptySpacesSystem : IEcsRunSystem
     {
-        private readonly RoundConfiguration _configuration = null;
+        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<EmptySpace> _filter = null;
 
         public void Run()

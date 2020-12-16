@@ -10,7 +10,7 @@ namespace Match3.Systems.Game.Initialization
     public sealed class InitializeFieldSystem : IEcsInitSystem
     {
         private readonly EcsWorld _world = null;
-        private readonly RoundConfiguration _configuration = null;
+        private readonly InGameConfiguration _configuration = null;
         private readonly GameField _gameField = null;
 
         public void Init()

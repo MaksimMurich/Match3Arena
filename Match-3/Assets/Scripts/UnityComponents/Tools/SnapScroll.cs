@@ -18,7 +18,7 @@ public class SnapScroll : MonoBehaviour, IEndDragHandler
         _scrollRect = GetComponent<ScrollRect>();
         _startPosition = _scrollElements[0].position;
     }
-    
+
     public void OnEndDrag(PointerEventData eventData)
     {
         float minDistance = _scrollElements.Min(e => Mathf.Abs(_startPosition.x - e.position.x));

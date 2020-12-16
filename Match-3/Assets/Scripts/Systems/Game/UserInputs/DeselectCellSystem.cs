@@ -7,11 +7,13 @@ namespace Match3.Systems.Game.UserInputs
 {
     public sealed class DeselectCellSystem : IEcsRunSystem
     {
+        private readonly PlayerState _playerState = null;
+
         private readonly EcsFilter<Cell, Selected> _filter = null;
 
         public void Run()
         {
-            if (!Input.GetMouseButtonUp(0))
+            if (!_playerState.Active || !Input.GetMouseButtonUp(0))
             {
                 return;
             }
