@@ -109,6 +109,7 @@ InitTestScene*.unity.meta
 InitTestScene*.unity
 
 #Additional files for ignore
+Assembly-CSharp.csproj
 Assembly-CSharp-Editor.csproj
 Assembly-CSharp-firstpass.csproj
 
