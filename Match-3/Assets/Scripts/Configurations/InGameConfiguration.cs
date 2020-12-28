@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Match3.Configurations
 {
     [CreateAssetMenu]
-    public class InGameConfiguration : ScriptableObject
+    public class InGameConfiguration : CommonConfiguration
     {
         [SerializeField] private int _targetFrameRate = 50;
         [SerializeField] private int _levelWidth = 8;
@@ -24,7 +24,6 @@ namespace Match3.Configurations
         [SerializeField] private float _deltaRatingRewardMultiplayer = 0.1f;
         [SerializeField] private int _saveUserSwapsCount = 100;
 
-        [SerializeField] private UserStateConfiguration _userStateConfiguration = null;
         [SerializeField] private AnimationsConfiguration _animationsConfiguration = null;
         [SerializeField] private List<CellBackground> _cellViewBackgrounds = null;
         [SerializeField] private TextAsset _botNames = null;
@@ -46,7 +45,6 @@ namespace Match3.Configurations
         public int  MinDeltaRating { get => _minDeltaRating;}
         internal float DeltaRatingRewardMultiplayer { get => _deltaRatingRewardMultiplayer; }
         public int SaveUserSwapsCount { get => _saveUserSwapsCount;}
-        public UserStateConfiguration UserStateConfiguration { get => _userStateConfiguration; }
         public AnimationsConfiguration Animation => _animationsConfiguration;
         public List<CellBackground> CellViewBackgrounds { get => _cellViewBackgrounds; }
         public TextAsset BotNames { get => _botNames; }
