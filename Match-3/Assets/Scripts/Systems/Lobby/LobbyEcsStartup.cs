@@ -43,8 +43,6 @@ namespace Match3
             _playerData = LocalSaveLoad<PlayerData>.Load();
             _playerData = _playerData != null ? _playerData : new PlayerData(_configuration.UserStateConfiguration.Rating, _configuration.UserStateConfiguration.CoinsCount);
 
-            //_playerState = new PlayerState(_configuration.PlayersMaxLife, 100);
-
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
             _objectPool = new ObjectPool();
@@ -65,10 +63,7 @@ namespace Match3
                 // initialization
                 .Add(new AudioSystem())
                 .OneFrame<PlaySoundRequest>()
-
-
                 
-
                 // inject service instances here (order doesn't important), for example:
                 .Inject(_configuration)
                 .Inject(_sceneData)
