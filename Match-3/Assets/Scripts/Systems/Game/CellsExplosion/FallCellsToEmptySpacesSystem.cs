@@ -1,5 +1,6 @@
 ﻿using Leopotam.Ecs;
 using Match3.Components.Game;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
@@ -53,19 +54,20 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
 
         private void SwapCells(Vector2Int position, Vector2Int extenderPosition)
         {
-            bool hasCellID = Global.Data.InGame.GameField.Cells.ContainsKey(extenderPosition);
+            Dictionary<Vector2Int, EcsEntity> cells = Global.Data.InGame.GameField.Cells;
+            bool hasCellID = cells.ContainsKey(extenderPosition);
 
             if (!hasCellID)
             {
                 return;
             }
 
-            EcsEntity emptyEntity = Global.Data.InGame.GameField.Cells[position];
-            EcsEntity extenderEntity = Global.Data.InGame.GameField.Cells[extenderPosition];
-            Global.Data.InGame.GameField.Cells.Remove(position);
-            Global.Data.InGame.GameField.Cells.Remove(extenderPosition);
-            Global.Data.InGame.GameField.Cells.Add(position, extenderEntity);
-            Global.Data.InGame.GameField.Cells.Add(extenderPosition, emptyEntity);
+            EcsEntity emptyEntity = cells[position];
+            EcsEntity extenderEntity = cells[extenderPosition];
+            cells.Remove(position);
+            cells.Remove(extenderPosition);
+            cells.Add(position, extenderEntity);
+            cells.Add(extenderPosition, emptyEntity);
             emptyEntity.Set<Vector2Int>() = extenderPosition;
             extenderEntity.Set<Vector2Int>() = position;
 

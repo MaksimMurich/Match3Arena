@@ -16,6 +16,8 @@ namespace Match3.Assets.Scripts.Systems.Game
 
         private bool _activePlayerChanged;
 
+        private Global.InGameData _inGameData = Global.Data.InGame;
+
         public void Run()
         {
 
@@ -39,9 +41,9 @@ namespace Match3.Assets.Scripts.Systems.Game
 
         private void IndicateActivePlayer()
         {
-            if (Global.Data.InGame.PlayerState.Active)
+            if (_inGameData.PlayerState.Active)
             {
-                Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.PlayerTurn);
+                _inGameData.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.PlayerTurn);
             }
 
             PlayerInGameDataView player = GetActivePlayer();
@@ -54,7 +56,7 @@ namespace Match3.Assets.Scripts.Systems.Game
         {
             PlayerInGameDataView activePlayer;
 
-            if (Global.Data.InGame.PlayerState.Active)
+            if (_inGameData.PlayerState.Active)
             {
                 activePlayer = Global.Views.InGame.PlayerDataView;
             }
@@ -70,7 +72,7 @@ namespace Match3.Assets.Scripts.Systems.Game
         {
             PlayerInGameDataView inactivePlayer;
 
-            if (Global.Data.InGame.PlayerState.Active)
+            if (_inGameData.PlayerState.Active)
             {
                 inactivePlayer = Global.Views.InGame.BotDataView;
             }

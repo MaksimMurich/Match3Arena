@@ -12,15 +12,16 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
         {
             foreach (int index in _filter)
             {
+                var state = Global.Data.InGame.PlayerState;
                 EcsEntity entity = _filter.GetEntity(index);
                 HealthRewardRequest reward = _filter.Get1(index);
 
-                if (Global.Data.InGame.PlayerState.Active)
+                if (state.Active)
                 {
-                    Global.Data.InGame.PlayerState.SumHealseRestored += reward.Value;
+                    state.SumHealseRestored += reward.Value;
 
-                    Global.Data.InGame.PlayerState.CurrentLife += reward.Value;
-                    Global.Data.InGame.PlayerState.CurrentLife = Mathf.Min(Global.Data.InGame.PlayerState.CurrentLife, Global.Data.InGame.PlayerState.MaxLife);
+                    state.CurrentLife += reward.Value;
+                    state.CurrentLife = Mathf.Min(state.CurrentLife, state.MaxLife);
                 }
                 else
                 {

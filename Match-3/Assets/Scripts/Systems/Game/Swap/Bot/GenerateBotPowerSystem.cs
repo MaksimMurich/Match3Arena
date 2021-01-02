@@ -12,10 +12,12 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
             List<SwapPowerRange> swapPowerRanges = new List<SwapPowerRange>();
             Dictionary<float, int> userSwapsByPoewr = new Dictionary<float, int>(); // rating 3 of 10 swaps = 70% power
 
+            List<SwapRecord> userSwaps = Global.Data.Player.UserSwaps;
+
             // calculate swaps count by rating
-            for (int i = 0; i < Global.Data.Player.UserSwaps.Count; i++)
+            for (int i = 0; i < userSwaps.Count; i++)
             {
-                SwapRecord swap = Global.Data.Player.UserSwaps[i];
+                SwapRecord swap = userSwaps[i];
 
                 if (!userSwapsByPoewr.ContainsKey(swap.SwapRating))
                 {
@@ -27,7 +29,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
             float rangeMinValue = 0;
 
-            float totalSwaps = Global.Data.Player.UserSwaps.Count;
+            float totalSwaps = userSwaps.Count;
 
             foreach (KeyValuePair<float, int> powerSwapsCount in userSwapsByPoewr)
             {

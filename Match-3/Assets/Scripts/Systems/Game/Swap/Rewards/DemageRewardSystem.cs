@@ -13,25 +13,32 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 
         public void Run()
         {
+            if(_filter.GetEntitiesCount() <= 0)
+            {
+                return;
+            }
+
+            var state = Global.Data.InGame.PlayerState;
+
             foreach (int index in _filter)
             {
                 EcsEntity entity = _filter.GetEntity(index);
                 DemageRewardRequest reward = _filter.Get1(index);
 
-                if (Global.Data.InGame.PlayerState.Active)
+                if (state.Active)
                 {
-                    Global.Data.InGame.PlayerState.SumOpponentDemage += reward.Value;
+                    state.SumOpponentDemage += reward.Value;
                     OpponentState.CurrentLife -= reward.Value;
                     OpponentState.CurrentLife = Mathf.Max(OpponentState.CurrentLife, 0);
                 }
                 else
                 {
-                    Global.Data.InGame.PlayerState.CurrentLife -= reward.Value;
-                    Global.Data.InGame.PlayerState.CurrentLife = Mathf.Max(Global.Data.InGame.PlayerState.CurrentLife, 0);
+                    state.CurrentLife -= reward.Value;
+                    state.CurrentLife = Mathf.Max(state.CurrentLife, 0);
                 }
             }
 
-            if (Global.Data.InGame.PlayerState.CurrentLife <= 0 || OpponentState.CurrentLife <= 0)
+            if (state.CurrentLife <= 0 || OpponentState.CurrentLife <= 0)
             {
                 if (gameIsEneded)
                 {

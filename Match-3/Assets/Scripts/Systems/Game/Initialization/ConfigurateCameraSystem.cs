@@ -1,4 +1,5 @@
 ﻿using Leopotam.Ecs;
+using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game.Initialization
@@ -7,29 +8,32 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization
     {
         public void Init()
         {
-            Application.targetFrameRate = Global.Config.InGame.TargetFrameRate;
+            InGameConfiguration config = Global.Config.InGame;
+            InGameViews views = Global.Views.InGame;
 
-            float fillScreenPart = 1 / (1 + 2 * Global.Config.InGame.MinFieldPadding);
-            float cameraSize = Global.Config.InGame.LevelHeight * (1 + Global.Config.InGame.TopMenuPadding + Global.Config.InGame.BottomPadding) / fillScreenPart / 2f;
-            float cameraOffsetY = (Global.Config.InGame.TopMenuPadding - Global.Config.InGame.BottomPadding) * Global.Config.InGame.LevelHeight / 2;
+            Application.targetFrameRate = config.TargetFrameRate;
+
+            float fillScreenPart = 1 / (1 + 2 * config.MinFieldPadding);
+            float cameraSize = config.LevelHeight * (1 + config.TopMenuPadding + config.BottomPadding) / fillScreenPart / 2f;
+            float cameraOffsetY = (config.TopMenuPadding - config.BottomPadding) * config.LevelHeight / 2;
             float cameraViewWidth = cameraSize * Screen.width / (float)Screen.height;
 
-            if (cameraViewWidth < Global.Config.InGame.LevelWidth / 2f)
+            if (cameraViewWidth < config.LevelWidth / 2f)
             {
-                cameraSize *= (1 + 2 * Global.Config.InGame.MinFieldPadding) * Global.Config.InGame.LevelWidth / 2f / cameraViewWidth;
+                cameraSize *= (1 + 2 * config.MinFieldPadding) * config.LevelWidth / 2f / cameraViewWidth;
             }
 
-            float cameraScale = cameraSize / Global.Views.InGame.Camera.orthographicSize;
-            Global.Views.InGame.Background.localScale *= cameraScale;
+            float cameraScale = cameraSize / views.Camera.orthographicSize;
+            views.Background.localScale *= cameraScale;
 
-            Global.Views.InGame.Camera.orthographic = true;
-            Global.Views.InGame.Camera.orthographicSize = cameraSize;
+            views.Camera.orthographic = true;
+            views.Camera.orthographicSize = cameraSize;
 
-            float cameraXPosition = (Global.Config.InGame.LevelWidth - 1) / 2f;
-            float cameraYPosition = cameraOffsetY + (Global.Config.InGame.LevelHeight - 1f) / 2f;
-            Global.Views.InGame.Camera.transform.position = new Vector3(cameraXPosition, cameraYPosition, -10);
+            float cameraXPosition = (config.LevelWidth - 1) / 2f;
+            float cameraYPosition = cameraOffsetY + (config.LevelHeight - 1f) / 2f;
+            views.Camera.transform.position = new Vector3(cameraXPosition, cameraYPosition, -10);
 
-            Global.Views.InGame.Background.position = new Vector3(cameraXPosition, cameraYPosition, 100);
+            views.Background.position = new Vector3(cameraXPosition, cameraYPosition, 100);
         }
     }
 }

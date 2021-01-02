@@ -25,11 +25,14 @@ namespace Match3.Systems.Game.Swap
 
             foreach (int index in _filter)
             {
+                var inGameData = Global.Data.InGame;
+                var cells = inGameData.GameField.Cells;
+
                 Vector2Int cellPosition = _filter.Get2(index);
                 Vector2Int targetPosition = _filter.Get3(index).To;
 
                 EcsEntity swapCell = _filter.GetEntity(index);
-                EcsEntity secondCell = Global.Data.InGame.GameField.Cells[targetPosition];
+                EcsEntity secondCell = cells[targetPosition];
 
                 swapCell.Set<Vector2Int>() = targetPosition;
                 swapCell.Set<AnimateSwapRequest>().MainCell = true;
@@ -37,15 +40,15 @@ namespace Match3.Systems.Game.Swap
                 secondCell.Set<Vector2Int>() = cellPosition;
                 secondCell.Set<AnimateSwapRequest>().MainCell = false;
 
-                Global.Data.InGame.GameField.Cells[cellPosition] = secondCell;
-                Global.Data.InGame.GameField.Cells[targetPosition] = swapCell;
+                cells[cellPosition] = secondCell;
+                cells[targetPosition] = swapCell;
 
-                List<ChainEvent> chains = GameFieldAnalyst.GetChains(Global.Data.InGame.GameField.Cells);
+                List<ChainEvent> chains = GameFieldAnalyst.GetChains(cells);
 
                 if (chains.Count == 0)
                 {
-                    Global.Data.InGame.GameField.Cells[cellPosition] = swapCell;
-                    Global.Data.InGame.GameField.Cells[targetPosition] = secondCell;
+                    cells[cellPosition] = swapCell;
+                    cells[targetPosition] = secondCell;
 
                     swapCell.Set<Vector2Int>() = cellPosition;
 
@@ -61,12 +64,12 @@ namespace Match3.Systems.Game.Swap
                 }
                 else
                 {
-                    if (Global.Data.InGame.PlayerState.Active)
+                    if (inGameData.PlayerState.Active)
                     {
-                        Global.Data.InGame.PlayerState.StepsCount += 1;
+                        inGameData.PlayerState.StepsCount += 1;
                     }
 
-                    Global.Data.InGame.World.NewEntity().Set<NextPlayerRequest>();
+                    inGameData.World.NewEntity().Set<NextPlayerRequest>();
                 }
             }
         }

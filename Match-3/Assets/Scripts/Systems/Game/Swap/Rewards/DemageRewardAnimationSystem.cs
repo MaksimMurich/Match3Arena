@@ -12,6 +12,8 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 
         public void Run()
         {
+            var views = Global.Views.InGame;
+
             foreach (int index in _filter)
             {
                 DemageRewardRequest request = _filter.Get1(index);
@@ -21,20 +23,20 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
                     continue;
                 }
 
-                RectTransform canvasRect = Global.Views.InGame.RewardsContainer.GetComponent<RectTransform>();
+                RectTransform canvasRect = views.RewardsContainer.GetComponent<RectTransform>();
 
                 float widthProportion = canvasRect.sizeDelta.x / Screen.width;
                 float heightProportion = canvasRect.sizeDelta.y / Screen.height;
 
-                PlayerInGameDataView dataView = Global.Data.InGame.PlayerState.Active ? Global.Views.InGame.PlayerDataView : Global.Views.InGame.BotDataView;
+                PlayerInGameDataView dataView = Global.Data.InGame.PlayerState.Active ? views.PlayerDataView : views.BotDataView;
                 CellRewardView rewardView = Global.Services.Pool.Get(request.View);
                 rewardView.SetValue(request.Value);
-                rewardView.transform.SetParent(Global.Views.InGame.RewardsContainer.transform);
+                rewardView.transform.SetParent(views.RewardsContainer.transform);
                 rewardView.transform.localScale = Vector3.one;
                 RectTransform rectTrancform = rewardView.GetComponent<RectTransform>();
 
                 Vector3 position = new Vector3(request.Position.x, request.Position.y, 0);
-                Vector2 screenPosition = Global.Views.InGame.Camera.WorldToScreenPoint(position);
+                Vector2 screenPosition = views.Camera.WorldToScreenPoint(position);
                 Vector2 canvasPosition = new Vector2(screenPosition.x * widthProportion, screenPosition.y * heightProportion);
                 rectTrancform.anchoredPosition = canvasPosition;
 

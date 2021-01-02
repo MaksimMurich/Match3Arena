@@ -9,13 +9,14 @@ namespace Match3.Assets.Scripts.Systems.Game
     public sealed class HighlightFirstStepPlayerOutlineSystem : IEcsInitSystem
     {
         private EcsEntity changeFieldEntity;
+        private Global.InGameData _inGame = Global.Data.InGame;
 
         public void Init()
         {
-            changeFieldEntity = Global.Data.InGame.World.NewEntity();
-            changeFieldEntity.Set<ChangeFieldAnimating>();
-
             PlayerInGameDataView activePlayer = GetActivePlayer();
+            
+            changeFieldEntity = _inGame.World.NewEntity();
+            changeFieldEntity.Set<ChangeFieldAnimating>();
 
             Sequence sequence = DOTween.Sequence();
             sequence.SetDelay(Global.Config.InGame.Animation.SelectFirstPlayerDuration);
@@ -33,9 +34,9 @@ namespace Match3.Assets.Scripts.Systems.Game
             player.ActivateOutline(true);
             inactivePlayer.ActivateOutline(false);
 
-            if (Global.Data.InGame.PlayerState.Active)
+            if (_inGame.PlayerState.Active)
             {
-                Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.PlayerTurn);
+                _inGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.PlayerTurn);
             }
         }
 
@@ -43,7 +44,7 @@ namespace Match3.Assets.Scripts.Systems.Game
         {
             PlayerInGameDataView activePlayer;
 
-            if (Global.Data.InGame.PlayerState.Active)
+            if (_inGame.PlayerState.Active)
             {
                 activePlayer = Global.Views.InGame.PlayerDataView;
             }
@@ -59,7 +60,7 @@ namespace Match3.Assets.Scripts.Systems.Game
         {
             PlayerInGameDataView inactivePlayer;
 
-            if (Global.Data.InGame.PlayerState.Active)
+            if (_inGame.PlayerState.Active)
             {
                 inactivePlayer = Global.Views.InGame.BotDataView;
             }
