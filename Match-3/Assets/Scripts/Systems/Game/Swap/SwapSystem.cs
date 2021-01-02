@@ -2,7 +2,6 @@
 using Match3.Assets.Scripts.Services;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -67,7 +66,7 @@ namespace Match3.Systems.Game.Swap
                         Global.Data.InGame.PlayerState.StepsCount += 1;
                     }
 
-                     Global.Data.InGame.World.NewEntity().Set<NextPlayerRequest>();
+                    Global.Data.InGame.World.NewEntity().Set<NextPlayerRequest>();
                 }
             }
         }

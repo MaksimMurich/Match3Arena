@@ -1,7 +1,6 @@
 ﻿using Leopotam.Ecs;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Systems.Game.Swap
@@ -28,12 +27,12 @@ namespace Match3.Systems.Game.Swap
 
                 Vector2Int offset = Vector2Int.zero;
 
-                if (Mathf.Abs(mouseOffset.x) >  Global.Config.InGame.SwapMinMouseOffset)
+                if (Mathf.Abs(mouseOffset.x) > Global.Config.InGame.SwapMinMouseOffset)
                 {
                     int offsetX = mouseOffset.x > 0 ? 1 : -1;
                     offset = new Vector2Int(offsetX, 0);
                 }
-                else if (Mathf.Abs(mouseOffset.y) >  Global.Config.InGame.SwapMinMouseOffset)
+                else if (Mathf.Abs(mouseOffset.y) > Global.Config.InGame.SwapMinMouseOffset)
                 {
                     int offsetY = mouseOffset.y > 0 ? 1 : -1;
                     offset = new Vector2Int(0, offsetY);

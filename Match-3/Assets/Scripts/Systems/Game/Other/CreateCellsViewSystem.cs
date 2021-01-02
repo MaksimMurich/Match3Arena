@@ -1,7 +1,5 @@
 ﻿using Leopotam.Ecs;
-using Match3.Assets.Scripts.Services.Pool;
 using Match3.Components.Game;
-using Match3.Configurations;
 using Match3.UnityComponents;
 using UnityEngine;
 
@@ -20,7 +18,7 @@ namespace Match3.Systems.Game
                 view.Entity = _filter.GetEntity(index);
 
                 cell.View = view;
-                view.transform.position = new Vector2(_filter.Get3(index).x,  Global.Config.InGame.LevelHeight);
+                view.transform.position = new Vector2(_filter.Get3(index).x, Global.Config.InGame.LevelHeight);
                 view.Entity.Set<AnimateCreatedViewRequest>();
             }
         }

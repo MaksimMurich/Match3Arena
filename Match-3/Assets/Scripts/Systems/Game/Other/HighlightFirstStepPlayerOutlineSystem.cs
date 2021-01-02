@@ -3,7 +3,6 @@ using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Common;
 using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using Match3.Components.Game;
-using Match3.Configurations;
 
 namespace Match3.Assets.Scripts.Systems.Game
 {
@@ -13,13 +12,13 @@ namespace Match3.Assets.Scripts.Systems.Game
 
         public void Init()
         {
-            changeFieldEntity =  Global.Data.InGame.World.NewEntity();
+            changeFieldEntity = Global.Data.InGame.World.NewEntity();
             changeFieldEntity.Set<ChangeFieldAnimating>();
 
             PlayerInGameDataView activePlayer = GetActivePlayer();
 
             Sequence sequence = DOTween.Sequence();
-            sequence.SetDelay( Global.Config.InGame.Animation.SelectFirstPlayerDuration);
+            sequence.SetDelay(Global.Config.InGame.Animation.SelectFirstPlayerDuration);
             sequence.OnComplete(() =>
             {
                 changeFieldEntity.Destroy();
@@ -36,7 +35,7 @@ namespace Match3.Assets.Scripts.Systems.Game
 
             if (Global.Data.InGame.PlayerState.Active)
             {
-                 Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest( Global.Config.InGame.Sounds.PlayerTurn);
+                Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.PlayerTurn);
             }
         }
 

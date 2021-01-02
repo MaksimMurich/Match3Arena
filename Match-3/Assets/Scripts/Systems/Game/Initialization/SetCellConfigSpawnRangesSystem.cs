@@ -8,11 +8,11 @@ namespace Match3.Systems.Game.Initialization
     {
         public void Init()
         {
-            float sumSpawnWeights =  Global.Config.InGame.CellConfigurations.Sum(c => c.Weight);
+            float sumSpawnWeights = Global.Config.InGame.CellConfigurations.Sum(c => c.Weight);
 
             float max = 0;
 
-            foreach (CellConfiguration cellConfiguration in  Global.Config.InGame.CellConfigurations)
+            foreach (CellConfiguration cellConfiguration in Global.Config.InGame.CellConfigurations)
             {
                 float min = max;
                 max = min + 100 * cellConfiguration.Weight / sumSpawnWeights;

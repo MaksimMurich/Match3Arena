@@ -11,11 +11,11 @@ namespace Match3.Systems.Game.Initialization
     {
         public void Init()
         {
-            for (int row = 0; row <  Global.Config.InGame.LevelHeight; row++)
+            for (int row = 0; row < Global.Config.InGame.LevelHeight; row++)
             {
-                for (int column = 0; column <  Global.Config.InGame.LevelWidth; column++)
+                for (int column = 0; column < Global.Config.InGame.LevelWidth; column++)
                 {
-                    EcsEntity cellEntity =  Global.Data.InGame.World.NewEntity();
+                    EcsEntity cellEntity = Global.Data.InGame.World.NewEntity();
                     Vector2Int position = new Vector2Int(column, row);
                     cellEntity.Set<Vector2Int>() = position;
 
@@ -29,7 +29,7 @@ namespace Match3.Systems.Game.Initialization
                         tryCount++;
 
                         float random = Random.Range(0f, 100f);
-                        CellConfiguration configuration =  Global.Config.InGame.CellConfigurations.Where(c => c.CheckInSpawnRabge(random)).First();
+                        CellConfiguration configuration = Global.Config.InGame.CellConfigurations.Where(c => c.CheckInSpawnRabge(random)).First();
 
                         cellEntity.Set<Cell>().Configuration = configuration;
 

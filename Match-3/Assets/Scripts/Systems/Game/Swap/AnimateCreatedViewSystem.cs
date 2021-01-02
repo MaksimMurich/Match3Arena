@@ -2,7 +2,6 @@
 using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Common;
 using Match3.Components.Game;
-using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Systems.Game.Swap
@@ -18,7 +17,7 @@ namespace Match3.Systems.Game.Swap
                 return;
             }
 
-             Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest( Global.Config.InGame.Sounds.DropDownCells);
+            Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.DropDownCells);
 
             foreach (int index in _filter)
             {
@@ -30,7 +29,7 @@ namespace Match3.Systems.Game.Swap
 
                 Transform view = _filter.Get1(index).View.transform;
                 view.position += new Vector3(0, 0, zPosition - view.position.z);
-                view.DOMove(target,  Global.Config.InGame.Animation.CellMovingSeconds)
+                view.DOMove(target, Global.Config.InGame.Animation.CellMovingSeconds)
                     .OnComplete(() => OnFallenDown(entity, view));
             }
         }

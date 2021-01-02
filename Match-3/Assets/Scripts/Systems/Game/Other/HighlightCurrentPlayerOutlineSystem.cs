@@ -3,7 +3,6 @@ using Match3.Assets.Scripts.Components.Common;
 using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 
 namespace Match3.Assets.Scripts.Systems.Game
 {
@@ -42,7 +41,7 @@ namespace Match3.Assets.Scripts.Systems.Game
         {
             if (Global.Data.InGame.PlayerState.Active)
             {
-                 Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest( Global.Config.InGame.Sounds.PlayerTurn);
+                Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.PlayerTurn);
             }
 
             PlayerInGameDataView player = GetActivePlayer();

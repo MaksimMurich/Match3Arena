@@ -1,9 +1,7 @@
 ﻿using DG.Tweening;
 using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Game.Events.Rewards;
-using Match3.Assets.Scripts.Services.Pool;
 using Match3.Assets.Scripts.UnityComponents.UI.InGame;
-using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
@@ -41,7 +39,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
                 rectTrancform.anchoredPosition = canvasPosition;
 
                 Sequence sequence = DOTween.Sequence();
-                sequence.Append(rectTrancform.DOAnchorPosY(rectTrancform.anchoredPosition.y + 100,  Global.Config.InGame.Animation.ExplodedRewardUpAnimatingDuration));
+                sequence.Append(rectTrancform.DOAnchorPosY(rectTrancform.anchoredPosition.y + 100, Global.Config.InGame.Animation.ExplodedRewardUpAnimatingDuration));
                 sequence.AppendCallback(() => { Global.Services.Pool.Stash(rewardView); });
             }
         }

@@ -2,7 +2,6 @@
 using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Game.Events.Rewards;
 using Match3.Assets.Scripts.UnityComponents.UI.InGame;
-using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
@@ -29,7 +28,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
             dataView.DecreaseLifeLine.gameObject.SetActive(false);
             dataView.IncreaseLifeLine.gameObject.SetActive(true);
             dataView.IncreaseLifeLine.localScale = new Vector3(healthPart, scale.y, scale.z);
-            dataView.LifeLine.DOScaleX(healthPart,  Global.Config.InGame.Animation.UpdateLifeTime);
+            dataView.LifeLine.DOScaleX(healthPart, Global.Config.InGame.Animation.UpdateLifeTime);
         }
     }
 }

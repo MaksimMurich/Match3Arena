@@ -24,7 +24,7 @@ namespace Match3
         void Start()
         {
             _playerData = LocalSaveLoad<PlayerData>.Load();
-            _playerData = _playerData != null ? _playerData : new PlayerData( Global.Config.InGame.UserStateConfiguration.Rating,  Global.Config.InGame.UserStateConfiguration.CoinsCount);
+            _playerData = _playerData != null ? _playerData : new PlayerData(Global.Config.InGame.UserStateConfiguration.Rating, Global.Config.InGame.UserStateConfiguration.CoinsCount);
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
             _objectPool = new ObjectPool();

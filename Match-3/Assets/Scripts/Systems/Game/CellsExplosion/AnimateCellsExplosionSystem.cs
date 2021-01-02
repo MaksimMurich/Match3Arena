@@ -3,7 +3,6 @@ using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Common;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using Match3.UnityComponents;
 
 namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
@@ -19,17 +18,17 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
                 return;
             }
 
-            Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest( Global.Config.InGame.Sounds.CellsExplosion);
+            Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.CellsExplosion);
 
             foreach (var index in _filter)
             {
                 CellView view = _filter.Get1(index).View;
                 view.Entity.Set<AnimateExplosion>();
 
-                var tween = view.transform.DOScale( Global.Config.InGame.Animation.ExplosionScale,  Global.Config.InGame.Animation.ExplosionSeconds).OnComplete(() =>
-                {
-                    Hide(view);
-                });
+                var tween = view.transform.DOScale(Global.Config.InGame.Animation.ExplosionScale, Global.Config.InGame.Animation.ExplosionSeconds).OnComplete(() =>
+              {
+                  Hide(view);
+              });
             }
         }
 

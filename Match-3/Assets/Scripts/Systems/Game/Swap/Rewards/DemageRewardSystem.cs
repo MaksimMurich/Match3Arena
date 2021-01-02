@@ -40,7 +40,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
                 else
                 {
                     gameIsEneded = true;
-                     Global.Data.InGame.World.NewEntity().Set<EndRoundRequest>();
+                    Global.Data.InGame.World.NewEntity().Set<EndRoundRequest>();
                 }
             }
         }

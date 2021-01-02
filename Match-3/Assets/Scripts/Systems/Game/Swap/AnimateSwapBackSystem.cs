@@ -3,7 +3,6 @@ using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Common;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Systems.Game.Swap
@@ -16,7 +15,7 @@ namespace Match3.Systems.Game.Swap
         {
             if (_filter.GetEntitiesCount() > 0)
             {
-                 Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest( Global.Config.InGame.Sounds.SwapBack);
+                Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.SwapBack);
             }
 
             foreach (int index in _filter)
@@ -32,8 +31,8 @@ namespace Match3.Systems.Game.Swap
 
                 Transform view = _filter.Get1(index).View.transform;
                 view.position += new Vector3(0, 0, zPosition - view.position.z);
-                view.DOMove(targetMovePosition,  Global.Config.InGame.Animation.SwapDuration)
-                    .OnComplete(() => view.DOMove(startPosition,  Global.Config.InGame.Animation.SwapDuration)
+                view.DOMove(targetMovePosition, Global.Config.InGame.Animation.SwapDuration)
+                    .OnComplete(() => view.DOMove(startPosition, Global.Config.InGame.Animation.SwapDuration)
                     .OnComplete(() => OnSwapBackCompleate(entity, view)));
             }
         }

@@ -2,7 +2,6 @@
 using Leopotam.Ecs;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,13 +14,13 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization.FirstPlaer
         public void Init()
         {
             Global.Views.InGame.FirstPlayerSelectionView.gameObject.SetActive(true);
-            _animatingState =  Global.Data.InGame.World.NewEntity();
+            _animatingState = Global.Data.InGame.World.NewEntity();
             _animatingState.Set<FirstPlayerSelectionAnimating>();
             List<Transform> avatars = new List<Transform>();
             avatars.Add(Global.Views.InGame.FirstPlayerSelectionView.BotAvatarItemExample);
             avatars.Add(Global.Views.InGame.FirstPlayerSelectionView.PlayerAvatarItemExample);
 
-            for (int i = 0; i <  Global.Config.InGame.Animation.SelectFirstPlayerAvatarsCount - 1; i++)
+            for (int i = 0; i < Global.Config.InGame.Animation.SelectFirstPlayerAvatarsCount - 1; i++)
             {
                 int avatarId = Random.Range(0, 2);
                 GenerateItem(avatars[avatarId], i.ToString());
@@ -39,8 +38,8 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization.FirstPlaer
             Global.Views.InGame.FirstPlayerSelectionView.VerticalLayoutGroup.enabled = true;
             RectTransform container = Global.Views.InGame.FirstPlayerSelectionView.ItemsContainer;
             Sequence sequence = DOTween.Sequence();
-            float targetY = container.rect.height * ( Global.Config.InGame.Animation.SelectFirstPlayerAvatarsCount - 1);
-            sequence.Append(container.DOAnchorPos(new Vector2(0, targetY * 1),  Global.Config.InGame.Animation.SelectFirstPlayerDuration)).SetEase(Ease.OutExpo);
+            float targetY = container.rect.height * (Global.Config.InGame.Animation.SelectFirstPlayerAvatarsCount - 1);
+            sequence.Append(container.DOAnchorPos(new Vector2(0, targetY * 1), Global.Config.InGame.Animation.SelectFirstPlayerDuration)).SetEase(Ease.OutExpo);
             sequence.SetDelay(.2f);
             sequence.onComplete += OnFirstPlayerSelected;
             sequence.Play();
@@ -49,11 +48,11 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization.FirstPlaer
         private void OnFirstPlayerSelected()
         {
             Global.Views.InGame.FirstPlayerSelectionView.gameObject.SetActive(false);
-             Global.Data.InGame.World.NewEntity().Unset<FirstPlayerSelectionAnimating>();
+            Global.Data.InGame.World.NewEntity().Unset<FirstPlayerSelectionAnimating>();
 
             if (!Global.Data.InGame.PlayerState.Active)
             {
-                EcsEntity makeSwapRequest =  Global.Data.InGame.World.NewEntity();
+                EcsEntity makeSwapRequest = Global.Data.InGame.World.NewEntity();
                 makeSwapRequest.Set<BotMakeSwapDecisionRequest>();
             }
         }

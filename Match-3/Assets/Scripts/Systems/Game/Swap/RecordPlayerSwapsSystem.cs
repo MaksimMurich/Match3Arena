@@ -40,9 +40,9 @@ namespace Match3.Systems.Game.Swap
             SwapRecord record = GenerateSwapRecord(_filter.Get3(0));
             Global.Data.Player.UserSwaps.Add(record);
 
-            if (Global.Data.Player.UserSwaps.Count >  Global.Config.InGame.SaveUserSwapsCount)
+            if (Global.Data.Player.UserSwaps.Count > Global.Config.InGame.SaveUserSwapsCount)
             {
-                Global.Data.Player.UserSwaps.RemoveRange(0, Global.Data.Player.UserSwaps.Count -  Global.Config.InGame.SaveUserSwapsCount);
+                Global.Data.Player.UserSwaps.RemoveRange(0, Global.Data.Player.UserSwaps.Count - Global.Config.InGame.SaveUserSwapsCount);
             }
         }
 

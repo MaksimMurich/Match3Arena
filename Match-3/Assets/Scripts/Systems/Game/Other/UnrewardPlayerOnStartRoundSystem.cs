@@ -1,6 +1,5 @@
 ﻿using Leopotam.Ecs;
 using Match3.Assets.Scripts.Services.SaveLoad;
-using Match3.Configurations;
 using System;
 
 namespace Match3.Assets.Scripts.Systems.Game.UI
@@ -13,14 +12,14 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
 
             float ratingsProportion = Global.Data.Player.Rating <= 0 ? .1f : Global.Data.Player.Rating / (float)OpponentState.Rating;
 
-            int deltaRatingReward = Math.Abs((int)((OpponentState.Rating - Global.Data.Player.Rating) *  Global.Config.InGame.DeltaRatingRewardMultiplayer / ratingsProportion));
-            deltaRatingReward = Math.Max(deltaRatingReward,  Global.Config.InGame.MinDeltaRating);
-            deltaRatingReward = OpponentState.Rating < Global.Data.Player.Rating ?  Global.Config.InGame.MinDeltaRating : deltaRatingReward;
+            int deltaRatingReward = Math.Abs((int)((OpponentState.Rating - Global.Data.Player.Rating) * Global.Config.InGame.DeltaRatingRewardMultiplayer / ratingsProportion));
+            deltaRatingReward = Math.Max(deltaRatingReward, Global.Config.InGame.MinDeltaRating);
+            deltaRatingReward = OpponentState.Rating < Global.Data.Player.Rating ? Global.Config.InGame.MinDeltaRating : deltaRatingReward;
             Global.Data.InGame.PlayerState.DeltaRatingReward = deltaRatingReward;
 
-            int deltaRatingUnreward = Math.Abs((int)((OpponentState.Rating - Global.Data.Player.Rating) *  Global.Config.InGame.DeltaRatingRewardMultiplayer * ratingsProportion));
-            deltaRatingUnreward = Math.Max(deltaRatingUnreward,  Global.Config.InGame.MinDeltaRating);
-            deltaRatingUnreward = OpponentState.Rating > Global.Data.Player.Rating ?  Global.Config.InGame.MinDeltaRating : deltaRatingUnreward;
+            int deltaRatingUnreward = Math.Abs((int)((OpponentState.Rating - Global.Data.Player.Rating) * Global.Config.InGame.DeltaRatingRewardMultiplayer * ratingsProportion));
+            deltaRatingUnreward = Math.Max(deltaRatingUnreward, Global.Config.InGame.MinDeltaRating);
+            deltaRatingUnreward = OpponentState.Rating > Global.Data.Player.Rating ? Global.Config.InGame.MinDeltaRating : deltaRatingUnreward;
             Global.Data.InGame.PlayerState.DeltaRatingUnreward = deltaRatingUnreward;
 
             Global.Data.Player.Rating -= Global.Data.InGame.PlayerState.DeltaRatingUnreward;

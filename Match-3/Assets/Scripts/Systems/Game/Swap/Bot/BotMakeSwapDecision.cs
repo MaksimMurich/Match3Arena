@@ -3,7 +3,6 @@ using Leopotam.Ecs;
 using Match3.Assets.Scripts.Services;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +41,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
             Sequence sequence = DOTween.Sequence();
             sequence.AppendCallback(() => SelectSomeCell(cellId));
-            sequence.AppendInterval( Global.Config.InGame.BotBehaviour.FromSelectToSwapDelay);
+            sequence.AppendInterval(Global.Config.InGame.BotBehaviour.FromSelectToSwapDelay);
             sequence.AppendCallback(() => SwapCells(cellId, direction));
         }
 

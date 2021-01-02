@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using Leopotam.Ecs;
 using Match3.Components.Game;
-using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Systems.Game.Swap
@@ -22,7 +21,7 @@ namespace Match3.Systems.Game.Swap
 
                 Transform view = _filter.Get1(index).View.transform;
                 view.position += new Vector3(0, 0, zPosition - view.position.z);
-                view.DOMove(target,  Global.Config.InGame.Animation.CellMovingSeconds)
+                view.DOMove(target, Global.Config.InGame.Animation.CellMovingSeconds)
                     .OnComplete(() => OnFallenDown(entity, view, index == 0));
             }
         }

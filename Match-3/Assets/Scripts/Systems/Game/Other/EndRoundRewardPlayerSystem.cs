@@ -6,8 +6,6 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
 {
     public sealed class EndRoundRewardPlayerSystem : IEcsRunSystem
     {
-        private readonly PlayerData _playerData = null;
-
         private readonly EcsFilter<EndRoundRequest> _filter = null;
 
         public void Run()
