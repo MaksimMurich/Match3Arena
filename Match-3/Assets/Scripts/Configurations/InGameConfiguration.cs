@@ -17,8 +17,6 @@ namespace Match3.Configurations
         [SerializeField] private float _minFieldPadding = 0.05f;
         [SerializeField] private int _minRewardableChain = 3;
         [SerializeField] private float _swapMinMouseOffset = .5f;
-        [SerializeField] private float _combo4RewardMultiplayer = 2f;
-        [SerializeField] private float _combo5RewardMultiplayer = 4f;
         [SerializeField] private BotBehaviourConfiguration _botBehaviour = null;
         [SerializeField] private int _minDeltaRating = 10; // min delta player rating for win or lose round
         [SerializeField] private float _deltaRatingRewardMultiplayer = 0.1f;
@@ -40,16 +38,14 @@ namespace Match3.Configurations
         public float MinFieldPadding { get => _minFieldPadding; }
         public int MinRewardableChain => _minRewardableChain;
         public float SwapMinMouseOffset => _swapMinMouseOffset;
-        public float Combo4Configuration => _combo4RewardMultiplayer;
-        public float Combo5Configuration => _combo5RewardMultiplayer;
         public BotBehaviourConfiguration BotBehaviour { get => _botBehaviour; }
-        public int  MinDeltaRating { get => _minDeltaRating;}
+        public int MinDeltaRating { get => _minDeltaRating; }
         internal float DeltaRatingRewardMultiplayer { get => _deltaRatingRewardMultiplayer; }
-        public int SaveUserSwapsCount { get => _saveUserSwapsCount;}
+        public int SaveUserSwapsCount { get => _saveUserSwapsCount; }
         public UserStateConfiguration UserStateConfiguration { get => _userStateConfiguration; }
         public AnimationsConfiguration Animation => _animationsConfiguration;
         public List<CellBackground> CellViewBackgrounds { get => _cellViewBackgrounds; }
-        public TextAsset BotNames { get => _botNames; }
+        public TextAsset BotNames { get => _botNames; } //TODO add names for random selection
         public CellConfiguration[] CellConfigurations => _cellConfigurations;
         public InGameSoundsConfiguration Sounds { get => _sounds; }
     }

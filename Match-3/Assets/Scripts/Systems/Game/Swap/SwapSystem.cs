@@ -2,8 +2,6 @@
 using Match3.Assets.Scripts.Services;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,10 +9,6 @@ namespace Match3.Systems.Game.Swap
 {
     public sealed class SwapSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly GameField _gameField = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, SwapRequest> _filter = null;
         private readonly EcsFilter<ChangeFieldAnimating> _fieldChangers = null;
         private readonly EcsFilter<AnimateExplosion> _explosionAnimations = null;
@@ -31,11 +25,14 @@ namespace Match3.Systems.Game.Swap
 
             foreach (int index in _filter)
             {
+                var inGameData = Global.Data.InGame;
+                var cells = inGameData.GameField.Cells;
+
                 Vector2Int cellPosition = _filter.Get2(index);
                 Vector2Int targetPosition = _filter.Get3(index).To;
 
                 EcsEntity swapCell = _filter.GetEntity(index);
-                EcsEntity secondCell = _gameField.Cells[targetPosition];
+                EcsEntity secondCell = cells[targetPosition];
 
                 swapCell.Set<Vector2Int>() = targetPosition;
                 swapCell.Set<AnimateSwapRequest>().MainCell = true;
@@ -43,15 +40,15 @@ namespace Match3.Systems.Game.Swap
                 secondCell.Set<Vector2Int>() = cellPosition;
                 secondCell.Set<AnimateSwapRequest>().MainCell = false;
 
-                _gameField.Cells[cellPosition] = secondCell;
-                _gameField.Cells[targetPosition] = swapCell;
+                cells[cellPosition] = secondCell;
+                cells[targetPosition] = swapCell;
 
-                List<ChainEvent> chains = GameFieldAnalyst.GetChains(_gameField.Cells, _configuration);
+                List<ChainEvent> chains = GameFieldAnalyst.GetChains(cells);
 
                 if (chains.Count == 0)
                 {
-                    _gameField.Cells[cellPosition] = swapCell;
-                    _gameField.Cells[targetPosition] = secondCell;
+                    cells[cellPosition] = swapCell;
+                    cells[targetPosition] = secondCell;
 
                     swapCell.Set<Vector2Int>() = cellPosition;
 
@@ -67,12 +64,12 @@ namespace Match3.Systems.Game.Swap
                 }
                 else
                 {
-                    if (_playerState.Active)
+                    if (inGameData.PlayerState.Active)
                     {
-                        _playerState.StepsCount += 1;
+                        inGameData.PlayerState.StepsCount += 1;
                     }
 
-                    _world.NewEntity().Set<NextPlayerRequest>();
+                    inGameData.World.NewEntity().Set<NextPlayerRequest>();
                 }
             }
         }

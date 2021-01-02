@@ -6,7 +6,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 {
     public sealed class ActivateSwapRewardsSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
         private readonly EcsFilter<RewardRequest> _filter = null;
 
         public void Run()
@@ -16,15 +15,16 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
                 EcsEntity entity = _filter.GetEntity(index);
                 RewardRequest reward = _filter.Get1(index);
                 CellConfiguration config = reward.Cell.Configuration;
-
-                _world.NewEntity().Set<HealthRewardRequest>() = new HealthRewardRequest()
+                EcsWorld world = Global.Data.InGame.World;
+                
+                world.NewEntity().Set<HealthRewardRequest>() = new HealthRewardRequest()
                 {
                     Value = config.Health,
                     Position = reward.Position,
                     View = reward.Cell.Configuration.HealthRewardView,
                 };
 
-                _world.NewEntity().Set<DemageRewardRequest>() = new DemageRewardRequest()
+                world.NewEntity().Set<DemageRewardRequest>() = new DemageRewardRequest()
                 {
                     Value = config.Demage,
                     Position = reward.Position,

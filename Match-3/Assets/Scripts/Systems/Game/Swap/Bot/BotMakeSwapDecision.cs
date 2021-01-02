@@ -1,10 +1,8 @@
 ﻿using DG.Tweening;
 using Leopotam.Ecs;
 using Match3.Assets.Scripts.Services;
-using Match3.Assets.Scripts.Services.SaveLoad;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +12,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 {
     public sealed class BotMakeSwapDecision : IEcsRunSystem
     {
-        private readonly GameField _gameField = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<BotMakeSwapDecisionRequest> _filter = null;
 
 
@@ -26,7 +22,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
                 return;
             }
 
-            List<SwapPossibility> swaps = GameFieldAnalyst.GetAllSwapPossibilities((int)(OpponentState.MaxLife - OpponentState.CurrentLife), _gameField, _configuration);
+            List<SwapPossibility> swaps = GameFieldAnalyst.GetAllSwapPossibilities((int)(OpponentState.MaxLife - OpponentState.CurrentLife), Global.Data.InGame.GameField);
             swaps = swaps.OrderBy(s => s.SwapRewards.CalculateTotal()).ToList();
 
             float swapRangesPoint = UnityEngine.Random.Range(0f, 1f);
@@ -45,20 +41,20 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
             Sequence sequence = DOTween.Sequence();
             sequence.AppendCallback(() => SelectSomeCell(cellId));
-            sequence.AppendInterval(_configuration.BotBehaviour.FromSelectToSwapDelay);
+            sequence.AppendInterval(Global.Config.InGame.BotBehaviour.FromSelectToSwapDelay);
             sequence.AppendCallback(() => SwapCells(cellId, direction));
         }
 
         private void SelectSomeCell(Vector2Int cellId)
         {
-            _gameField.Cells[cellId].Set<Selected>();
-            _gameField.Cells[cellId].Set<SelectCellAnimationRequest>();
+            Global.Data.InGame.GameField.Cells[cellId].Set<Selected>();
+            Global.Data.InGame.GameField.Cells[cellId].Set<SelectCellAnimationRequest>();
             Debug.Log("select cell vector2Int(2, 2)");
         }
 
         private void SwapCells(Vector2Int cellId, Vector2Int direction)
         {
-            EcsEntity cellEntity = _gameField.Cells[cellId];
+            EcsEntity cellEntity = Global.Data.InGame.GameField.Cells[cellId];
             cellEntity.Unset<Selected>();
             cellEntity.Set<DeselectCellAnimationRequest>();
             cellEntity.Set<SwapRequest>() = new SwapRequest()

@@ -3,29 +3,23 @@ using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Common;
 using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using Match3.Components.Game;
-using Match3.Components.Game.Events;
-using Match3.Configurations;
 
 namespace Match3.Assets.Scripts.Systems.Game
 {
     public sealed class HighlightFirstStepPlayerOutlineSystem : IEcsInitSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameSceneData _inGameSceneData = null;
-        private readonly InGameConfiguration _configuration = null;
-
         private EcsEntity changeFieldEntity;
+        private Global.InGameData _inGame = Global.Data.InGame;
 
         public void Init()
         {
-            changeFieldEntity = _world.NewEntity();
+            PlayerInGameDataView activePlayer = GetActivePlayer();
+            
+            changeFieldEntity = _inGame.World.NewEntity();
             changeFieldEntity.Set<ChangeFieldAnimating>();
 
-            PlayerInGameDataView activePlayer = GetActivePlayer();
-
             Sequence sequence = DOTween.Sequence();
-            sequence.SetDelay(_configuration.Animation.SelectFirstPlayerDuration);
+            sequence.SetDelay(Global.Config.InGame.Animation.SelectFirstPlayerDuration);
             sequence.OnComplete(() =>
             {
                 changeFieldEntity.Destroy();
@@ -40,9 +34,9 @@ namespace Match3.Assets.Scripts.Systems.Game
             player.ActivateOutline(true);
             inactivePlayer.ActivateOutline(false);
 
-            if (_playerState.Active)
+            if (_inGame.PlayerState.Active)
             {
-                _world.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(_configuration.Sounds.PlayerTurn);
+                _inGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.PlayerTurn);
             }
         }
 
@@ -50,13 +44,13 @@ namespace Match3.Assets.Scripts.Systems.Game
         {
             PlayerInGameDataView activePlayer;
 
-            if (_playerState.Active)
+            if (_inGame.PlayerState.Active)
             {
-                activePlayer = _inGameSceneData.PlayerDataView;
+                activePlayer = Global.Views.InGame.PlayerDataView;
             }
             else
             {
-                activePlayer = _inGameSceneData.BotDataView;
+                activePlayer = Global.Views.InGame.BotDataView;
             }
 
             return activePlayer;
@@ -66,13 +60,13 @@ namespace Match3.Assets.Scripts.Systems.Game
         {
             PlayerInGameDataView inactivePlayer;
 
-            if (_playerState.Active)
+            if (_inGame.PlayerState.Active)
             {
-                inactivePlayer = _inGameSceneData.BotDataView;
+                inactivePlayer = Global.Views.InGame.BotDataView;
             }
             else
             {
-                inactivePlayer = _inGameSceneData.PlayerDataView;
+                inactivePlayer = Global.Views.InGame.PlayerDataView;
             }
 
             return inactivePlayer;

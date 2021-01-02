@@ -8,7 +8,6 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
 {
     public sealed class CreateRandomCellsToEmptySpacesSystem : IEcsRunSystem
     {
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<EmptySpace> _filter = null;
 
         public void Run()
@@ -16,7 +15,7 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
             foreach (var index in _filter)
             {
                 float random = Random.Range(0f, 100f);
-                CellConfiguration configuration = _configuration.CellConfigurations.Where(c => c.CheckInSpawnRabge(random)).First();
+                CellConfiguration configuration = Global.Config.InGame.CellConfigurations.Where(c => c.CheckInSpawnRabge(random)).First();
 
                 EcsEntity entity = _filter.GetEntity(index);
                 entity.Unset<EmptySpace>();

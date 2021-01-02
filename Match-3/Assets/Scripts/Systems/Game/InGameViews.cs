@@ -1,7 +1,7 @@
 ﻿using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using UnityEngine;
 
-public class InGameSceneData : MonoBehaviour
+public class InGameViews : MonoBehaviour
 {
     [SerializeField] private Camera _camera = null;
     [SerializeField] private Transform _background = null;
@@ -10,7 +10,7 @@ public class InGameSceneData : MonoBehaviour
     [SerializeField] private FirstPlayerSelectionView _firstPlayerSelectionView = null;
     [SerializeField] private PlayerInGameDataView _playerDataView = null;
     [SerializeField] private PlayerInGameDataView _botDataView = null;
-    [SerializeField] private RoundResultPopupView  _roundResultPopupView = null;
+    [SerializeField] private RoundResultPopupView _roundResultPopupView = null;
     [SerializeField] private Canvas _rewardsContainer = null;
     [SerializeField] private CellRewardViewTable _cellRewardViewTable = null;
 
@@ -23,5 +23,5 @@ public class InGameSceneData : MonoBehaviour
     public PlayerInGameDataView BotDataView { get => _botDataView; }
     public RoundResultPopupView RoundResultPopupView { get => _roundResultPopupView; }
     public Canvas RewardsContainer { get => _rewardsContainer; }
-    public CellRewardViewTable CellRewardViewTable { get => _cellRewardViewTable;}
+    public CellRewardViewTable CellRewardViewTable { get => _cellRewardViewTable; }
 }

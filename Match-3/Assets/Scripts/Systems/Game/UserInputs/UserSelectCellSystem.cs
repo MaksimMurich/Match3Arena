@@ -8,11 +8,9 @@ namespace Match3.Systems.Game.UserInputs
 {
     public sealed class UserSelectCellSystem : IEcsRunSystem
     {
-        private readonly PlayerState _playerState = null;
-
         public void Run()
         {
-            if (!_playerState.Active || !Input.GetMouseButtonDown(0))
+            if (!Global.Data.InGame.PlayerState.Active || !Input.GetMouseButtonDown(0))
             {
                 return;
             }

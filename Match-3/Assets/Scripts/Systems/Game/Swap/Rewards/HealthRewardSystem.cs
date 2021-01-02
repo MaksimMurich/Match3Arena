@@ -6,22 +6,22 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 {
     public sealed class HealthRewardSystem : IEcsRunSystem
     {
-        private readonly PlayerState _playerState = null;
         private readonly EcsFilter<HealthRewardRequest> _filter = null;
 
         public void Run()
         {
             foreach (int index in _filter)
             {
+                var state = Global.Data.InGame.PlayerState;
                 EcsEntity entity = _filter.GetEntity(index);
                 HealthRewardRequest reward = _filter.Get1(index);
 
-                if (_playerState.Active)
+                if (state.Active)
                 {
-                    _playerState.SumHealseRestored += reward.Value;
+                    state.SumHealseRestored += reward.Value;
 
-                    _playerState.CurrentLife += reward.Value;
-                    _playerState.CurrentLife = Mathf.Min(_playerState.CurrentLife, _playerState.MaxLife);
+                    state.CurrentLife += reward.Value;
+                    state.CurrentLife = Mathf.Min(state.CurrentLife, state.MaxLife);
                 }
                 else
                 {

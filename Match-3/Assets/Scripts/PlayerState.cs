@@ -3,7 +3,7 @@
     public class PlayerState
     {
         public readonly float MaxLife;
-        
+
         public int Score;
         public int CurrentBet;
         public bool Active;

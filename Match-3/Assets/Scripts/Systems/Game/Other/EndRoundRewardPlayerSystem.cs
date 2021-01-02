@@ -4,34 +4,31 @@ using Match3.Components.Game.Events;
 
 namespace Match3.Assets.Scripts.Systems.Game.UI
 {
-    public sealed class EndRoundRewardPlayerSystem :  IEcsRunSystem
+    public sealed class EndRoundRewardPlayerSystem : IEcsRunSystem
     {
-        private readonly PlayerData _playerData = null;
-        private readonly PlayerState _playerState = null;
-
         private readonly EcsFilter<EndRoundRequest> _filter = null;
 
         public void Run()
         {
-            if(_filter.GetEntitiesCount() == 0)
+            if (_filter.GetEntitiesCount() == 0)
             {
                 return;
             }
 
-            bool win = _playerState.CurrentLife > 0;
+            bool win = Global.Data.InGame.PlayerState.CurrentLife > 0;
 
             if (win)
             {
-                _playerData.Coins += _playerState.CurrentBet * 2;
+                Global.Data.Player.Coins += Global.Data.InGame.PlayerState.CurrentBet * 2;
 
-                _playerData.Rating += _playerState.DeltaRatingReward + _playerState.DeltaRatingUnreward;
+                Global.Data.Player.Rating += Global.Data.InGame.PlayerState.DeltaRatingReward + Global.Data.InGame.PlayerState.DeltaRatingUnreward;
 
-                _playerData.WinsCount++;
+                Global.Data.Player.WinsCount++;
             }
 
-            _playerData.RoundsCount++;
+            Global.Data.Player.RoundsCount++;
 
-            LocalSaveLoad<PlayerData>.Save(_playerData);
+            LocalSaveLoad<PlayerData>.Save(Global.Data.Player);
         }
     }
 }

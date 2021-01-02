@@ -8,8 +8,6 @@ namespace Match3.Assets.Scripts.Systems.Game
     {
         private bool _needChangeActivePlayer;
 
-        private readonly EcsWorld _world = null;
-        private readonly PlayerState _playerState = null;
         private readonly EcsFilter<NextPlayerRequest> _filter = null;
         private readonly EcsFilter<ChangeFieldAnimating> _fieldChangers = null;
         private readonly EcsFilter<AnimateExplosion> _explosionAnimations = null;
@@ -32,11 +30,11 @@ namespace Match3.Assets.Scripts.Systems.Game
             }
 
             _needChangeActivePlayer = false;
-            _playerState.Active = !_playerState.Active;
+            Global.Data.InGame.PlayerState.Active = !Global.Data.InGame.PlayerState.Active;
 
-            if (!_playerState.Active)
+            if (!Global.Data.InGame.PlayerState.Active)
             {
-                EcsEntity makeSwapRequest = _world.NewEntity();
+                EcsEntity makeSwapRequest = Global.Data.InGame.World.NewEntity();
                 makeSwapRequest.Set<PlayerChangedEvent>();
             }
 

@@ -3,24 +3,20 @@ using Match3.Assets.Scripts.Components.Common;
 using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
-using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game
 {
 
     public sealed class HighlightCurrentPlayerOutlineSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameSceneData _inGameSceneData = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<NextPlayerRequest> _changePlayerFilter = null;
         private readonly EcsFilter<ChangeFieldAnimating> _fieldChangers = null;
         private readonly EcsFilter<AnimateExplosion> _explosionAnimations = null;
         private readonly EcsFilter<ChainEvent> _chains = null;
 
         private bool _activePlayerChanged;
+
+        private Global.InGameData _inGameData = Global.Data.InGame;
 
         public void Run()
         {
@@ -45,9 +41,9 @@ namespace Match3.Assets.Scripts.Systems.Game
 
         private void IndicateActivePlayer()
         {
-            if (_playerState.Active)
+            if (_inGameData.PlayerState.Active)
             {
-                _world.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(_configuration.Sounds.PlayerTurn);
+                _inGameData.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.PlayerTurn);
             }
 
             PlayerInGameDataView player = GetActivePlayer();
@@ -60,13 +56,13 @@ namespace Match3.Assets.Scripts.Systems.Game
         {
             PlayerInGameDataView activePlayer;
 
-            if (_playerState.Active)
+            if (_inGameData.PlayerState.Active)
             {
-                activePlayer = _inGameSceneData.PlayerDataView;
+                activePlayer = Global.Views.InGame.PlayerDataView;
             }
             else
             {
-                activePlayer = _inGameSceneData.BotDataView;
+                activePlayer = Global.Views.InGame.BotDataView;
             }
 
             return activePlayer;
@@ -76,13 +72,13 @@ namespace Match3.Assets.Scripts.Systems.Game
         {
             PlayerInGameDataView inactivePlayer;
 
-            if (_playerState.Active)
+            if (_inGameData.PlayerState.Active)
             {
-                inactivePlayer = _inGameSceneData.BotDataView;
+                inactivePlayer = Global.Views.InGame.BotDataView;
             }
             else
             {
-                inactivePlayer = _inGameSceneData.PlayerDataView;
+                inactivePlayer = Global.Views.InGame.PlayerDataView;
             }
 
             return inactivePlayer;

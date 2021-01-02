@@ -7,7 +7,6 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
 {
     public sealed class ChargeCellsToExplosionSystem : IEcsRunSystem
     {
-        private readonly GameField _gameField = null;
         private readonly EcsFilter<ChainEvent> _filter = null;
 
         public void Run()
@@ -19,7 +18,7 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
 
                 for (int i = 0; i < chain.Size; i++)
                 {
-                    EcsEntity cellEntity = _gameField.Cells[currentPosition];
+                    EcsEntity cellEntity = Global.Data.InGame.GameField.Cells[currentPosition];
                     currentPosition += chain.Direction;
 
                     MarkCells(cellEntity);

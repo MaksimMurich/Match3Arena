@@ -12,11 +12,9 @@ namespace Match3.Assets.Scripts.Services.SaveLoad
 
         public PlayerPreferences()
         {
-        }
-
-        public PlayerPreferences(string nick)
-        {
-            Nick = nick;
+            int guestNumber = UnityEngine.Random.Range(0, 100000);
+            Nick = "Guest" + guestNumber;
+            LocalSaveLoad<PlayerPreferences>.Save(this);
         }
     }
 }

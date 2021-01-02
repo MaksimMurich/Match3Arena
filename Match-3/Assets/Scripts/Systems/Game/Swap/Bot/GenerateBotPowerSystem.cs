@@ -1,26 +1,23 @@
 ﻿using Leopotam.Ecs;
-using Match3.Assets.Scripts.Services.SaveLoad;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 {
     public sealed class GenerateBotSwapPowerRangesSystem : IEcsInitSystem
     {
-        private readonly PlayerData _playerData = null;
-
         public void Init()
         {
             List<SwapPowerRange> swapPowerRanges = new List<SwapPowerRange>();
             Dictionary<float, int> userSwapsByPoewr = new Dictionary<float, int>(); // rating 3 of 10 swaps = 70% power
 
+            List<SwapRecord> userSwaps = Global.Data.Player.UserSwaps;
+
             // calculate swaps count by rating
-            for (int i = 0; i < _playerData.UserSwaps.Count; i++)
+            for (int i = 0; i < userSwaps.Count; i++)
             {
-                SwapRecord swap = _playerData.UserSwaps[i];
+                SwapRecord swap = userSwaps[i];
 
                 if (!userSwapsByPoewr.ContainsKey(swap.SwapRating))
                 {
@@ -32,7 +29,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
             float rangeMinValue = 0;
 
-            float totalSwaps = _playerData.UserSwaps.Count;
+            float totalSwaps = userSwaps.Count;
 
             foreach (KeyValuePair<float, int> powerSwapsCount in userSwapsByPoewr)
             {

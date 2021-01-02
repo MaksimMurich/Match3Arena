@@ -2,37 +2,35 @@
 using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Game.Events.Rewards;
 using Match3.Assets.Scripts.UnityComponents.UI.InGame;
-using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 {
     public sealed class IncreaseLifeLineAnimationSystem : IEcsRunSystem
     {
-        private readonly PlayerState _playerState = null;
-        private readonly InGameSceneData _sceneData = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<HealthRewardRequest> _filter = null;
 
         public void Run()
         {
-            if(_filter.GetEntitiesCount() == 0)
+            if (_filter.GetEntitiesCount() == 0)
             {
                 return;
             }
 
-            PlayerInGameDataView dataView = _playerState.Active ? _sceneData.PlayerDataView : _sceneData.BotDataView;
+            var state = Global.Data.InGame.PlayerState;
 
-            float playerHealthPart = _playerState.CurrentLife / _playerState.MaxLife;
+            PlayerInGameDataView dataView = state.Active ? Global.Views.InGame.PlayerDataView : Global.Views.InGame.BotDataView;
+
+            float playerHealthPart = state.CurrentLife / state.MaxLife;
             float opponentHealthPart = OpponentState.CurrentLife / OpponentState.MaxLife;
-            float healthPart = _playerState.Active ? playerHealthPart : opponentHealthPart;
+            float healthPart = state.Active ? playerHealthPart : opponentHealthPart;
 
             Vector3 scale = dataView.IncreaseLifeLine.localScale;
 
             dataView.DecreaseLifeLine.gameObject.SetActive(false);
             dataView.IncreaseLifeLine.gameObject.SetActive(true);
             dataView.IncreaseLifeLine.localScale = new Vector3(healthPart, scale.y, scale.z);
-            dataView.LifeLine.DOScaleX(healthPart, _configuration.Animation.UpdateLifeTime);
+            dataView.LifeLine.DOScaleX(healthPart, Global.Config.InGame.Animation.UpdateLifeTime);
         }
     }
 }

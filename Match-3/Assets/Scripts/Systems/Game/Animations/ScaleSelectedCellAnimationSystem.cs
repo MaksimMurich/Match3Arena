@@ -9,12 +9,11 @@ namespace Match3.Assets.Scripts.Systems.Game.Animations
 {
     public sealed class ScaleSelectedCellAnimationSystem : IEcsRunSystem
     {
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, SelectCellAnimationRequest> _filter = null;
 
         public void Run()
         {
-            AnimationsConfiguration configuration = _configuration.Animation;
+            AnimationsConfiguration configuration = Global.Config.InGame.Animation;
 
             foreach (int index in _filter)
             {

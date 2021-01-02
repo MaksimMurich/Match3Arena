@@ -2,7 +2,6 @@
 using Leopotam.Ecs;
 using Match3.Assets.Scripts.Configurations;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
@@ -10,9 +9,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
     public sealed class BotWaitSwapSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<PlayerChangedEvent> _playerChangeRequestsFilter = null;
 
         private float _minBotThinkingTime;
@@ -21,7 +17,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
         // generate concrete bot behaviour
         public void Init()
         {
-            BotBehaviourConfiguration botBehaviour = _configuration.BotBehaviour;
+            BotBehaviourConfiguration botBehaviour = Global.Config.InGame.BotBehaviour;
             float middleWhaitTime = Random.Range(botBehaviour.MinThinkingTime, botBehaviour.MaxThinkingTime);
 
             _minBotThinkingTime = middleWhaitTime / botBehaviour.ThinkingTimeDeviationProportion;
@@ -32,8 +28,8 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
         public void Run()
         {
-            bool botIsActive = !_playerState.Active;
-            bool roundEnded = _playerState.CurrentLife <= 0 || OpponentState.CurrentLife <= 0;
+            bool botIsActive = !Global.Data.InGame.PlayerState.Active;
+            bool roundEnded = Global.Data.InGame.PlayerState.CurrentLife <= 0 || OpponentState.CurrentLife <= 0;
 
             if (roundEnded || _playerChangeRequestsFilter.GetEntitiesCount() == 0 || !botIsActive)
             {
@@ -41,14 +37,14 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
             }
 
             float swapDelay = Random.Range(_minBotThinkingTime, _maxBotThinkingTime);
-            swapDelay = Mathf.Max(swapDelay, _configuration.BotBehaviour.MinThinkingTime);
-            swapDelay = Mathf.Min(swapDelay, _configuration.BotBehaviour.MaxThinkingTime);
+            swapDelay = Mathf.Max(swapDelay, Global.Config.InGame.BotBehaviour.MinThinkingTime);
+            swapDelay = Mathf.Min(swapDelay, Global.Config.InGame.BotBehaviour.MaxThinkingTime);
 
             Sequence sequence = DOTween.Sequence();
             sequence.SetDelay(swapDelay);
             sequence.OnComplete(() =>
             {
-                _world.NewEntity().Set<BotMakeSwapDecisionRequest>();
+                Global.Data.InGame.World.NewEntity().Set<BotMakeSwapDecisionRequest>();
             });
         }
     }

@@ -2,15 +2,12 @@
 using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Common;
 using Match3.Components.Game;
-using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Systems.Game.Swap
 {
     public sealed class AnimateCreatedViewSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, AnimateCreatedViewRequest> _filter = null;
 
         public void Run()
@@ -20,7 +17,7 @@ namespace Match3.Systems.Game.Swap
                 return;
             }
 
-            _world.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(_configuration.Sounds.DropDownCells);
+            Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.DropDownCells);
 
             foreach (int index in _filter)
             {
@@ -32,7 +29,7 @@ namespace Match3.Systems.Game.Swap
 
                 Transform view = _filter.Get1(index).View.transform;
                 view.position += new Vector3(0, 0, zPosition - view.position.z);
-                view.DOMove(target, _configuration.Animation.CellMovingSeconds)
+                view.DOMove(target, Global.Config.InGame.Animation.CellMovingSeconds)
                     .OnComplete(() => OnFallenDown(entity, view));
             }
         }

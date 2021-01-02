@@ -5,31 +5,30 @@ using System;
 
 namespace Match3.Assets.Scripts.Systems.Game.UI
 {
-    public sealed class UnrewardPlayerOnStartRoundSystem :  IEcsInitSystem
+    public sealed class UnrewardPlayerOnStartRoundSystem : IEcsInitSystem
     {
-        private readonly PlayerData _playerData = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameConfiguration _configuration = null;
-
         public void Init()
         {
-            _playerData.Coins -= _playerState.CurrentBet;
+            Global.Data.Player.Coins -= Global.Data.InGame.PlayerState.CurrentBet;
+            int playerRating = Global.Data.Player.Rating;
+            InGameConfiguration inGame = Global.Config.InGame;
 
-            float ratingsProportion = _playerData.Rating <= 0 ? .1f : _playerData.Rating / (float)OpponentState.Rating;
+            int opponentRating = OpponentState.Rating;
+            float ratingsProportion = playerRating <= 0 ? .1f : playerRating / (float)opponentRating;
 
-            int deltaRatingReward = Math.Abs( (int)((OpponentState.Rating - _playerData.Rating) * _configuration.DeltaRatingRewardMultiplayer / ratingsProportion));
-            deltaRatingReward = Math.Max(deltaRatingReward, _configuration.MinDeltaRating);
-            deltaRatingReward = OpponentState.Rating < _playerData.Rating ? _configuration.MinDeltaRating : deltaRatingReward;
-            _playerState.DeltaRatingReward = deltaRatingReward;
+            int deltaRatingReward = Math.Abs((int)((opponentRating - playerRating) * inGame.DeltaRatingRewardMultiplayer / ratingsProportion));
+            deltaRatingReward = Math.Max(deltaRatingReward, inGame.MinDeltaRating);
+            deltaRatingReward = opponentRating < playerRating ? inGame.MinDeltaRating : deltaRatingReward;
+            Global.Data.InGame.PlayerState.DeltaRatingReward = deltaRatingReward;
 
-            int deltaRatingUnreward = Math.Abs( (int)((OpponentState.Rating - _playerData.Rating) * _configuration.DeltaRatingRewardMultiplayer * ratingsProportion));
-            deltaRatingUnreward = Math.Max(deltaRatingUnreward, _configuration.MinDeltaRating);
-            deltaRatingUnreward = OpponentState.Rating > _playerData.Rating ? _configuration.MinDeltaRating : deltaRatingUnreward;
-            _playerState.DeltaRatingUnreward = deltaRatingUnreward;
+            int deltaRatingUnreward = Math.Abs((int)((opponentRating - playerRating) * inGame.DeltaRatingRewardMultiplayer * ratingsProportion));
+            deltaRatingUnreward = Math.Max(deltaRatingUnreward, inGame.MinDeltaRating);
+            deltaRatingUnreward = opponentRating > playerRating ? inGame.MinDeltaRating : deltaRatingUnreward;
+            Global.Data.InGame.PlayerState.DeltaRatingUnreward = deltaRatingUnreward;
+            playerRating -= deltaRatingUnreward;
 
-            _playerData.Rating -= _playerState.DeltaRatingUnreward;
 
-            LocalSaveLoad<PlayerData>.Save(_playerData);
+            LocalSaveLoad<PlayerData>.Save(Global.Data.Player);
         }
     }
 }
