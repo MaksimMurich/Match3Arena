@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>Match3</RootNamespace>
-    <ProjectGuid>{E914194B-4190-9863-6D28-922581EA5166}</ProjectGuid>
+    <ProjectGuid>{4B1914E9-9041-6398-6D28-922581EA5166}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
@@ -64,9 +64,9 @@
     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
   </ItemGroup>
   <ItemGroup>
-     <None Include="Assets\Plugins\Demigiant\DOTween\DOTween.XML" />
-     <None Include="Assets\Plugins\Demigiant\DOTween\DOTween.dll" />
-     <None Include="Assets\Plugins\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\Plugins\Demigiant\DOTween\DOTween.XML" />
+    <None Include="Assets\Plugins\Demigiant\DOTween\DOTween.dll" />
+    <None Include="Assets\Plugins\Demigiant\DOTween\readme.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.1.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>Match3</RootNamespace>
-    <ProjectGuid>{B8670537-FDEC-BD42-CFCD-A6055F6D53F6}</ProjectGuid>
+    <ProjectGuid>{370567B8-ECFD-42BD-CFCD-A6055F6D53F6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -194,28 +194,28 @@
     <Compile Include="Assets\Scripts\Systems\Game\Swap\Bot\BotMakeSwapDecision.cs" />
   </ItemGroup>
   <ItemGroup>
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
-     <None Include="Assets\ExternalAssets\QuickOutline\Resources\Shaders\OutlineMask.shader" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
-     <None Include="Assets\Configurations\BotNicknames.txt" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
-     <None Include="Assets\ExternalAssets\QuickOutline\Readme.txt" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
-     <None Include="Assets\ExternalAssets\QuickOutline\Resources\Shaders\OutlineFill.shader" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
-     <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\ExternalAssets\QuickOutline\Resources\Shaders\OutlineMask.shader" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Configurations\BotNicknames.txt" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\ExternalAssets\QuickOutline\Readme.txt" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\ExternalAssets\QuickOutline\Resources\Shaders\OutlineFill.shader" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.1.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

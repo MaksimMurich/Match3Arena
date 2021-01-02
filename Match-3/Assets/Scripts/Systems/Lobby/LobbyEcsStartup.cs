@@ -1,6 +1,5 @@
 using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Common;
-using Match3.Assets.Scripts.Services.Pool;
 using Match3.Assets.Scripts.Services.SaveLoad;
 using Match3.Assets.Scripts.Systems.Common;
 using Match3.Configurations;
@@ -13,24 +12,20 @@ namespace Match3
         [SerializeField] private LobbyConfiguration _configuration = null;
         [SerializeField] private LobbyViews _sceneData = null;
 
-        private EcsWorld _world;
         private EcsSystems _systems;
-        private ObjectPool _objectPool;
-
-        private readonly GameField _gameField = new GameField();
-        private PlayerState _playerState;
-        private PlayerData _playerData;
 
         void Start()
         {
-            _playerData = LocalSaveLoad<PlayerData>.Load();
-            _playerData = _playerData != null ? _playerData : new PlayerData(Global.Config.InGame.UserStateConfiguration.Rating, Global.Config.InGame.UserStateConfiguration.CoinsCount);
-            _world = new EcsWorld();
-            _systems = new EcsSystems(_world);
-            _objectPool = new ObjectPool();
+            Global.Config.Lobby = _configuration;
+            Global.Views.Lobby = _sceneData;
+
+            Global.Data.Player = LocalSaveLoad<PlayerData>.Load();
+            Global.Data.Player = Global.Data.Player != null ? Global.Data.Player : new PlayerData(Global.Config.InGame.UserStateConfiguration.Rating, Global.Config.InGame.UserStateConfiguration.CoinsCount);
+            Global.Data.Lobby.World = new EcsWorld();
+            _systems = new EcsSystems(Global.Data.Lobby.World);
 
 #if UNITY_EDITOR
-            Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
+            Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(Global.Data.Lobby.World);
             Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);
 #endif
 
@@ -46,14 +41,7 @@ namespace Match3
                 .Add(new AudioSystem())
                 .OneFrame<PlaySoundRequest>()
 
-
-
-
                 // inject service instances here (order doesn't important), for example:
-                .Inject(_configuration)
-                .Inject(_sceneData)
-                .Inject(_playerData)
-                .Inject(_objectPool)
                 .Init();
         }
 
@@ -64,14 +52,14 @@ namespace Match3
 
         void OnDestroy()
         {
-            LocalSaveLoad<PlayerData>.Save(_playerData);
+            LocalSaveLoad<PlayerData>.Save(Global.Data.Player);
 
             if (_systems != null)
             {
                 _systems.Destroy();
                 _systems = null;
-                _world.Destroy();
-                _world = null;
+                Global.Data.Lobby.World.Destroy();
+                Global.Data.Lobby.World = null;
             }
         }
     }

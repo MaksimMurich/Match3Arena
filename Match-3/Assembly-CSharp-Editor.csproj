@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>Match3</RootNamespace>
-    <ProjectGuid>{7272F84A-E269-9146-4CC4-6D77F44679B0}</ProjectGuid>
+    <ProjectGuid>{4AF87272-69E2-4691-4CC4-6D77F44679B0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -64,11 +64,11 @@
     <Compile Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Editor\EcsEntity.cs" />
   </ItemGroup>
   <ItemGroup>
-     <None Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Editor\Templates\InitSystem.cs.txt" />
-     <None Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Editor\Templates\ComponentFlag.cs.txt" />
-     <None Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Editor\Templates\Startup.cs.txt" />
-     <None Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Editor\Templates\RunSystem.cs.txt" />
-     <None Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Editor\Templates\Component.cs.txt" />
+    <None Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Editor\Templates\InitSystem.cs.txt" />
+    <None Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Editor\Templates\ComponentFlag.cs.txt" />
+    <None Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Editor\Templates\Startup.cs.txt" />
+    <None Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Editor\Templates\RunSystem.cs.txt" />
+    <None Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Editor\Templates\Component.cs.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.1.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

@@ -4,12 +4,23 @@ using Match3.Assets.Scripts.Services;
 using Match3.Assets.Scripts.Services.SaveLoad;
 using Match3.Configurations;
 
-public class Global
+public static class Global
 {
     public static readonly Configurations Config = new Configurations();
+    public static PlayerPreferences Preferences;
     public static readonly GlobalData Data = new GlobalData();
     public static readonly ViewsContainer Views = new ViewsContainer();
     public static readonly ServicesContainer Services = new ServicesContainer();
+
+    static Global()
+    {
+        Preferences = LocalSaveLoad<PlayerPreferences>.Load();
+
+        if (Preferences == null)
+        {
+            Preferences = new PlayerPreferences();
+        }
+    }
 
     public class GlobalData
     {
@@ -22,8 +33,7 @@ public class Global
     public class Configurations
     {
         public InGameConfiguration InGame;
-        //TODO public LobbyConfiguration InGame;
-        //TODO public CommonConfiguration InGame;
+        public LobbyConfiguration Lobby;
     }
 
     public class InGameData
@@ -36,7 +46,7 @@ public class Global
 
     public class LobbyData
     {
-
+        public EcsWorld World;
     }
 
     public class CommonData
