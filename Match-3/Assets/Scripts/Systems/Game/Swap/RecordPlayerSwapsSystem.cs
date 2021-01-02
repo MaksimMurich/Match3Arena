@@ -1,9 +1,7 @@
 ﻿using Leopotam.Ecs;
 using Match3.Assets.Scripts.Services;
-using Match3.Assets.Scripts.Services.SaveLoad;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,10 +10,6 @@ namespace Match3.Systems.Game.Swap
 {
     public sealed class RecordPlayerSwapsSystem : IEcsRunSystem, IEcsInitSystem
     {
-        private readonly GameField _gameField = null;
-        private readonly PlayerData _playerData = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, SwapRequest> _filter = null;
 
         public void Init()

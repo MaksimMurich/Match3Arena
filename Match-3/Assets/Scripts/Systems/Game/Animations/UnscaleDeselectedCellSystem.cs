@@ -9,7 +9,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Animations
 {
     public sealed class UnscaleDeselectedCellSystem : IEcsRunSystem
     {
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, DeselectCellAnimationRequest> _filter = null;
 
         public void Run()

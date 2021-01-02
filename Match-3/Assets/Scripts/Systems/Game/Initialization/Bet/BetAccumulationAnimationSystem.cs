@@ -8,10 +8,6 @@ namespace Match3.Systems.Game.Initialization.Bet
     {
         private long _bet = 0;
 
-        private readonly PlayerState _playerState = null;
-        private readonly InGameConfiguration _configuration = null;
-        private readonly InGameViews _inGameSceneData = null;
-
         public void Init()
         {
             DOTween.To(() => _bet, x => _bet = x, Global.Data.InGame.PlayerState.CurrentBet * 2,  Global.Config.InGame.Animation.StartGameBetAccumulationDurationSec)

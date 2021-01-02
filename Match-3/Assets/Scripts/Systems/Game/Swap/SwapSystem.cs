@@ -10,10 +10,6 @@ namespace Match3.Systems.Game.Swap
 {
     public sealed class SwapSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly GameField _gameField = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, SwapRequest> _filter = null;
         private readonly EcsFilter<ChangeFieldAnimating> _fieldChangers = null;
         private readonly EcsFilter<AnimateExplosion> _explosionAnimations = null;

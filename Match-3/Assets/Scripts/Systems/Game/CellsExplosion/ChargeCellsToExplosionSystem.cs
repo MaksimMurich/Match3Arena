@@ -7,7 +7,6 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
 {
     public sealed class ChargeCellsToExplosionSystem : IEcsRunSystem
     {
-        private readonly GameField _gameField = null;
         private readonly EcsFilter<ChainEvent> _filter = null;
 
         public void Run()

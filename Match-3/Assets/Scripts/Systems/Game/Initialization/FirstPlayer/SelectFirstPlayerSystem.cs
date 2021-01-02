@@ -5,8 +5,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization.FirstPlaer
 {
     public sealed class SelectFirstPlayerSystem : IEcsInitSystem
     {
-        private readonly PlayerState _playerState = null;
-
         public void Init()
         {
             Random r = new Random();

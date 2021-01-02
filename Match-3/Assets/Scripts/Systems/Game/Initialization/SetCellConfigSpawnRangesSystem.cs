@@ -6,8 +6,6 @@ namespace Match3.Systems.Game.Initialization
 {
     public sealed class SetCellConfigSpawnRangesSystem : IEcsInitSystem
     {
-        private readonly InGameConfiguration _configuration = null;
-
         public void Init()
         {
             float sumSpawnWeights =  Global.Config.InGame.CellConfigurations.Sum(c => c.Weight);

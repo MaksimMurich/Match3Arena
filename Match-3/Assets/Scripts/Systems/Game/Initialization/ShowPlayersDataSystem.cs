@@ -5,9 +5,6 @@ namespace Match3.Systems.Game.Initialization
 {
     public sealed class ShowPlayersDataSystem : IEcsInitSystem
     {
-        private readonly PlayerData _playerData = null;
-        private readonly InGameViews _sceneData = null;
-
         private PlayerPreferences _playerPreferences;
 
         public void Init()

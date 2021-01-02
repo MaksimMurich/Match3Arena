@@ -8,10 +8,6 @@ namespace Match3.Systems.Game.Swap
 {
     public sealed class UserSwapInputSystem : IEcsRunSystem
     {
-        private readonly GameField _gameField = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameViews _sceneData = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, Selected> _filter = null;
 
         public void Run()

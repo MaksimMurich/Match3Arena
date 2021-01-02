@@ -10,10 +10,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 {
     public sealed class HealthRewardAnimationSystem : IEcsRunSystem
     {
-        private readonly ObjectPool _objectPool = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameViews _sceneData = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<HealthRewardRequest> _filter = null;
 
         public void Run()

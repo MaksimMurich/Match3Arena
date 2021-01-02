@@ -12,11 +12,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization.FirstPlaer
     {
         private EcsEntity _animatingState;
 
-        private readonly EcsWorld _world = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameViews _inGameSceneData = null;
-        private readonly InGameConfiguration _configuration = null;
-
         public void Init()
         {
             Global.Views.InGame.FirstPlayerSelectionView.gameObject.SetActive(true);

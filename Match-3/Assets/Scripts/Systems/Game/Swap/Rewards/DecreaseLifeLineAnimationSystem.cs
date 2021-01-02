@@ -9,9 +9,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 {
     public sealed class DecreaseLifeLineAnimationSystem : IEcsRunSystem
     {
-        private readonly PlayerState _playerState = null;
-        private readonly InGameViews _sceneData = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<DemageRewardRequest> _filter = null;
 
         public void Run()

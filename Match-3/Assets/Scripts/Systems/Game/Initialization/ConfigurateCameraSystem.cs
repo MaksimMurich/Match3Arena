@@ -6,9 +6,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization
 {
     public sealed class ConfigurateCameraSystem : IEcsInitSystem
     {
-        private readonly InGameViews _sceneData = null;
-        private readonly InGameConfiguration _configuration = null;
-
         public void Init()
         {
             Application.targetFrameRate =  Global.Config.InGame.TargetFrameRate;

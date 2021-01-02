@@ -7,10 +7,6 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
 {
     public sealed class UnrewardPlayerOnStartRoundSystem : IEcsInitSystem
     {
-        private readonly PlayerData _playerData = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameConfiguration _configuration = null;
-
         public void Init()
         {
             Global.Data.Player.Coins -= Global.Data.InGame.PlayerState.CurrentBet;
@@ -29,7 +25,7 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
 
             Global.Data.Player.Rating -= Global.Data.InGame.PlayerState.DeltaRatingUnreward;
 
-            LocalSaveLoad<PlayerData>.Save(_playerData);
+            LocalSaveLoad<PlayerData>.Save(Global.Data.Player);
         }
     }
 }

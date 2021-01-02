@@ -7,7 +7,6 @@ namespace Match3.Assets.Scripts.Systems.Game
 {
     public sealed class DisableActivePlayerIndicatorSystem : IEcsRunSystem
     {
-        private readonly InGameViews _inGameSceneData = null;
         private readonly EcsFilter<Cell, Vector2Int, AnimateSwapRequest>.Exclude<AnimateSwapBackRequest> _filter = null;
 
         public void Run()

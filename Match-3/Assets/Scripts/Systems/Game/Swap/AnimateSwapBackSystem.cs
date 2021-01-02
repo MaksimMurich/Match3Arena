@@ -10,8 +10,6 @@ namespace Match3.Systems.Game.Swap
 {
     public sealed class AnimateSwapBackSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, AnimateSwapRequest, AnimateSwapBackRequest> _filter = null;
 
         public void Run()

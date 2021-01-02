@@ -8,8 +8,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 {
     public sealed class GenerateBotSwapPowerRangesSystem : IEcsInitSystem
     {
-        private readonly PlayerData _playerData = null;
-
         public void Init()
         {
             List<SwapPowerRange> swapPowerRanges = new List<SwapPowerRange>();

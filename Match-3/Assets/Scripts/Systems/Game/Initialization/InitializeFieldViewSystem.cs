@@ -9,10 +9,6 @@ namespace Match3.Systems.Game.Initialization
 {
     public sealed class InitializeFieldViewSystem : IEcsInitSystem
     {
-        private readonly InGameConfiguration _configuration = null;
-        private readonly GameField _gameField = null;
-        private readonly ObjectPool _objectPool = null;
-
         public void Init()
         {
             int backTypesCount =  Global.Config.InGame.CellViewBackgrounds.Count;

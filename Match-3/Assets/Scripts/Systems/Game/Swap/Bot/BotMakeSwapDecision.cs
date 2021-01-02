@@ -13,8 +13,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 {
     public sealed class BotMakeSwapDecision : IEcsRunSystem
     {
-        private readonly GameField _gameField = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<BotMakeSwapDecisionRequest> _filter = null;
 
 

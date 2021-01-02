@@ -6,7 +6,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 {
     public sealed class ActivateSwapRewardsSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
         private readonly EcsFilter<RewardRequest> _filter = null;
 
         public void Run()

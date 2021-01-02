@@ -9,11 +9,6 @@ namespace Match3.Assets.Scripts.Systems.Game
 {
     public sealed class HighlightFirstStepPlayerOutlineSystem : IEcsInitSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameViews _inGameSceneData = null;
-        private readonly InGameConfiguration _configuration = null;
-
         private EcsEntity changeFieldEntity;
 
         public void Init()

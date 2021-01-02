@@ -10,7 +10,6 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
 {
     public sealed class AnimateCellsExplosionSystem : IEcsRunSystem
     {
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, AnimateExplosionRequest> _filter = null;
 
         public void Run()

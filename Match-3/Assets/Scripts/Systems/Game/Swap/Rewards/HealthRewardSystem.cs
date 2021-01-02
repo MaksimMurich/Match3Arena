@@ -6,7 +6,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 {
     public sealed class HealthRewardSystem : IEcsRunSystem
     {
-        private readonly PlayerState _playerState = null;
         private readonly EcsFilter<HealthRewardRequest> _filter = null;
 
         public void Run()

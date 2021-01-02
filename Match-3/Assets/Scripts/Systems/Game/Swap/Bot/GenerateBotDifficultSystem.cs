@@ -7,9 +7,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 {
     public sealed class GenerateBotDifficultSystem : IEcsInitSystem
     {
-        private readonly PlayerData _playerData = null;
-        private readonly InGameConfiguration _configuration = null;
-
         public void Init()
         {
             float difficultPossibilityPoint = Random.Range(0f, 1f);

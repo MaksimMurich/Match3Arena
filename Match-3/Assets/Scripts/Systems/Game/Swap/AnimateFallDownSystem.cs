@@ -8,7 +8,6 @@ namespace Match3.Systems.Game.Swap
 {
     public sealed class AnimateFallDownSystem : IEcsRunSystem
     {
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, AnimateFallDownRequest> _filter = null;
 
         public void Run()

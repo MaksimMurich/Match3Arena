@@ -9,8 +9,6 @@ namespace Match3.Systems.Game.Swap
 {
     public sealed class AnimateCreatedViewSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, AnimateCreatedViewRequest> _filter = null;
 
         public void Run()

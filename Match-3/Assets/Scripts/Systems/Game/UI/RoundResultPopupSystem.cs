@@ -8,9 +8,6 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
 {
     public sealed class RoundResultPopupSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private readonly PlayerData _playerData = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameViews _sceneData = null;
         private readonly EcsFilter<EndRoundRequest> _filter = null;
 
         public void Init()

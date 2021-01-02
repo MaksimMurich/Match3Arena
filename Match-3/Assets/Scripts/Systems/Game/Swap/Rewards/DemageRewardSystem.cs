@@ -7,8 +7,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 {
     public sealed class DemageRewardSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly PlayerState _playerState = null;
         private readonly EcsFilter<DemageRewardRequest> _filter = null;
 
         private bool gameIsEneded = false;

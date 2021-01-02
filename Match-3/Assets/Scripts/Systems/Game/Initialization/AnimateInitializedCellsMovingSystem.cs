@@ -8,9 +8,6 @@ namespace Match3.Systems.Game.Initialization
 {
     public sealed class AnimateInitializedCellsMovingSystem : IEcsInitSystem
     {
-        private readonly GameField _gameField = null;
-        private readonly InGameConfiguration _configuration = null;
-
         public void Init()
         {
             for (int column = 0; column <  Global.Config.InGame.LevelWidth; column++)

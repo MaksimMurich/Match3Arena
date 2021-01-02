@@ -8,10 +8,6 @@ namespace Match3.Systems.Game.Initialization
 {
     public sealed class InitializeCellRewardViewTable : IEcsInitSystem
     {
-        private readonly InGameConfiguration _configuration = null;
-        private readonly InGameViews _inGameSceneData = null;
-        private readonly ObjectPool _objectPool = null;
-
         public void Init()
         {
             CellConfiguration[] cells =  Global.Config.InGame.CellConfigurations.OrderBy(c => c.Demage + c.Health).Reverse().ToArray();

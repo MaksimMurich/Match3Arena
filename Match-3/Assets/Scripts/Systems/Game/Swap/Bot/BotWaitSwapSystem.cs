@@ -10,9 +10,6 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
     public sealed class BotWaitSwapSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly PlayerState _playerState = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<PlayerChangedEvent> _playerChangeRequestsFilter = null;
 
         private float _minBotThinkingTime;

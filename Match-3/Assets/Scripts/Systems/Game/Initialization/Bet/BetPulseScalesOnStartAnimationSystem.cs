@@ -6,9 +6,6 @@ namespace Match3.Systems.Game.Initialization.Bet
 {
     public sealed class BetPulseScalesOnStartAnimationSystem : IEcsInitSystem
     {
-        private readonly InGameConfiguration _configuration = null;
-        private readonly InGameViews _inGameSceneData = null;
-
         public void Init()
         {
             float oneScaleDuration = .5f;

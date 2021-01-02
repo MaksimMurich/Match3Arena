@@ -9,8 +9,6 @@ namespace Match3.Systems.Game
 {
     public sealed class CreateCellsViewSystem : IEcsRunSystem
     {
-        private readonly ObjectPool _objectPool = null;
-        private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, CreateCellViewRequest, Vector2Int> _filter = null;
 
         public void Run()
