@@ -26,7 +26,7 @@ namespace Match3.Systems.Game.Initialization
                     bool hasChain = true;
                     int tryCount = 0;
 
-                    _gameField.Cells.Add(position, cellEntity);
+                    Global.Data.InGame.GameField.Cells.Add(position, cellEntity);
 
                     while (hasChain && tryCount < 100)
                     {
@@ -37,7 +37,7 @@ namespace Match3.Systems.Game.Initialization
 
                         cellEntity.Set<Cell>().Configuration = configuration;
 
-                        hasChain = GameFieldAnalyst.CheckCellInChain(_gameField.Cells, position);
+                        hasChain = GameFieldAnalyst.CheckCellInChain(Global.Data.InGame.GameField.Cells, position);
                     }
                 }
             }

@@ -34,7 +34,7 @@ namespace Match3.Systems.Game.Swap
                 Vector2Int targetPosition = _filter.Get3(index).To;
 
                 EcsEntity swapCell = _filter.GetEntity(index);
-                EcsEntity secondCell = _gameField.Cells[targetPosition];
+                EcsEntity secondCell = Global.Data.InGame.GameField.Cells[targetPosition];
 
                 swapCell.Set<Vector2Int>() = targetPosition;
                 swapCell.Set<AnimateSwapRequest>().MainCell = true;
@@ -42,15 +42,15 @@ namespace Match3.Systems.Game.Swap
                 secondCell.Set<Vector2Int>() = cellPosition;
                 secondCell.Set<AnimateSwapRequest>().MainCell = false;
 
-                _gameField.Cells[cellPosition] = secondCell;
-                _gameField.Cells[targetPosition] = swapCell;
+                Global.Data.InGame.GameField.Cells[cellPosition] = secondCell;
+                Global.Data.InGame.GameField.Cells[targetPosition] = swapCell;
 
-                List<ChainEvent> chains = GameFieldAnalyst.GetChains(_gameField.Cells);
+                List<ChainEvent> chains = GameFieldAnalyst.GetChains(Global.Data.InGame.GameField.Cells);
 
                 if (chains.Count == 0)
                 {
-                    _gameField.Cells[cellPosition] = swapCell;
-                    _gameField.Cells[targetPosition] = secondCell;
+                    Global.Data.InGame.GameField.Cells[cellPosition] = swapCell;
+                    Global.Data.InGame.GameField.Cells[targetPosition] = secondCell;
 
                     swapCell.Set<Vector2Int>() = cellPosition;
 

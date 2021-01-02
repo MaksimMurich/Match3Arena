@@ -29,15 +29,13 @@ namespace Match3
         [SerializeField] private InGameConfiguration _configuration = null;
         [SerializeField] private InGameViews _sceneData = null;
 
-        private readonly GameField _gameField = new GameField();
-
         void Start()
         {
             Global.Config.InGame = _configuration;
             Global.Views.InGame = _sceneData;
             Global.Data.InGame.PlayerState = new PlayerState(Global.Config.InGame.PlayersMaxLife, 100);
             Global.Data.Player = LocalSaveLoad<PlayerData>.Load();
-            Global.Data.Player = Global.Data.Player != null ? Global.Data.Player : new PlayerData(Global.Config.InGame.UserStateConfiguration.Rating, Global.Config.InGame.UserStateConfiguration.CoinsCount);
+            Global.Data.Player = Data.Player != null ? Data.Player : new PlayerData(Global.Config.InGame.UserStateConfiguration.Rating, Global.Config.InGame.UserStateConfiguration.CoinsCount);
 
             Global.Data.InGame.World = new EcsWorld();
             Global.Data.InGame.Systems = new EcsSystems(Global.Data.InGame.World);
@@ -156,7 +154,6 @@ namespace Match3
                 .Add(new RoundResultPopupSystem())
 
                 // inject service instances here (order doesn't important), for example:
-                .Inject(_gameField)
                 .Init();
         }
 

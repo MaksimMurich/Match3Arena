@@ -25,7 +25,7 @@ namespace Match3.Systems.Game
             else if (_fieldChanged)
             {
                 _fieldChanged = false;
-                List<ChainEvent> chains = GameFieldAnalyst.GetChains(_gameField.Cells);
+                List<ChainEvent> chains = GameFieldAnalyst.GetChains(Global.Data.InGame.GameField.Cells);
 
                 for (int i = 0; i < chains.Count; i++)
                 {

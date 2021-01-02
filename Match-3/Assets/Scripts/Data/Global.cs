@@ -31,8 +31,7 @@ public class Global
         public EcsWorld World;
         public EcsSystems Systems;
         public PlayerState PlayerState;
-
-        public readonly GameField GameField = new GameField();
+        public GameField GameField = new GameField();
     }
 
     public class LobbyData

@@ -46,7 +46,7 @@ namespace Match3.Systems.Game.Swap
                 Vector2Int fieldPosition = _filter.Get2(index);
                 Vector2Int targetPosition = fieldPosition + offset;
 
-                if (offset.Equals(Vector2Int.zero) || !_gameField.Cells.ContainsKey(targetPosition))
+                if (offset.Equals(Vector2Int.zero) || !Global.Data.InGame.GameField.Cells.ContainsKey(targetPosition))
                 {
                     continue;
                 }

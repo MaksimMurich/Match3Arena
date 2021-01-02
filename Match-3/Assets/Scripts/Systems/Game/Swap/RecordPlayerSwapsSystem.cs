@@ -36,7 +36,7 @@ namespace Match3.Systems.Game.Swap
             }
 
             SwapRequest swap = _filter.Get3(0);
-            bool swapHasResult = GameFieldAnalyst.CheckIsCorrectSwap(swap.From, swap.To - swap.From, _gameField.Cells);
+            bool swapHasResult = GameFieldAnalyst.CheckIsCorrectSwap(swap.From, swap.To - swap.From, Global.Data.InGame.GameField.Cells);
 
             if (!swapHasResult)
             {
@@ -56,7 +56,7 @@ namespace Match3.Systems.Game.Swap
         {
             SwapRecord result = new SwapRecord();
             int maxHealthReward = (int)(Global.Data.InGame.PlayerState.MaxLife - Global.Data.InGame.PlayerState.CurrentLife);
-            List<SwapPossibility> possibilities = GameFieldAnalyst.GetAllSwapPossibilities(maxHealthReward, _gameField);
+            List<SwapPossibility> possibilities = GameFieldAnalyst.GetAllSwapPossibilities(maxHealthReward, Global.Data.InGame.GameField);
             possibilities = possibilities.OrderBy(s => s.SwapRewards.CalculateTotal()).ToList();
 
             result.SelectedSwap = possibilities.Where(p => CompareSwaps(swap, p)).First();

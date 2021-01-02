@@ -28,7 +28,7 @@ namespace Match3.Systems.Game.Initialization
                 for (int row = 0; row <  Global.Config.InGame.LevelHeight; row++)
                 {
                     Vector2Int position = new Vector2Int(column, row);
-                    EcsEntity entity = _gameField.Cells[position];
+                    EcsEntity entity = Global.Data.InGame.GameField.Cells[position];
                     ref Cell cell = ref entity.Ref<Cell>().Unref();
                     cell.View = Global.Services.Pool.Get(cell.Configuration.ViewExample);
                     cell.View.transform.position = new Vector3(position.x,  Global.Config.InGame.LevelHeight + 1);
