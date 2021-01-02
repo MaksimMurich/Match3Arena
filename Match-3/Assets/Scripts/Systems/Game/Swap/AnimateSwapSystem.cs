@@ -18,7 +18,7 @@ namespace Match3.Systems.Game.Swap
         {
             if (_filter.GetEntitiesCount() > 0)
             {
-                _world.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(_configuration.Sounds.Swap);
+                 Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest( Global.Config.InGame.Sounds.Swap);
             }
 
             foreach (int index in _filter)
@@ -31,7 +31,7 @@ namespace Match3.Systems.Game.Swap
 
                 Transform view = _filter.Get1(index).View.transform;
                 view.position += new Vector3(0, 0, zPosition - view.position.z);
-                view.DOMove(target, _configuration.Animation.SwapDuration)
+                view.DOMove(target,  Global.Config.InGame.Animation.SwapDuration)
                     .OnComplete(() => OnSwapCompleate(entity, view));
 
             }

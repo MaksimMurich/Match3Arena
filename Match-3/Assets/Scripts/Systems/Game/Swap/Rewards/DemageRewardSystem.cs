@@ -42,7 +42,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
                 else
                 {
                     gameIsEneded = true;
-                    _world.NewEntity().Set<EndRoundRequest>();
+                     Global.Data.InGame.World.NewEntity().Set<EndRoundRequest>();
                 }
             }
         }

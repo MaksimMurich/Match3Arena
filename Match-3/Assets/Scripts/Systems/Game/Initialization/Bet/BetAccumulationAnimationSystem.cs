@@ -10,11 +10,11 @@ namespace Match3.Systems.Game.Initialization.Bet
 
         private readonly PlayerState _playerState = null;
         private readonly InGameConfiguration _configuration = null;
-        private readonly InGameSceneData _inGameSceneData = null;
+        private readonly InGameViews _inGameSceneData = null;
 
         public void Init()
         {
-            DOTween.To(() => _bet, x => _bet = x, _playerState.CurrentBet * 2, _configuration.Animation.StartGameBetAccumulationDurationSec)
+            DOTween.To(() => _bet, x => _bet = x, _playerState.CurrentBet * 2,  Global.Config.InGame.Animation.StartGameBetAccumulationDurationSec)
                 .OnUpdate(() => _inGameSceneData.BetView.Set(_bet));
         }
     }

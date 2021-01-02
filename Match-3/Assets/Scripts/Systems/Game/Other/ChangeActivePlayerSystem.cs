@@ -36,7 +36,7 @@ namespace Match3.Assets.Scripts.Systems.Game
 
             if (!_playerState.Active)
             {
-                EcsEntity makeSwapRequest = _world.NewEntity();
+                EcsEntity makeSwapRequest =  Global.Data.InGame.World.NewEntity();
                 makeSwapRequest.Set<PlayerChangedEvent>();
             }
 

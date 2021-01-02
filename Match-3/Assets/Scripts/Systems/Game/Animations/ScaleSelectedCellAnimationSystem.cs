@@ -14,7 +14,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Animations
 
         public void Run()
         {
-            AnimationsConfiguration configuration = _configuration.Animation;
+            AnimationsConfiguration configuration =  Global.Config.InGame.Animation;
 
             foreach (int index in _filter)
             {

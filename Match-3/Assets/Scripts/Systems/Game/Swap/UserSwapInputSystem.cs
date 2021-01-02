@@ -10,7 +10,7 @@ namespace Match3.Systems.Game.Swap
     {
         private readonly GameField _gameField = null;
         private readonly PlayerState _playerState = null;
-        private readonly InGameSceneData _sceneData = null;
+        private readonly InGameViews _sceneData = null;
         private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, Selected> _filter = null;
 
@@ -32,12 +32,12 @@ namespace Match3.Systems.Game.Swap
 
                 Vector2Int offset = Vector2Int.zero;
 
-                if (Mathf.Abs(mouseOffset.x) > _configuration.SwapMinMouseOffset)
+                if (Mathf.Abs(mouseOffset.x) >  Global.Config.InGame.SwapMinMouseOffset)
                 {
                     int offsetX = mouseOffset.x > 0 ? 1 : -1;
                     offset = new Vector2Int(offsetX, 0);
                 }
-                else if (Mathf.Abs(mouseOffset.y) > _configuration.SwapMinMouseOffset)
+                else if (Mathf.Abs(mouseOffset.y) >  Global.Config.InGame.SwapMinMouseOffset)
                 {
                     int offsetY = mouseOffset.y > 0 ? 1 : -1;
                     offset = new Vector2Int(0, offsetY);

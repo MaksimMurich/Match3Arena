@@ -12,7 +12,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
     {
         private readonly ObjectPool _objectPool = null;
         private readonly PlayerState _playerState = null;
-        private readonly InGameSceneData _sceneData = null;
+        private readonly InGameViews _sceneData = null;
         private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<HealthRewardRequest> _filter = null;
 
@@ -37,7 +37,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
                 Vector2 canvasPosition = new Vector2(screenPosition.x * widthProportion, screenPosition.y * heightProportion);
 
                 PlayerInGameDataView dataView = _playerState.Active ? _sceneData.PlayerDataView : _sceneData.BotDataView;
-                CellRewardView rewardView = _objectPool.Get(request.View);
+                CellRewardView rewardView = Global.Services.Pool.Get(request.View);
                 rewardView.SetValue(request.Value);
                 rewardView.transform.SetParent(_sceneData.RewardsContainer.transform);
                 rewardView.transform.localScale = Vector3.one;
@@ -45,8 +45,8 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
                 rectTrancform.anchoredPosition = canvasPosition;
 
                 Sequence sequence = DOTween.Sequence();
-                sequence.Append(rectTrancform.DOAnchorPosY(rectTrancform.anchoredPosition.y + 100, _configuration.Animation.ExplodedRewardUpAnimatingDuration));
-                sequence.AppendCallback(() => { _objectPool.Stash(rewardView); });
+                sequence.Append(rectTrancform.DOAnchorPosY(rectTrancform.anchoredPosition.y + 100,  Global.Config.InGame.Animation.ExplodedRewardUpAnimatingDuration));
+                sequence.AppendCallback(() => { Global.Services.Pool.Stash(rewardView); });
             }
         }
 

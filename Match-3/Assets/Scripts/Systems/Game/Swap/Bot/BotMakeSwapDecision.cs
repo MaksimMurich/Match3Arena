@@ -25,7 +25,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
                 return;
             }
 
-            List<SwapPossibility> swaps = GameFieldAnalyst.GetAllSwapPossibilities((int)(OpponentState.MaxLife - OpponentState.CurrentLife), _gameField, _configuration);
+            List<SwapPossibility> swaps = GameFieldAnalyst.GetAllSwapPossibilities((int)(OpponentState.MaxLife - OpponentState.CurrentLife), _gameField);
             swaps = swaps.OrderBy(s => s.SwapRewards.CalculateTotal()).ToList();
 
             float swapRangesPoint = UnityEngine.Random.Range(0f, 1f);
@@ -44,7 +44,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
             Sequence sequence = DOTween.Sequence();
             sequence.AppendCallback(() => SelectSomeCell(cellId));
-            sequence.AppendInterval(_configuration.BotBehaviour.FromSelectToSwapDelay);
+            sequence.AppendInterval( Global.Config.InGame.BotBehaviour.FromSelectToSwapDelay);
             sequence.AppendCallback(() => SwapCells(cellId, direction));
         }
 

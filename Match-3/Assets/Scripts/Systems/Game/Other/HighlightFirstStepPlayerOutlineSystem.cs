@@ -11,20 +11,20 @@ namespace Match3.Assets.Scripts.Systems.Game
     {
         private readonly EcsWorld _world = null;
         private readonly PlayerState _playerState = null;
-        private readonly InGameSceneData _inGameSceneData = null;
+        private readonly InGameViews _inGameSceneData = null;
         private readonly InGameConfiguration _configuration = null;
 
         private EcsEntity changeFieldEntity;
 
         public void Init()
         {
-            changeFieldEntity = _world.NewEntity();
+            changeFieldEntity =  Global.Data.InGame.World.NewEntity();
             changeFieldEntity.Set<ChangeFieldAnimating>();
 
             PlayerInGameDataView activePlayer = GetActivePlayer();
 
             Sequence sequence = DOTween.Sequence();
-            sequence.SetDelay(_configuration.Animation.SelectFirstPlayerDuration);
+            sequence.SetDelay( Global.Config.InGame.Animation.SelectFirstPlayerDuration);
             sequence.OnComplete(() =>
             {
                 changeFieldEntity.Destroy();
@@ -41,7 +41,7 @@ namespace Match3.Assets.Scripts.Systems.Game
 
             if (_playerState.Active)
             {
-                _world.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(_configuration.Sounds.PlayerTurn);
+                 Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest( Global.Config.InGame.Sounds.PlayerTurn);
             }
         }
 

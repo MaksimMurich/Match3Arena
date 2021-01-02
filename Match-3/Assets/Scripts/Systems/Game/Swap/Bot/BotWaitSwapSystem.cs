@@ -21,7 +21,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
         // generate concrete bot behaviour
         public void Init()
         {
-            BotBehaviourConfiguration botBehaviour = _configuration.BotBehaviour;
+            BotBehaviourConfiguration botBehaviour =  Global.Config.InGame.BotBehaviour;
             float middleWhaitTime = Random.Range(botBehaviour.MinThinkingTime, botBehaviour.MaxThinkingTime);
 
             _minBotThinkingTime = middleWhaitTime / botBehaviour.ThinkingTimeDeviationProportion;
@@ -41,14 +41,14 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
             }
 
             float swapDelay = Random.Range(_minBotThinkingTime, _maxBotThinkingTime);
-            swapDelay = Mathf.Max(swapDelay, _configuration.BotBehaviour.MinThinkingTime);
-            swapDelay = Mathf.Min(swapDelay, _configuration.BotBehaviour.MaxThinkingTime);
+            swapDelay = Mathf.Max(swapDelay,  Global.Config.InGame.BotBehaviour.MinThinkingTime);
+            swapDelay = Mathf.Min(swapDelay,  Global.Config.InGame.BotBehaviour.MaxThinkingTime);
 
             Sequence sequence = DOTween.Sequence();
             sequence.SetDelay(swapDelay);
             sequence.OnComplete(() =>
             {
-                _world.NewEntity().Set<BotMakeSwapDecisionRequest>();
+                 Global.Data.InGame.World.NewEntity().Set<BotMakeSwapDecisionRequest>();
             });
         }
     }

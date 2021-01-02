@@ -45,7 +45,7 @@ namespace Match3.Systems.Game.Swap
                 _gameField.Cells[cellPosition] = secondCell;
                 _gameField.Cells[targetPosition] = swapCell;
 
-                List<ChainEvent> chains = GameFieldAnalyst.GetChains(_gameField.Cells, _configuration);
+                List<ChainEvent> chains = GameFieldAnalyst.GetChains(_gameField.Cells);
 
                 if (chains.Count == 0)
                 {
@@ -71,7 +71,7 @@ namespace Match3.Systems.Game.Swap
                         _playerState.StepsCount += 1;
                     }
 
-                    _world.NewEntity().Set<NextPlayerRequest>();
+                     Global.Data.InGame.World.NewEntity().Set<NextPlayerRequest>();
                 }
             }
         }

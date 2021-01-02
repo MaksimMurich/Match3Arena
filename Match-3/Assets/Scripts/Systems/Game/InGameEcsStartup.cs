@@ -1,7 +1,6 @@
 using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Common;
 using Match3.Assets.Scripts.Components.Game.Events.Rewards;
-using Match3.Assets.Scripts.Services.Pool;
 using Match3.Assets.Scripts.Services.SaveLoad;
 using Match3.Assets.Scripts.Systems.Common;
 using Match3.Assets.Scripts.Systems.Game;
@@ -21,42 +20,39 @@ using Match3.Systems.Game.Initialization.Bet;
 using Match3.Systems.Game.Swap;
 using Match3.Systems.Game.UserInputs;
 using UnityEngine;
+using static Global;
 
 namespace Match3
 {
     sealed class InGameEcsStartup : MonoBehaviour
     {
         [SerializeField] private InGameConfiguration _configuration = null;
-        [SerializeField] private InGameSceneData _sceneData = null;
-
-        private EcsWorld _world;
-        private EcsSystems _systems;
-        private ObjectPool _objectPool;
+        [SerializeField] private InGameViews _sceneData = null;
 
         private readonly GameField _gameField = new GameField();
         private PlayerState _playerState;
-        private PlayerData _playerData;
 
         void Start()
         {
-            _playerData = LocalSaveLoad<PlayerData>.Load();
-            _playerData = _playerData != null ? _playerData : new PlayerData(_configuration.UserStateConfiguration.Rating, _configuration.UserStateConfiguration.CoinsCount);
+            Global.Config.InGame = _configuration;
 
-            _playerState = new PlayerState(_configuration.PlayersMaxLife, 100);
+            Global.Data.Player = LocalSaveLoad<PlayerData>.Load();
+            Global.Data.Player = Global.Data.Player != null ? Global.Data.Player : new PlayerData(Global.Config.InGame.UserStateConfiguration.Rating, Global.Config.InGame.UserStateConfiguration.CoinsCount);
 
-            _world = new EcsWorld();
-            _systems = new EcsSystems(_world);
-            _objectPool = new ObjectPool();
+            _playerState = new PlayerState(Global.Config.InGame.PlayersMaxLife, 100);
+
+            Global.Data.InGame.World = new EcsWorld();
+            Global.Data.InGame.Systems = new EcsSystems(Global.Data.InGame.World);
 
 #if UNITY_EDITOR
-            Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
-            Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);
+            Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(Global.Data.InGame.World);
+            Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(Global.Data.InGame.Systems);
 #endif
 
-            _systems
+            Global.Data.InGame.Systems
 
-                // common systems
-                .Add(new PlayerPreferencesSystem())
+               // common systems
+               .Add(new PlayerPreferencesSystem())
 
                 // initialization
                 .Add(new AudioSystem())
@@ -162,29 +158,26 @@ namespace Match3
 
                 // inject service instances here (order doesn't important), for example:
                 .Inject(_gameField)
-                .Inject(_configuration)
                 .Inject(_sceneData)
                 .Inject(_playerState)
-                .Inject(_playerData)
-                .Inject(_objectPool)
                 .Init();
         }
 
         void Update()
         {
-            _systems?.Run();
+            Global.Data.InGame.Systems?.Run();
         }
 
         void OnDestroy()
         {
-            LocalSaveLoad<PlayerData>.Save(_playerData);
+            LocalSaveLoad<PlayerData>.Save(Global.Data.Player);
 
-            if (_systems != null)
+            if (Global.Data.InGame.Systems != null)
             {
-                _systems.Destroy();
-                _systems = null;
-                _world.Destroy();
-                _world = null;
+                Global.Data.InGame.Systems.Destroy();
+                Global.Data.InGame.Systems = null;
+                Global.Data.InGame.World.Destroy();
+                Global.Data.InGame.World = null;
             }
         }
     }

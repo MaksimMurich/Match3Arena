@@ -12,7 +12,7 @@ namespace Match3.Assets.Scripts.Systems.Game
     {
         private readonly EcsWorld _world = null;
         private readonly PlayerState _playerState = null;
-        private readonly InGameSceneData _inGameSceneData = null;
+        private readonly InGameViews _inGameSceneData = null;
         private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<NextPlayerRequest> _changePlayerFilter = null;
         private readonly EcsFilter<ChangeFieldAnimating> _fieldChangers = null;
@@ -46,7 +46,7 @@ namespace Match3.Assets.Scripts.Systems.Game
         {
             if (_playerState.Active)
             {
-                _world.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(_configuration.Sounds.PlayerTurn);
+                 Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest( Global.Config.InGame.Sounds.PlayerTurn);
             }
 
             PlayerInGameDataView player = GetActivePlayer();

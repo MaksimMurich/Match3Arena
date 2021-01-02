@@ -20,9 +20,9 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
                 return;
             }
 
-            for (int column = 0; column < _configuration.LevelWidth; column++)
+            for (int column = 0; column <  Global.Config.InGame.LevelWidth; column++)
             {
-                for (int row = 0; row < _configuration.LevelHeight; row++)
+                for (int row = 0; row <  Global.Config.InGame.LevelHeight; row++)
                 {
                     Vector2Int position = new Vector2Int(column, row);
                     EcsEntity cell = _gameField.Cells[position];

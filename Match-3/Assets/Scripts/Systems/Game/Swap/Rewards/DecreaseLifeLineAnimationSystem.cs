@@ -10,7 +10,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
     public sealed class DecreaseLifeLineAnimationSystem : IEcsRunSystem
     {
         private readonly PlayerState _playerState = null;
-        private readonly InGameSceneData _sceneData = null;
+        private readonly InGameViews _sceneData = null;
         private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<DemageRewardRequest> _filter = null;
 
@@ -32,7 +32,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
             dataView.DecreaseLifeLine.gameObject.SetActive(true);
             dataView.IncreaseLifeLine.gameObject.SetActive(false);
             dataView.LifeLine.localScale = new Vector3(healthPart, scale.y, scale.z);
-            dataView.DecreaseLifeLine.DOScaleX(healthPart, _configuration.Animation.UpdateLifeTime);
+            dataView.DecreaseLifeLine.DOScaleX(healthPart,  Global.Config.InGame.Animation.UpdateLifeTime);
         }
     }
 }

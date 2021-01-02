@@ -7,7 +7,6 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
 {
     public sealed class DestroyExplodedCellsSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
         private readonly EcsFilter<Cell, ChargedToExplosion, Vector2Int>.Exclude<AnimateExplosion> _filter = null;
 
         public void Run()
@@ -18,7 +17,7 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
                 cell.Unset<ChargedToExplosion>();
                 cell.Set<EmptySpace>();
 
-                _world.NewEntity().Set<RewardRequest>() = new RewardRequest()
+                Global.Data.InGame.World.NewEntity().Set<RewardRequest>() = new RewardRequest()
                 {
                     Cell = _filter.Get1(index),
                     Position = _filter.Get3(index)

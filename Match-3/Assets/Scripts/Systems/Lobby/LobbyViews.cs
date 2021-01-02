@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class LobbySceneData : MonoBehaviour
+public class LobbyViews : MonoBehaviour
 {
     [SerializeField] private Camera _camera = null;
 

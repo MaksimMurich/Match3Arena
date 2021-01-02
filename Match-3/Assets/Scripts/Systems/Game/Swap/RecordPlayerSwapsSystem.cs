@@ -20,9 +20,9 @@ namespace Match3.Systems.Game.Swap
 
         public void Init()
         {
-            if (_playerData.UserSwaps == null)
+            if (Global.Data.Player.UserSwaps == null)
             {
-                _playerData.UserSwaps = new List<SwapRecord>();
+                Global.Data.Player.UserSwaps = new List<SwapRecord>();
             }
         }
 
@@ -36,7 +36,7 @@ namespace Match3.Systems.Game.Swap
             }
 
             SwapRequest swap = _filter.Get3(0);
-            bool swapHasResult = GameFieldAnalyst.CheckIsCorrectSwap(swap.From, swap.To - swap.From, _gameField.Cells, _configuration);
+            bool swapHasResult = GameFieldAnalyst.CheckIsCorrectSwap(swap.From, swap.To - swap.From, _gameField.Cells);
 
             if (!swapHasResult)
             {
@@ -44,11 +44,11 @@ namespace Match3.Systems.Game.Swap
             }
 
             SwapRecord record = GenerateSwapRecord(_filter.Get3(0));
-            _playerData.UserSwaps.Add(record);
+            Global.Data.Player.UserSwaps.Add(record);
 
-            if (_playerData.UserSwaps.Count > _configuration.SaveUserSwapsCount)
+            if (Global.Data.Player.UserSwaps.Count >  Global.Config.InGame.SaveUserSwapsCount)
             {
-                _playerData.UserSwaps.RemoveRange(0, _playerData.UserSwaps.Count - _configuration.SaveUserSwapsCount);
+                Global.Data.Player.UserSwaps.RemoveRange(0, Global.Data.Player.UserSwaps.Count -  Global.Config.InGame.SaveUserSwapsCount);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Match3.Systems.Game.Swap
         {
             SwapRecord result = new SwapRecord();
             int maxHealthReward = (int)(_playerState.MaxLife - _playerState.CurrentLife);
-            List<SwapPossibility> possibilities = GameFieldAnalyst.GetAllSwapPossibilities(maxHealthReward, _gameField, _configuration);
+            List<SwapPossibility> possibilities = GameFieldAnalyst.GetAllSwapPossibilities(maxHealthReward, _gameField);
             possibilities = possibilities.OrderBy(s => s.SwapRewards.CalculateTotal()).ToList();
 
             result.SelectedSwap = possibilities.Where(p => CompareSwaps(swap, p)).First();

@@ -6,7 +6,7 @@ namespace Match3.Systems.Game.Initialization
     public sealed class ShowPlayersDataSystem : IEcsInitSystem
     {
         private readonly PlayerData _playerData = null;
-        private readonly InGameSceneData _sceneData = null;
+        private readonly InGameViews _sceneData = null;
 
         private PlayerPreferences _playerPreferences;
 
@@ -18,7 +18,7 @@ namespace Match3.Systems.Game.Initialization
             _sceneData.BotDataView.Nick.text = OpponentState.Nick;
 
             _sceneData.BotDataView.Rating.text = OpponentState.Rating.ToString();
-            _sceneData.PlayerDataView.Rating.text = _playerData.Rating.ToString();
+            _sceneData.PlayerDataView.Rating.text = Global.Data.Player.Rating.ToString();
         }
     }
 }

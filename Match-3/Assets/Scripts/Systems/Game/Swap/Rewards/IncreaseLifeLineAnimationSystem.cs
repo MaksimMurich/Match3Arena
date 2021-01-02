@@ -10,7 +10,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
     public sealed class IncreaseLifeLineAnimationSystem : IEcsRunSystem
     {
         private readonly PlayerState _playerState = null;
-        private readonly InGameSceneData _sceneData = null;
+        private readonly InGameViews _sceneData = null;
         private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<HealthRewardRequest> _filter = null;
 
@@ -32,7 +32,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
             dataView.DecreaseLifeLine.gameObject.SetActive(false);
             dataView.IncreaseLifeLine.gameObject.SetActive(true);
             dataView.IncreaseLifeLine.localScale = new Vector3(healthPart, scale.y, scale.z);
-            dataView.LifeLine.DOScaleX(healthPart, _configuration.Animation.UpdateLifeTime);
+            dataView.LifeLine.DOScaleX(healthPart,  Global.Config.InGame.Animation.UpdateLifeTime);
         }
     }
 }

@@ -16,9 +16,9 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
             Dictionary<float, int> userSwapsByPoewr = new Dictionary<float, int>(); // rating 3 of 10 swaps = 70% power
 
             // calculate swaps count by rating
-            for (int i = 0; i < _playerData.UserSwaps.Count; i++)
+            for (int i = 0; i < Global.Data.Player.UserSwaps.Count; i++)
             {
-                SwapRecord swap = _playerData.UserSwaps[i];
+                SwapRecord swap = Global.Data.Player.UserSwaps[i];
 
                 if (!userSwapsByPoewr.ContainsKey(swap.SwapRating))
                 {
@@ -30,7 +30,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
             float rangeMinValue = 0;
 
-            float totalSwaps = _playerData.UserSwaps.Count;
+            float totalSwaps = Global.Data.Player.UserSwaps.Count;
 
             foreach (KeyValuePair<float, int> powerSwapsCount in userSwapsByPoewr)
             {

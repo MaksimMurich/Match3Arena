@@ -10,7 +10,7 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
     {
         private readonly PlayerData _playerData = null;
         private readonly PlayerState _playerState = null;
-        private readonly InGameSceneData _sceneData = null;
+        private readonly InGameViews _sceneData = null;
         private readonly EcsFilter<EndRoundRequest> _filter = null;
 
         public void Init()
@@ -32,8 +32,8 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
             bool userWin = _playerState.CurrentLife > 0;
             int deltaRating = userWin ? _playerState.DeltaRatingReward : -1 * _playerState.DeltaRatingUnreward;
             int deltaCoins = userWin ? _playerState.CurrentBet : -1 * _playerState.CurrentBet;
-            _sceneData.RoundResultPopupView.SetRating(deltaRating, _playerData.Rating);
-            _sceneData.RoundResultPopupView.SetCoins(deltaCoins, _playerData.Coins);
+            _sceneData.RoundResultPopupView.SetRating(deltaRating, Global.Data.Player.Rating);
+            _sceneData.RoundResultPopupView.SetCoins(deltaCoins, Global.Data.Player.Coins);
             _sceneData.RoundResultPopupView.SetSumDemage(_playerState.SumOpponentDemage);
             _sceneData.RoundResultPopupView.SetSumHealthRestore(_playerState.SumHealseRestored);
             _sceneData.RoundResultPopupView.UpdateHeader(userWin);

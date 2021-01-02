@@ -13,9 +13,9 @@ namespace Match3.Systems.Game.Initialization
 
         public void Init()
         {
-            for (int column = 0; column < _configuration.LevelWidth; column++)
+            for (int column = 0; column <  Global.Config.InGame.LevelWidth; column++)
             {
-                for (int row = 0; row < _configuration.LevelHeight; row++)
+                for (int row = 0; row <  Global.Config.InGame.LevelHeight; row++)
                 {
                     EcsEntity entity = _gameField.Cells[new Vector2Int(column, row)];
                     ref Cell cell = ref entity.Ref<Cell>().Unref();
@@ -23,7 +23,7 @@ namespace Match3.Systems.Game.Initialization
 
                     Vector3 targetPosition = new Vector3(column, row);
                     cell.View.transform
-                        .DOMove(targetPosition, _configuration.Animation.CellMovingSeconds)
+                        .DOMove(targetPosition,  Global.Config.InGame.Animation.CellMovingSeconds)
                         .OnComplete(() => RemoveFieldChangingState(entity));
                 }
             }

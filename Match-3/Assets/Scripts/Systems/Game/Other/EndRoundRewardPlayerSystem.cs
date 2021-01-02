@@ -22,14 +22,14 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
 
             if (win)
             {
-                _playerData.Coins += _playerState.CurrentBet * 2;
+                Global.Data.Player.Coins += _playerState.CurrentBet * 2;
 
-                _playerData.Rating += _playerState.DeltaRatingReward + _playerState.DeltaRatingUnreward;
+                Global.Data.Player.Rating += _playerState.DeltaRatingReward + _playerState.DeltaRatingUnreward;
 
-                _playerData.WinsCount++;
+                Global.Data.Player.WinsCount++;
             }
 
-            _playerData.RoundsCount++;
+            Global.Data.Player.RoundsCount++;
 
             LocalSaveLoad<PlayerData>.Save(_playerData);
         }

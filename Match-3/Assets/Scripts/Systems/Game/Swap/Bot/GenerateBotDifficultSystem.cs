@@ -12,14 +12,14 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
         public void Init()
         {
-            float difficultPossibilityPoint = UnityEngine.Random.Range(0f, 1f);
-            float difficult = _configuration.BotBehaviour.DifficultPossibility.Evaluate(difficultPossibilityPoint);
+            float difficultPossibilityPoint = Random.Range(0f, 1f);
+            float difficult =  Global.Config.InGame.BotBehaviour.DifficultPossibility.Evaluate(difficultPossibilityPoint);
             OpponentState.Difficult = difficult;
-            OpponentState.Rating = (int)(_playerData.Rating * (0.5f + difficult));
+            OpponentState.Rating = (int)(Global.Data.Player.Rating * (0.5f + difficult));
             OpponentState.Rating += Random.Range(-100, 100);
             OpponentState.Rating = Mathf.Abs(OpponentState.Rating);
-            OpponentState.MaxLife = _configuration.PlayersMaxLife;
-            OpponentState.CurrentLife = _configuration.PlayersMaxLife;
+            OpponentState.MaxLife =  Global.Config.InGame.PlayersMaxLife;
+            OpponentState.CurrentLife =  Global.Config.InGame.PlayersMaxLife;
         }
     }
 }

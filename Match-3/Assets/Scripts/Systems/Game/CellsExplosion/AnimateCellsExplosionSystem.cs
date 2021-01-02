@@ -10,7 +10,6 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
 {
     public sealed class AnimateCellsExplosionSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
         private readonly InGameConfiguration _configuration = null;
         private readonly EcsFilter<Cell, AnimateExplosionRequest> _filter = null;
 
@@ -21,14 +20,14 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
                 return;
             }
 
-            _world.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(_configuration.Sounds.CellsExplosion);
+            Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest( Global.Config.InGame.Sounds.CellsExplosion);
 
             foreach (var index in _filter)
             {
                 CellView view = _filter.Get1(index).View;
                 view.Entity.Set<AnimateExplosion>();
 
-                var tween = view.transform.DOScale(_configuration.Animation.ExplosionScale, _configuration.Animation.ExplosionSeconds).OnComplete(() =>
+                var tween = view.transform.DOScale( Global.Config.InGame.Animation.ExplosionScale,  Global.Config.InGame.Animation.ExplosionSeconds).OnComplete(() =>
                 {
                     Hide(view);
                 });

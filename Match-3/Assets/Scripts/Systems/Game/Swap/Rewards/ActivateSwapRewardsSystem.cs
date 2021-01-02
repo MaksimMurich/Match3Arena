@@ -17,14 +17,14 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
                 RewardRequest reward = _filter.Get1(index);
                 CellConfiguration config = reward.Cell.Configuration;
 
-                _world.NewEntity().Set<HealthRewardRequest>() = new HealthRewardRequest()
+                 Global.Data.InGame.World.NewEntity().Set<HealthRewardRequest>() = new HealthRewardRequest()
                 {
                     Value = config.Health,
                     Position = reward.Position,
                     View = reward.Cell.Configuration.HealthRewardView,
                 };
 
-                _world.NewEntity().Set<DemageRewardRequest>() = new DemageRewardRequest()
+                 Global.Data.InGame.World.NewEntity().Set<DemageRewardRequest>() = new DemageRewardRequest()
                 {
                     Value = config.Demage,
                     Position = reward.Position,
