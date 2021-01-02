@@ -27,19 +27,19 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
                     continue;
                 }
 
-                RectTransform canvasRect = _sceneData.RewardsContainer.GetComponent<RectTransform>();
+                RectTransform canvasRect = Global.Views.InGame.RewardsContainer.GetComponent<RectTransform>();
 
                 float widthProportion = canvasRect.sizeDelta.x / Screen.width;
                 float heightProportion = canvasRect.sizeDelta.y / Screen.height;
 
                 Vector3 position = new Vector3(request.Position.x, request.Position.y, 0);
-                Vector2 screenPosition = _sceneData.Camera.WorldToScreenPoint(position);
+                Vector2 screenPosition = Global.Views.InGame.Camera.WorldToScreenPoint(position);
                 Vector2 canvasPosition = new Vector2(screenPosition.x * widthProportion, screenPosition.y * heightProportion);
 
-                PlayerInGameDataView dataView = _playerState.Active ? _sceneData.PlayerDataView : _sceneData.BotDataView;
+                PlayerInGameDataView dataView = Global.Data.InGame.PlayerState.Active ? Global.Views.InGame.PlayerDataView : Global.Views.InGame.BotDataView;
                 CellRewardView rewardView = Global.Services.Pool.Get(request.View);
                 rewardView.SetValue(request.Value);
-                rewardView.transform.SetParent(_sceneData.RewardsContainer.transform);
+                rewardView.transform.SetParent(Global.Views.InGame.RewardsContainer.transform);
                 rewardView.transform.localScale = Vector3.one;
                 RectTransform rectTrancform = rewardView.GetComponent<RectTransform>();
                 rectTrancform.anchoredPosition = canvasPosition;

@@ -23,17 +23,17 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization
                 cameraSize *= (1 + 2 *  Global.Config.InGame.MinFieldPadding) *  Global.Config.InGame.LevelWidth / 2f / cameraViewWidth;
             }
 
-            float cameraScale = cameraSize / _sceneData.Camera.orthographicSize;
-            _sceneData.Background.localScale *= cameraScale;
+            float cameraScale = cameraSize / Global.Views.InGame.Camera.orthographicSize;
+            Global.Views.InGame.Background.localScale *= cameraScale;
 
-            _sceneData.Camera.orthographic = true;
-            _sceneData.Camera.orthographicSize = cameraSize;
+            Global.Views.InGame.Camera.orthographic = true;
+            Global.Views.InGame.Camera.orthographicSize = cameraSize;
 
             float cameraXPosition = ( Global.Config.InGame.LevelWidth - 1) / 2f;
             float cameraYPosition = cameraOffsetY + ( Global.Config.InGame.LevelHeight - 1f) / 2f;
-            _sceneData.Camera.transform.position = new Vector3(cameraXPosition, cameraYPosition, -10);
+            Global.Views.InGame.Camera.transform.position = new Vector3(cameraXPosition, cameraYPosition, -10);
 
-            _sceneData.Background.position = new Vector3(cameraXPosition, cameraYPosition, 100);
+            Global.Views.InGame.Background.position = new Vector3(cameraXPosition, cameraYPosition, 100);
         }
     }
 }

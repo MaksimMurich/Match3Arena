@@ -14,11 +14,11 @@ namespace Match3.Systems.Game.Initialization
         {
             _playerPreferences = LocalSaveLoad<PlayerPreferences>.Load();
 
-            _sceneData.PlayerDataView.Nick.text = _playerPreferences.Nick;
-            _sceneData.BotDataView.Nick.text = OpponentState.Nick;
+            Global.Views.InGame.PlayerDataView.Nick.text = _playerPreferences.Nick;
+            Global.Views.InGame.BotDataView.Nick.text = OpponentState.Nick;
 
-            _sceneData.BotDataView.Rating.text = OpponentState.Rating.ToString();
-            _sceneData.PlayerDataView.Rating.text = Global.Data.Player.Rating.ToString();
+            Global.Views.InGame.BotDataView.Rating.text = OpponentState.Rating.ToString();
+            Global.Views.InGame.PlayerDataView.Rating.text = Global.Data.Player.Rating.ToString();
         }
     }
 }

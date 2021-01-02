@@ -14,8 +14,8 @@ namespace Match3.Systems.Game.Initialization.Bet
 
         public void Init()
         {
-            DOTween.To(() => _bet, x => _bet = x, _playerState.CurrentBet * 2,  Global.Config.InGame.Animation.StartGameBetAccumulationDurationSec)
-                .OnUpdate(() => _inGameSceneData.BetView.Set(_bet));
+            DOTween.To(() => _bet, x => _bet = x, Global.Data.InGame.PlayerState.CurrentBet * 2,  Global.Config.InGame.Animation.StartGameBetAccumulationDurationSec)
+                .OnUpdate(() => Global.Views.InGame.BetView.Set(_bet));
         }
     }
 }

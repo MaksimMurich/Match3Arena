@@ -30,7 +30,7 @@ namespace Match3.Systems.Game.Swap
         {
             //@TODO check is correct swap and field didn't lock and only then record swap
 
-            if (!_playerState.Active || _filter.GetEntitiesCount() == 0)
+            if (!Global.Data.InGame.PlayerState.Active || _filter.GetEntitiesCount() == 0)
             {
                 return;
             }
@@ -55,7 +55,7 @@ namespace Match3.Systems.Game.Swap
         private SwapRecord GenerateSwapRecord(SwapRequest swap)
         {
             SwapRecord result = new SwapRecord();
-            int maxHealthReward = (int)(_playerState.MaxLife - _playerState.CurrentLife);
+            int maxHealthReward = (int)(Global.Data.InGame.PlayerState.MaxLife - Global.Data.InGame.PlayerState.CurrentLife);
             List<SwapPossibility> possibilities = GameFieldAnalyst.GetAllSwapPossibilities(maxHealthReward, _gameField);
             possibilities = possibilities.OrderBy(s => s.SwapRewards.CalculateTotal()).ToList();
 

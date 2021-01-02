@@ -15,8 +15,8 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
 
         public void Init()
         {
-            _sceneData.RoundResultPopupView.Play.onClick.AddListener(PlayClickHandler);
-            _sceneData.RoundResultPopupView.BackToLobby.onClick.AddListener(BackToLobbyClickHandler);
+            Global.Views.InGame.RoundResultPopupView.Play.onClick.AddListener(PlayClickHandler);
+            Global.Views.InGame.RoundResultPopupView.BackToLobby.onClick.AddListener(BackToLobbyClickHandler);
         }
 
         public void Run()
@@ -26,17 +26,17 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
                 return;
             }
 
-            _sceneData.RoundResultPopupView.gameObject.SetActive(true);
-            _sceneData.RoundResultPopupView.SetStepsCount(_playerState.StepsCount);
+            Global.Views.InGame.RoundResultPopupView.gameObject.SetActive(true);
+            Global.Views.InGame.RoundResultPopupView.SetStepsCount(Global.Data.InGame.PlayerState.StepsCount);
 
-            bool userWin = _playerState.CurrentLife > 0;
-            int deltaRating = userWin ? _playerState.DeltaRatingReward : -1 * _playerState.DeltaRatingUnreward;
-            int deltaCoins = userWin ? _playerState.CurrentBet : -1 * _playerState.CurrentBet;
-            _sceneData.RoundResultPopupView.SetRating(deltaRating, Global.Data.Player.Rating);
-            _sceneData.RoundResultPopupView.SetCoins(deltaCoins, Global.Data.Player.Coins);
-            _sceneData.RoundResultPopupView.SetSumDemage(_playerState.SumOpponentDemage);
-            _sceneData.RoundResultPopupView.SetSumHealthRestore(_playerState.SumHealseRestored);
-            _sceneData.RoundResultPopupView.UpdateHeader(userWin);
+            bool userWin = Global.Data.InGame.PlayerState.CurrentLife > 0;
+            int deltaRating = userWin ? Global.Data.InGame.PlayerState.DeltaRatingReward : -1 * Global.Data.InGame.PlayerState.DeltaRatingUnreward;
+            int deltaCoins = userWin ? Global.Data.InGame.PlayerState.CurrentBet : -1 * Global.Data.InGame.PlayerState.CurrentBet;
+            Global.Views.InGame.RoundResultPopupView.SetRating(deltaRating, Global.Data.Player.Rating);
+            Global.Views.InGame.RoundResultPopupView.SetCoins(deltaCoins, Global.Data.Player.Coins);
+            Global.Views.InGame.RoundResultPopupView.SetSumDemage(Global.Data.InGame.PlayerState.SumOpponentDemage);
+            Global.Views.InGame.RoundResultPopupView.SetSumHealthRestore(Global.Data.InGame.PlayerState.SumHealseRestored);
+            Global.Views.InGame.RoundResultPopupView.UpdateHeader(userWin);
         }
 
         private void PlayClickHandler()

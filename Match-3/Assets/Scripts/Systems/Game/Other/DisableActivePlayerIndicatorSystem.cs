@@ -14,8 +14,8 @@ namespace Match3.Assets.Scripts.Systems.Game
         {
             if (_filter.GetEntitiesCount() > 0)
             {
-                _inGameSceneData.PlayerDataView.ActivateOutline(false);
-                _inGameSceneData.BotDataView.ActivateOutline(false);
+                Global.Views.InGame.PlayerDataView.ActivateOutline(false);
+                Global.Views.InGame.BotDataView.ActivateOutline(false);
             }
         }
     }

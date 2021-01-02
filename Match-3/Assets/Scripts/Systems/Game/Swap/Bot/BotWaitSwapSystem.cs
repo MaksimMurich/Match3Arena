@@ -32,8 +32,8 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
         public void Run()
         {
-            bool botIsActive = !_playerState.Active;
-            bool roundEnded = _playerState.CurrentLife <= 0 || OpponentState.CurrentLife <= 0;
+            bool botIsActive = !Global.Data.InGame.PlayerState.Active;
+            bool roundEnded = Global.Data.InGame.PlayerState.CurrentLife <= 0 || OpponentState.CurrentLife <= 0;
 
             if (roundEnded || _playerChangeRequestsFilter.GetEntitiesCount() == 0 || !botIsActive)
             {

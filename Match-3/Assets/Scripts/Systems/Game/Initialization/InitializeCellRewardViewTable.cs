@@ -18,8 +18,8 @@ namespace Match3.Systems.Game.Initialization
 
             for (int i = 0; i < cells.Length; i++)
             {
-                CellRewardViewTableItem item = Global.Services.Pool.Get(_inGameSceneData.CellRewardViewTable.CellRewardViewTableItemExample);
-                _inGameSceneData.CellRewardViewTable.AddItem(item, cells[i].Health, cells[i].Demage, cells[i].ViewExample.GetSprite());
+                CellRewardViewTableItem item = Global.Services.Pool.Get(Global.Views.InGame.CellRewardViewTable.CellRewardViewTableItemExample);
+                Global.Views.InGame.CellRewardViewTable.AddItem(item, cells[i].Health, cells[i].Demage, cells[i].ViewExample.GetSprite());
             }
         }
     }

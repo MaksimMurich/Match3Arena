@@ -66,9 +66,9 @@ namespace Match3.Systems.Game.Swap
                 }
                 else
                 {
-                    if (_playerState.Active)
+                    if (Global.Data.InGame.PlayerState.Active)
                     {
-                        _playerState.StepsCount += 1;
+                        Global.Data.InGame.PlayerState.StepsCount += 1;
                     }
 
                      Global.Data.InGame.World.NewEntity().Set<NextPlayerRequest>();

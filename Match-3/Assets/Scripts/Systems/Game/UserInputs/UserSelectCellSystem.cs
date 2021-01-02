@@ -12,7 +12,7 @@ namespace Match3.Systems.Game.UserInputs
 
         public void Run()
         {
-            if (!_playerState.Active || !Input.GetMouseButtonDown(0))
+            if (!Global.Data.InGame.PlayerState.Active || !Input.GetMouseButtonDown(0))
             {
                 return;
             }

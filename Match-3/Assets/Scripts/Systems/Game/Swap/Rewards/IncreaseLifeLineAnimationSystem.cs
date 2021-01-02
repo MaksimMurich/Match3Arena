@@ -21,11 +21,11 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
                 return;
             }
 
-            PlayerInGameDataView dataView = _playerState.Active ? _sceneData.PlayerDataView : _sceneData.BotDataView;
+            PlayerInGameDataView dataView = Global.Data.InGame.PlayerState.Active ? Global.Views.InGame.PlayerDataView : Global.Views.InGame.BotDataView;
 
-            float playerHealthPart = _playerState.CurrentLife / _playerState.MaxLife;
+            float playerHealthPart = Global.Data.InGame.PlayerState.CurrentLife / Global.Data.InGame.PlayerState.MaxLife;
             float opponentHealthPart = OpponentState.CurrentLife / OpponentState.MaxLife;
-            float healthPart = _playerState.Active ? playerHealthPart : opponentHealthPart;
+            float healthPart = Global.Data.InGame.PlayerState.Active ? playerHealthPart : opponentHealthPart;
 
             Vector3 scale = dataView.IncreaseLifeLine.localScale;
 

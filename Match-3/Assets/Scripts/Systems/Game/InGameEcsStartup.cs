@@ -30,19 +30,18 @@ namespace Match3
         [SerializeField] private InGameViews _sceneData = null;
 
         private readonly GameField _gameField = new GameField();
-        private PlayerState _playerState;
 
         void Start()
         {
             Global.Config.InGame = _configuration;
-
+            Global.Views.InGame = _sceneData;
+            Global.Data.InGame.PlayerState = new PlayerState(Global.Config.InGame.PlayersMaxLife, 100);
             Global.Data.Player = LocalSaveLoad<PlayerData>.Load();
             Global.Data.Player = Global.Data.Player != null ? Global.Data.Player : new PlayerData(Global.Config.InGame.UserStateConfiguration.Rating, Global.Config.InGame.UserStateConfiguration.CoinsCount);
 
-            _playerState = new PlayerState(Global.Config.InGame.PlayersMaxLife, 100);
-
             Global.Data.InGame.World = new EcsWorld();
             Global.Data.InGame.Systems = new EcsSystems(Global.Data.InGame.World);
+
 
 #if UNITY_EDITOR
             Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(Global.Data.InGame.World);
@@ -158,8 +157,6 @@ namespace Match3
 
                 // inject service instances here (order doesn't important), for example:
                 .Inject(_gameField)
-                .Inject(_sceneData)
-                .Inject(_playerState)
                 .Init();
         }
 
@@ -170,6 +167,9 @@ namespace Match3
 
         void OnDestroy()
         {
+            Global.Config.InGame = null;
+            Global.Views.InGame = null;
+
             LocalSaveLoad<PlayerData>.Save(Global.Data.Player);
 
             if (Global.Data.InGame.Systems != null)

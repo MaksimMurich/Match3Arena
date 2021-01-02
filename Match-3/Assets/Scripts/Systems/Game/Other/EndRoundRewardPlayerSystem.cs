@@ -18,13 +18,13 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
                 return;
             }
 
-            bool win = _playerState.CurrentLife > 0;
+            bool win = Global.Data.InGame.PlayerState.CurrentLife > 0;
 
             if (win)
             {
-                Global.Data.Player.Coins += _playerState.CurrentBet * 2;
+                Global.Data.Player.Coins += Global.Data.InGame.PlayerState.CurrentBet * 2;
 
-                Global.Data.Player.Rating += _playerState.DeltaRatingReward + _playerState.DeltaRatingUnreward;
+                Global.Data.Player.Rating += Global.Data.InGame.PlayerState.DeltaRatingReward + Global.Data.InGame.PlayerState.DeltaRatingUnreward;
 
                 Global.Data.Player.WinsCount++;
             }

@@ -16,12 +16,12 @@ namespace Match3.Systems.Game.Swap
 
         public void Run()
         {
-            if (!_playerState.Active)
+            if (!Global.Data.InGame.PlayerState.Active)
             {
                 return;
             }
 
-            Vector2 mousePosition = _sceneData.Camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePosition = Global.Views.InGame.Camera.ScreenToWorldPoint(Input.mousePosition);
 
             foreach (int index in _filter)
             {

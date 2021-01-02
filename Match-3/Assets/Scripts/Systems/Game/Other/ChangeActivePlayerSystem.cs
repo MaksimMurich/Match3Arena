@@ -32,9 +32,9 @@ namespace Match3.Assets.Scripts.Systems.Game
             }
 
             _needChangeActivePlayer = false;
-            _playerState.Active = !_playerState.Active;
+            Global.Data.InGame.PlayerState.Active = !Global.Data.InGame.PlayerState.Active;
 
-            if (!_playerState.Active)
+            if (!Global.Data.InGame.PlayerState.Active)
             {
                 EcsEntity makeSwapRequest =  Global.Data.InGame.World.NewEntity();
                 makeSwapRequest.Set<PlayerChangedEvent>();
