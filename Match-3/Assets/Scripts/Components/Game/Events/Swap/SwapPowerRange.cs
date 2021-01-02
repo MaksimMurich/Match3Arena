@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Match3.Components.Game.Events
+﻿namespace Match3.Components.Game.Events
 {
     public class SwapPowerRange
     {

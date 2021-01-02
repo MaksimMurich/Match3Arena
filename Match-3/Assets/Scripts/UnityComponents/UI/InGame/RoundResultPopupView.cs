@@ -7,7 +7,7 @@ namespace Match3.Assets.Scripts.UnityComponents.UI.InGame
     {
         [SerializeField] public Button Play = null;
         [SerializeField] public Button BackToLobby = null;
-        
+
         [SerializeField] private GameObject _youWinText = null;
         [SerializeField] private GameObject _youLoseText = null;
         [SerializeField] private Text _ratingCount = null;

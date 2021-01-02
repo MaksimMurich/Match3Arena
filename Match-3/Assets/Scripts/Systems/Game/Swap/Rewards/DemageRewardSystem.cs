@@ -33,7 +33,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
                 }
             }
 
-            if(_playerState.CurrentLife <= 0 || OpponentState.CurrentLife <= 0)
+            if (_playerState.CurrentLife <= 0 || OpponentState.CurrentLife <= 0)
             {
                 if (gameIsEneded)
                 {

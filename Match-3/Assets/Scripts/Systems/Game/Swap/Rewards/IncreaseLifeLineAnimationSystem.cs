@@ -16,7 +16,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 
         public void Run()
         {
-            if(_filter.GetEntitiesCount() == 0)
+            if (_filter.GetEntitiesCount() == 0)
             {
                 return;
             }

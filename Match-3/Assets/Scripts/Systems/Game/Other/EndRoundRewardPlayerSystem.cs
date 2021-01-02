@@ -4,7 +4,7 @@ using Match3.Components.Game.Events;
 
 namespace Match3.Assets.Scripts.Systems.Game.UI
 {
-    public sealed class EndRoundRewardPlayerSystem :  IEcsRunSystem
+    public sealed class EndRoundRewardPlayerSystem : IEcsRunSystem
     {
         private readonly PlayerData _playerData = null;
         private readonly PlayerState _playerState = null;
@@ -13,7 +13,7 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
 
         public void Run()
         {
-            if(_filter.GetEntitiesCount() == 0)
+            if (_filter.GetEntitiesCount() == 0)
             {
                 return;
             }

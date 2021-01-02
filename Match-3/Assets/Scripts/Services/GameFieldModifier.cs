@@ -20,7 +20,7 @@ namespace Match3.Assets.Scripts.Services
 
         public static void SwapCellsWithoutChangeComponents(Vector2Int position, Vector2Int extenderPosition, Dictionary<Vector2Int, EcsEntity> cells)
         {
-            if(!cells.ContainsKey(extenderPosition))
+            if (!cells.ContainsKey(extenderPosition))
             {
                 return;
             }

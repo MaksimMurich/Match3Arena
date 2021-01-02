@@ -20,7 +20,6 @@ using Match3.Systems.Game.Initialization;
 using Match3.Systems.Game.Initialization.Bet;
 using Match3.Systems.Game.Swap;
 using Match3.Systems.Game.UserInputs;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Match3

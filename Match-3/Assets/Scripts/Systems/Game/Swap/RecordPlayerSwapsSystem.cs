@@ -4,7 +4,6 @@ using Match3.Assets.Scripts.Services.SaveLoad;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
 using Match3.Configurations;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,7 +20,7 @@ namespace Match3.Systems.Game.Swap
 
         public void Init()
         {
-            if(_playerData.UserSwaps == null)
+            if (_playerData.UserSwaps == null)
             {
                 _playerData.UserSwaps = new List<SwapRecord>();
             }
@@ -76,7 +75,7 @@ namespace Match3.Systems.Game.Swap
             result &= request.From.y == possibility.FromY;
             result &= request.To.x == possibility.ToX;
             result &= request.To.y == possibility.ToY;
-           
+
             bool invertedResult = true;
 
             invertedResult &= request.From.x == possibility.ToX;

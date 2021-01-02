@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using Leopotam.Ecs;
 using Match3.Assets.Scripts.Components.Game.Events.Rewards;
-using Match3.Assets.Scripts.Services;
 using Match3.Assets.Scripts.Services.Pool;
 using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using Match3.Configurations;
@@ -11,7 +10,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
 {
     public sealed class HealthRewardAnimationSystem : IEcsRunSystem
     {
-        private readonly ObjectPool  _objectPool = null;
+        private readonly ObjectPool _objectPool = null;
         private readonly PlayerState _playerState = null;
         private readonly InGameSceneData _sceneData = null;
         private readonly InGameConfiguration _configuration = null;
@@ -23,7 +22,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
             {
                 HealthRewardRequest request = _filter.Get1(index);
 
-                if(request.Value == 0)
+                if (request.Value == 0)
                 {
                     continue;
                 }

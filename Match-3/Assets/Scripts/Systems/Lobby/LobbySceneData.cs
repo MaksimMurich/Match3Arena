@@ -1,5 +1,4 @@
-﻿using Match3.Assets.Scripts.UnityComponents.UI.InGame;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LobbySceneData : MonoBehaviour
 {

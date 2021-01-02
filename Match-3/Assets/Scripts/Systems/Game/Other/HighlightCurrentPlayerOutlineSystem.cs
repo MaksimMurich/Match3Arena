@@ -4,7 +4,6 @@ using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
 using Match3.Configurations;
-using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game
 {

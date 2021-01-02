@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using Leopotam.Ecs;
-using Match3.Assets.Scripts.Components.Common;
 using Match3.Components.Game;
 using Match3.Configurations;
 using UnityEngine;
@@ -13,7 +12,7 @@ namespace Match3.Systems.Game.Swap
         private readonly EcsFilter<Cell, Vector2Int, AnimateFallDownRequest> _filter = null;
 
         public void Run()
-        {            
+        {
             foreach (int index in _filter)
             {
                 EcsEntity entity = _filter.GetEntity(index);

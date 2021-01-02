@@ -43,9 +43,9 @@ namespace Match3.Configurations
         public float Combo4Configuration => _combo4RewardMultiplayer;
         public float Combo5Configuration => _combo5RewardMultiplayer;
         public BotBehaviourConfiguration BotBehaviour { get => _botBehaviour; }
-        public int  MinDeltaRating { get => _minDeltaRating;}
+        public int MinDeltaRating { get => _minDeltaRating; }
         internal float DeltaRatingRewardMultiplayer { get => _deltaRatingRewardMultiplayer; }
-        public int SaveUserSwapsCount { get => _saveUserSwapsCount;}
+        public int SaveUserSwapsCount { get => _saveUserSwapsCount; }
         public UserStateConfiguration UserStateConfiguration { get => _userStateConfiguration; }
         public AnimationsConfiguration Animation => _animationsConfiguration;
         public List<CellBackground> CellViewBackgrounds { get => _cellViewBackgrounds; }

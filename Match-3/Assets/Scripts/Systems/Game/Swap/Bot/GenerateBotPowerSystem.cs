@@ -1,9 +1,7 @@
 ﻿using Leopotam.Ecs;
 using Match3.Assets.Scripts.Services.SaveLoad;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
