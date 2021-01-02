@@ -25,7 +25,7 @@ public static class Global
     public class GlobalData
     {
         public InGameData InGame = new InGameData();
-        public LobbyData Lobby;
+        public LobbyData Lobby = new LobbyData();
         public CommonData Common;
         public PlayerData Player;
     }
