@@ -28,7 +28,7 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
 
             Global.Data.Player.RoundsCount++;
 
-            LocalSaveLoad<PlayerData>.Save(_playerData);
+            LocalSaveLoad<PlayerData>.Save(Global.Data.Player);
         }
     }
 }
