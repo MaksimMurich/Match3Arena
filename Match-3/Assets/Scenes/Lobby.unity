@@ -2486,7 +2486,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mathafaka
+  m_Text: 'Player1
+
+'
 --- !u!222 &5536529656561756416
 CanvasRenderer:
   m_ObjectHideFlags: 0
