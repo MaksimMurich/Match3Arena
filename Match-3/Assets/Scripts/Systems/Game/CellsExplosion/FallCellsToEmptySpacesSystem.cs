@@ -1,14 +1,12 @@
 ﻿using Leopotam.Ecs;
 using Match3.Components.Game;
-using Match3.Configurations;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
 {
     public sealed class FallCellsToEmptySpacesSystem : IEcsRunSystem
     {
-        private readonly GameField _gameField = null;
-        private readonly RoundConfiguration _configuration = null;
         private readonly EcsFilter<EmptySpace> _filter = null;
 
         public void Run()
@@ -20,12 +18,12 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
                 return;
             }
 
-            for (int column = 0; column < _configuration.LevelWidth; column++)
+            for (int column = 0; column < Global.Config.InGame.LevelWidth; column++)
             {
-                for (int row = 0; row < _configuration.LevelHeight; row++)
+                for (int row = 0; row < Global.Config.InGame.LevelHeight; row++)
                 {
                     Vector2Int position = new Vector2Int(column, row);
-                    EcsEntity cell = _gameField.Cells[position];
+                    EcsEntity cell = Global.Data.InGame.GameField.Cells[position];
 
                     if (!cell.Has<EmptySpace>())
                     {
@@ -39,14 +37,14 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
                     while (emptySpace)
                     {
                         extenderPosition = extenderPosition + Vector2Int.up;
-                        bool hasCellID = _gameField.Cells.ContainsKey(extenderPosition);
+                        bool hasCellID = Global.Data.InGame.GameField.Cells.ContainsKey(extenderPosition);
 
                         if (!hasCellID)
                         {
                             break;
                         }
 
-                        emptySpace = _gameField.Cells[extenderPosition].Has<EmptySpace>();
+                        emptySpace = Global.Data.InGame.GameField.Cells[extenderPosition].Has<EmptySpace>();
                     }
 
                     SwapCells(position, extenderPosition);
@@ -56,19 +54,20 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
 
         private void SwapCells(Vector2Int position, Vector2Int extenderPosition)
         {
-            bool hasCellID = _gameField.Cells.ContainsKey(extenderPosition);
+            Dictionary<Vector2Int, EcsEntity> cells = Global.Data.InGame.GameField.Cells;
+            bool hasCellID = cells.ContainsKey(extenderPosition);
 
             if (!hasCellID)
             {
                 return;
             }
 
-            EcsEntity emptyEntity = _gameField.Cells[position];
-            EcsEntity extenderEntity = _gameField.Cells[extenderPosition];
-            _gameField.Cells.Remove(position);
-            _gameField.Cells.Remove(extenderPosition);
-            _gameField.Cells.Add(position, extenderEntity);
-            _gameField.Cells.Add(extenderPosition, emptyEntity);
+            EcsEntity emptyEntity = cells[position];
+            EcsEntity extenderEntity = cells[extenderPosition];
+            cells.Remove(position);
+            cells.Remove(extenderPosition);
+            cells.Add(position, extenderEntity);
+            cells.Add(extenderPosition, emptyEntity);
             emptyEntity.Set<Vector2Int>() = extenderPosition;
             extenderEntity.Set<Vector2Int>() = position;
 

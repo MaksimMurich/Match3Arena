@@ -1,19 +1,23 @@
 ﻿using DG.Tweening;
 using Leopotam.Ecs;
+using Match3.Assets.Scripts.Components.Common;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Systems.Game.Swap
 {
     public sealed class AnimateSwapSystem : IEcsRunSystem
     {
-        private readonly RoundConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, AnimateSwapRequest>.Exclude<AnimateSwapBackRequest> _filter = null;
 
         public void Run()
         {
+            if (_filter.GetEntitiesCount() > 0)
+            {
+                Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.Swap);
+            }
+
             foreach (int index in _filter)
             {
                 EcsEntity entity = _filter.GetEntity(index);
@@ -24,8 +28,9 @@ namespace Match3.Systems.Game.Swap
 
                 Transform view = _filter.Get1(index).View.transform;
                 view.position += new Vector3(0, 0, zPosition - view.position.z);
-                view.DOMove(target, _configuration.Animation.SwapDuration)
+                view.DOMove(target, Global.Config.InGame.Animation.SwapDuration)
                     .OnComplete(() => OnSwapCompleate(entity, view));
+
             }
         }
 

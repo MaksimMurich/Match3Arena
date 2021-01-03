@@ -1,4 +1,5 @@
-﻿using Match3.Components.Game;
+﻿using Match3.Assets.Scripts.UnityComponents.UI.InGame;
+using Match3.Components.Game;
 using Match3.UnityComponents;
 using System;
 using UnityEngine;
@@ -11,22 +12,22 @@ namespace Match3.Configurations
         [SerializeField] private CellType _type;
         [Tooltip("weight of current cell, when choosing a random cell for spawn")]
         [SerializeField] private float _spawnWeight = 10;
-        [SerializeField] private int _reward = 50;
+        [SerializeField] private int _health = 50;
+        [SerializeField] private int _demage = 50;
         [SerializeField] private CellView _view = null;
-        [SerializeField] private CellView _combo4VerticalView = null;
-        [SerializeField] private CellView _combo4HorizontalView = null;
-        [SerializeField] private CellView _combo5View = null;
+        [SerializeField] private CellRewardView _healthRewardView = null;
+        [SerializeField] private CellRewardView _demageRewardView = null;
 
         private float _spawnRangeMin = -1;
         private float _spawnRangeMax = -1;
 
         public CellType Type => _type;
         public float Weight => _spawnWeight;
-        public int Reward => _reward;
+        public int Health => _health;
+        public int Demage => _demage;
         public CellView ViewExample => _view;
-        public CellView Combo4VerticalView => _combo4VerticalView;
-        public CellView Combo4HorizontalView => _combo4HorizontalView;
-        public CellView Combo5View => _combo5View;
+        public CellRewardView HealthRewardView { get => _healthRewardView; }
+        public CellRewardView DemageRewardView { get => _demageRewardView; }
 
         public void SetSpawnRange(float minValue, float maxValue)
         {

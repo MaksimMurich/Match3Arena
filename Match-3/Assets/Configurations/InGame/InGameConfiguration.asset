@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eedfce19b061294c96d81c731ab1a2d, type: 3}
+  m_Name: InGameConfiguration
+  m_EditorClassIdentifier: 
+  _targetFrameRate: 50
+  _levelWidth: 7
+  _levelHeight: 7
+  _playersMaxLife: 5000
+  _topMenuPadding: 0.3
+  _bottomPadding: 0.25
+  _minFieldPadding: 0.02
+  _minRewardableChain: 3
+  _swapMinMouseOffset: 0.5
+  _combo4RewardMultiplayer: 2
+  _combo5RewardMultiplayer: 4
+  _botBehaviour:
+    _difficultPossibility:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.08245221
+        value: 0.24152471
+        inSlope: 1.7126487
+        outSlope: 1.7126487
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.47758615
+        outWeight: 0.26333442
+      - serializedVersion: 3
+        time: 0.27381718
+        value: 0.41075787
+        inSlope: 0.6240824
+        outSlope: 0.6240824
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.10262572
+      - serializedVersion: 3
+        time: 0.75351876
+        value: 0.54712236
+        inSlope: 0.4097387
+        outSlope: 0.4097387
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33993497
+      - serializedVersion: 3
+        time: 0.90311736
+        value: 0.6998289
+        inSlope: 2.1144814
+        outSlope: 2.1144814
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _minThinkingTime: 0.87
+    _maxThinkingTime: 1.98
+    _thinkingTimeDeviationProportion: 1.5
+    _fromSelectToSwapDelay: 0.5
+  _minDeltaRating: 9
+  _deltaRatingRewardMultiplayer: 0.3
+  _saveUserSwapsCount: 100
+  _userStateConfiguration: {fileID: 11400000, guid: 5d5e88ac09769ff44b368af6a3e4ce67,
+    type: 2}
+  _animationsConfiguration:
+    _explodedRewardUpAnimatingDuration: 2
+    _randomAvatarsCount: 30
+    _randomAvatarsDuration: 6
+    _setectedCellScaleSeconds: 0.3
+    _setectedCellScale: 1.4
+    _swapDuration: 0.4
+    _explosionScale: 0.05
+    _explosionSeconds: 0.5
+    _updateCellPositionSeconds: 0.5
+    _startGameBetAccumulationDurationSec: 4
+    _updateLifeTime: 2
+    _upCellOnAnimate: {x: 0, y: 0, z: -0.1}
+  _cellViewBackgrounds:
+  - {fileID: 9008755294039955117, guid: 9ac9fe9ec132111429f18b01d55a164e, type: 3}
+  - {fileID: 3381364644821247909, guid: e31a29b336f4ffc48893f4904c168a58, type: 3}
+  _botNames: {fileID: 4900000, guid: d7ca3c8a6673ade4b8dc4c322ac49807, type: 3}
+  _sounds: {fileID: 11400000, guid: 9e4e56756a984e04c9d6b2f11d46ea7c, type: 2}
+  _cellConfigurations:
+  - _type: 1
+    _spawnWeight: 200
+    _health: 0
+    _demage: 100
+    _view: {fileID: 1460295296006681145, guid: ecae1684d2773c041b5e44983b0a2f17, type: 3}
+    _healthRewardView: {fileID: 2440120014140769780, guid: eb5e9daeef6f8cb4cbfd380d854c5a0b,
+      type: 3}
+    _demageRewardView: {fileID: 10508857769095080, guid: ca6b3fea773298c4d89b51b3dc6bfc30,
+      type: 3}
+  - _type: 2
+    _spawnWeight: 200
+    _health: 50
+    _demage: 0
+    _view: {fileID: 3507420653472728697, guid: 678c4ed5747337244a4a05d5580902a5, type: 3}
+    _healthRewardView: {fileID: 2440120014140769780, guid: eb5e9daeef6f8cb4cbfd380d854c5a0b,
+      type: 3}
+    _demageRewardView: {fileID: 10508857769095080, guid: ca6b3fea773298c4d89b51b3dc6bfc30,
+      type: 3}
+  - _type: 3
+    _spawnWeight: 200
+    _health: 15
+    _demage: 15
+    _view: {fileID: 8306811637373637970, guid: 32f48365842a43c4998507df339e84e0, type: 3}
+    _healthRewardView: {fileID: 2440120014140769780, guid: eb5e9daeef6f8cb4cbfd380d854c5a0b,
+      type: 3}
+    _demageRewardView: {fileID: 10508857769095080, guid: ca6b3fea773298c4d89b51b3dc6bfc30,
+      type: 3}
+  - _type: 4
+    _spawnWeight: 150
+    _health: 0
+    _demage: 50
+    _view: {fileID: 6851294913485200774, guid: 9692d86436b13164ea8ea84c3d49a040, type: 3}
+    _healthRewardView: {fileID: 2440120014140769780, guid: eb5e9daeef6f8cb4cbfd380d854c5a0b,
+      type: 3}
+    _demageRewardView: {fileID: 10508857769095080, guid: ca6b3fea773298c4d89b51b3dc6bfc30,
+      type: 3}

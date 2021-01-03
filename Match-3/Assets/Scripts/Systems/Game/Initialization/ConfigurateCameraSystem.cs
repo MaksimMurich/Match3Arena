@@ -6,27 +6,34 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization
 {
     public sealed class ConfigurateCameraSystem : IEcsInitSystem
     {
-        private readonly InGameSceneData _sceneData = null;
-        private readonly RoundConfiguration _configuration = null;
-
         public void Init()
         {
-            float fillScreenPart = 1/( 1 + 2 * _configuration.MinFieldPadding);
-            float cameraSize = _configuration.LevelHeight * (1 + _configuration.TopMenuPadding) / fillScreenPart / 2f;
-            float cameraOffsetY = _configuration.TopMenuPadding * _configuration.LevelHeight / 2;
-            float cameraViewWidth = cameraSize * Screen.width / (float)Screen.height ;
+            InGameConfiguration config = Global.Config.InGame;
+            InGameViews views = Global.Views.InGame;
 
-            if (cameraViewWidth < _configuration.LevelWidth / 2f)
+            Application.targetFrameRate = config.TargetFrameRate;
+
+            float fillScreenPart = 1 / (1 + 2 * config.MinFieldPadding);
+            float cameraSize = config.LevelHeight * (1 + config.TopMenuPadding + config.BottomPadding) / fillScreenPart / 2f;
+            float cameraOffsetY = (config.TopMenuPadding - config.BottomPadding) * config.LevelHeight / 2;
+            float cameraViewWidth = cameraSize * Screen.width / (float)Screen.height;
+
+            if (cameraViewWidth < config.LevelWidth / 2f)
             {
-                cameraSize *= (1 + 2 * _configuration.MinFieldPadding) * _configuration.LevelWidth / 2f / cameraViewWidth;
+                cameraSize *= (1 + 2 * config.MinFieldPadding) * config.LevelWidth / 2f / cameraViewWidth;
             }
 
-            _sceneData.Camera.orthographic = true;
-            _sceneData.Camera.orthographicSize = cameraSize;
+            float cameraScale = cameraSize / views.Camera.orthographicSize;
+            views.Background.localScale *= cameraScale;
 
-            float cameraXPosition = (_configuration.LevelWidth - 1) / 2f;
-            float cameraYPosition = cameraOffsetY + (_configuration.LevelHeight - 1f) / 2f;
-            _sceneData.Camera.transform.position = new Vector3(cameraXPosition, cameraYPosition, -10);
+            views.Camera.orthographic = true;
+            views.Camera.orthographicSize = cameraSize;
+
+            float cameraXPosition = (config.LevelWidth - 1) / 2f;
+            float cameraYPosition = cameraOffsetY + (config.LevelHeight - 1f) / 2f;
+            views.Camera.transform.position = new Vector3(cameraXPosition, cameraYPosition, -10);
+
+            views.Background.position = new Vector3(cameraXPosition, cameraYPosition, 100);
         }
     }
 }

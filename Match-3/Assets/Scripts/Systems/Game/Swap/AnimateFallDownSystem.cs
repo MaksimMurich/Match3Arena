@@ -1,14 +1,12 @@
 ﻿using DG.Tweening;
 using Leopotam.Ecs;
 using Match3.Components.Game;
-using Match3.Configurations;
 using UnityEngine;
 
 namespace Match3.Systems.Game.Swap
 {
     public sealed class AnimateFallDownSystem : IEcsRunSystem
     {
-        private readonly RoundConfiguration _configuration = null;
         private readonly EcsFilter<Cell, Vector2Int, AnimateFallDownRequest> _filter = null;
 
         public void Run()
@@ -23,12 +21,12 @@ namespace Match3.Systems.Game.Swap
 
                 Transform view = _filter.Get1(index).View.transform;
                 view.position += new Vector3(0, 0, zPosition - view.position.z);
-                view.DOMove(target, _configuration.Animation.CellMovingSeconds)
-                    .OnComplete(() => OnFallenDown(entity, view));
+                view.DOMove(target, Global.Config.InGame.Animation.CellMovingSeconds)
+                    .OnComplete(() => OnFallenDown(entity, view, index == 0));
             }
         }
 
-        private void OnFallenDown(EcsEntity entity, Transform view)
+        private void OnFallenDown(EcsEntity entity, Transform view, bool playAudio)
         {
             entity.Unset<ChangeFieldAnimating>();
             view.transform.position -= new Vector3(0, 0, view.transform.position.z);

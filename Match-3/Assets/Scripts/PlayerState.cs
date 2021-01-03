@@ -2,6 +2,23 @@
 {
     public class PlayerState
     {
-        public int Score = 0;
+        public readonly float MaxLife;
+
+        public int Score;
+        public int CurrentBet;
+        public bool Active;
+        public float CurrentLife;
+        public int StepsCount;
+        public int SumOpponentDemage;
+        public int SumHealseRestored;
+        public int DeltaRatingReward;
+        internal int DeltaRatingUnreward;
+
+        public PlayerState(float maxLife, int bet)
+        {
+            MaxLife = maxLife;
+            CurrentLife = maxLife;
+            CurrentBet = bet;
+        }
     }
 }
