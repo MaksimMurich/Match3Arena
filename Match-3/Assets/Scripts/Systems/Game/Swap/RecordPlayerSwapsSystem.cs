@@ -28,14 +28,12 @@ namespace Match3.Systems.Game.Swap
         public void Run()
         {
             //@TODO check is correct swap and field didn't lock and only then record swap
+            _inGameData = Global.Data.InGame;
 
-            
             if (!_inGameData.PlayerState.Active || _filter.GetEntitiesCount() == 0)
             {
                 return;
             }
-
-            _inGameData = Global.Data.InGame;
 
             SwapRequest swap = _filter.Get3(0);
             bool swapHasResult = GameFieldAnalyst.CheckIsCorrectSwap(swap.From, swap.To - swap.From, _inGameData.GameField.Cells);
