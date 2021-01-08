@@ -21,6 +21,7 @@ namespace Match3.Configurations
         [SerializeField] private int _minDeltaRating = 10; // min delta player rating for win or lose round
         [SerializeField] private float _deltaRatingRewardMultiplayer = 0.1f;
         [SerializeField] private int _saveUserSwapsCount = 100;
+        [SerializeField] private float _maxTurnTime = 30; // max time in seconds to make a turn before auto end of the turn
 
         [SerializeField] private UserStateConfiguration _userStateConfiguration = null;
         [SerializeField] private AnimationsConfiguration _animationsConfiguration = null;
@@ -48,5 +49,6 @@ namespace Match3.Configurations
         public TextAsset BotNames { get => _botNames; } //TODO add names for random selection
         public CellConfiguration[] CellConfigurations => _cellConfigurations;
         public InGameSoundsConfiguration Sounds { get => _sounds; }
-    }
+		public float MaxTurnTime { get => _maxTurnTime; }
+	}
 }

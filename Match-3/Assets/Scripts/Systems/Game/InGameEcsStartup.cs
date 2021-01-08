@@ -145,6 +145,9 @@ namespace Match3
                 .Add(new CreateCellsViewSystem())
                 .Add(new AnimateCreatedViewSystem())
 
+                // time management
+                .Add(new ManageTurnTimeSystem())
+
                 .OneFrame<PlayerChangedEvent>()
                 .Add(new ChangeActivePlayerSystem()) // processing NextPlayerRequest
                 .Add(new HighlightCurrentPlayerOutlineSystem())
