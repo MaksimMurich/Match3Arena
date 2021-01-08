@@ -147,6 +147,7 @@ namespace Match3
 
                 // time management
                 .Add(new ManageTurnTimeSystem())
+                .Add(new ManageTurnTimeViewSystem())
 
                 .OneFrame<PlayerChangedEvent>()
                 .Add(new ChangeActivePlayerSystem()) // processing NextPlayerRequest
