@@ -5,11 +5,11 @@ using Match3.Components.Game.Events;
 
 namespace Match3.Systems.Game {
     sealed class ManageTurnTimeSystem : IEcsRunSystem, IEcsInitSystem {
-		private readonly EcsFilter<NextPlayerRequest> _nextPlayerRequestsfilter = null;
 		private readonly EcsFilter<ResetTurnTimerRequest> _resetTurnTimerRequestsfilter = null;
-        private readonly EcsFilter<EndRoundRequest> _endRoundRequestsFilter = null;
+		private readonly EcsFilter<SwapRequest> _swapFilter = null;
+		private readonly EcsFilter<PlayerChangedEvent> _playerChanged = null;
 
-        private float _timeRamain = 1; // value>0 needed to avoid starting timer before starting turn
+        private float _timeRamain = Global.Config.InGame.MaxTurnTime; // value>0 needed to avoid starting timer before starting turn
         private bool _isTimerActive = false;
 
 		public void Init()
@@ -18,43 +18,42 @@ namespace Match3.Systems.Game {
             sequence.SetDelay(Global.Config.InGame.Animation.SelectFirstPlayerDuration);
             sequence.OnComplete(() =>
             {
+                _isTimerActive = true;
                 ResetTimeRemain();
             });
         }
 
-		void IEcsRunSystem.Run () {
-            bool needResetTimer = _resetTurnTimerRequestsfilter.GetEntitiesCount() != 0;
-			bool needChangePlayer = _nextPlayerRequestsfilter.GetEntitiesCount() > 0;
+        void IEcsRunSystem.Run()
+        {
+            _isTimerActive = _isTimerActive && _swapFilter.GetEntitiesCount() == 0;
+            _isTimerActive = _isTimerActive || _playerChanged.GetEntitiesCount() > 0;
 
-			if (needChangePlayer)
-			{
-                ResetTimeRemain();               
+            bool needResetTimer = _playerChanged.GetEntitiesCount() > 0;
+            if (needResetTimer)
+            {
+                ResetTimeRemain();
             }
-			else
-			{
-                if (needResetTimer)
-                {
-                    ResetTimeRemain();
-                }
 
-                if (_isTimerActive)// TODO make 1 update in second
-                {
-                    _timeRamain -= Time.deltaTime;
-                    EcsEntity timerUpdateRequest = Global.Data.InGame.World.NewEntity();
-                    timerUpdateRequest.Set<UpdateTurnTimerViewRequest>().RemainTime = _timeRamain;
-                }
+            if (_isTimerActive)
+            {
+                _timeRamain -= Time.deltaTime;
+                EcsEntity timerUpdateRequest = Global.Data.InGame.World.NewEntity();
+                timerUpdateRequest.Set<UpdateTurnTimerViewRequest>().RemainTime = _timeRamain;
+            }
 
-                if (_timeRamain <= 0)
-                {
-                    Global.Data.InGame.World.NewEntity().Set<NextPlayerRequest>();
-                    ResetTimeRemain();
-                }
+            if (_timeRamain <= 0)
+            {
+                Global.Data.InGame.World.NewEntity().Set<NextPlayerRequest>();
+                ResetTimeRemain();
             }
         }
 
         private void ResetTimeRemain()
-		{
-            _timeRamain = Global.Config.InGame.MaxTurnTime+2; // additional time over the time, setted in config to make such time in-game
+        {
+            _timeRamain = Global.Config.InGame.MaxTurnTime; // additional time over the time, setted in config to make such time in-game
+            
+            EcsEntity timerUpdateRequest = Global.Data.InGame.World.NewEntity();
+            timerUpdateRequest.Set<UpdateTurnTimerViewRequest>().RemainTime = _timeRamain;
         }
 	}
 }

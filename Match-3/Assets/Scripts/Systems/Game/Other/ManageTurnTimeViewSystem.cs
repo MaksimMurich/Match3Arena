@@ -1,5 +1,6 @@
 using Leopotam.Ecs;
 using Match3.Components.Game.Events;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ namespace Match3.Systems.Game {
     sealed class ManageTurnTimeViewSystem : IEcsRunSystem, IEcsInitSystem {
 
         private readonly EcsFilter<UpdateTurnTimerViewRequest> _updateTurnTimerRequestsFilter = null;
+        private readonly EcsFilter<NextPlayerRequest> _nextPlayerRequestsfilter = null;
 
         private bool _isTimerUpdateNeeded;
         private const string _defaultTimerView = "0";
@@ -20,10 +22,14 @@ namespace Match3.Systems.Game {
 		{
 			_botView.text = _defaultTimerView;
 			_playerView.text = _defaultTimerView;
+
+            Hide();
         }
 
         public void Run()
         {
+            DeactivateIfNeed();
+
 			bool timeChanged = _updateTurnTimerRequestsFilter.GetEntitiesCount() > 0;
 			if (!timeChanged)
             {
@@ -47,5 +53,19 @@ namespace Match3.Systems.Game {
                 //_currentTimerView. *= _scaleCoefficient;
             }
         }
-	}
+
+        private void DeactivateIfNeed()
+        {
+            if(_nextPlayerRequestsfilter.GetEntitiesCount() > 0)
+            {
+                Hide();
+            }
+        }
+
+        private void Hide()
+        {
+            _botView.gameObject.SetActive(false);
+            _playerView.gameObject.SetActive(false);
+        }
+    }
 }

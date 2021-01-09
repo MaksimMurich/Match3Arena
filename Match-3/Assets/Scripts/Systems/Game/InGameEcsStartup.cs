@@ -147,12 +147,12 @@ namespace Match3
 
                 // time management
                 .OneFrame<UpdateTurnTimerViewRequest>()
-                .Add(new ManageTurnTimeSystem())// processing NextPlayerRequest, UpdateTurnTimerViewRequest
+                .Add(new ManageTurnTimeSystem())// processing NextPlayerRequest
                 .Add(new ManageTurnTimeViewSystem())
-                .OneFrame<ResetTurnTimerRequest>()
 
+                .OneFrame<ResetTurnTimerRequest>()
                 .OneFrame<PlayerChangedEvent>()
-                .Add(new ChangeActivePlayerSystem()) // processing NextPlayerRequest, ResetTurnTimerRequest
+                .Add(new ChangeActivePlayerSystem()) // processing NextPlayerRequest
                 .Add(new HighlightCurrentPlayerOutlineSystem())
 
                 // on round ended
