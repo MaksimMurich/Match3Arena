@@ -22,6 +22,9 @@ namespace Match3.Configurations
         [SerializeField] private float _deltaRatingRewardMultiplayer = 0.1f;
         [SerializeField] private int _saveUserSwapsCount = 100;
         [SerializeField] private float _maxTurnTime = 30; // max time in seconds to make a turn before auto end of the turn
+        [SerializeField] private float _turnTimerSignalTime = 5; // time in seconds under which turn`s timer should go red and pulse
+        [SerializeField] private float _turnTimerScaleCoefficient = 5; // coefficient to scale turns`s timer each tick
+        [SerializeField] private int _userStepDelay = 3;
 
         [SerializeField] private UserStateConfiguration _userStateConfiguration = null;
         [SerializeField] private AnimationsConfiguration _animationsConfiguration = null;
@@ -30,7 +33,7 @@ namespace Match3.Configurations
         [SerializeField] private InGameSoundsConfiguration _sounds = null;
         [SerializeField] private CellConfiguration[] _cellConfigurations = null;
 
-        public int TargetFrameRate { get => _targetFrameRate; }
+		public int TargetFrameRate { get => _targetFrameRate; }
         public int LevelHeight { get => _levelHeight; }
         public int LevelWidth { get => _levelWidth; }
         internal float PlayersMaxLife { get => _playersMaxLife; }
@@ -50,5 +53,8 @@ namespace Match3.Configurations
         public CellConfiguration[] CellConfigurations => _cellConfigurations;
         public InGameSoundsConfiguration Sounds { get => _sounds; }
 		public float MaxTurnTime { get => _maxTurnTime; }
+		public float TurnTimerSignalTime { get => _turnTimerSignalTime; }
+		public float TurnTimerScaleCoefficient { get => _turnTimerScaleCoefficient; }
+		public int UserStepDelay { get => _userStepDelay; set => _userStepDelay = value; }
 	}
 }

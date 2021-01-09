@@ -12,7 +12,7 @@
         public int SumOpponentDemage;
         public int SumHealseRestored;
         public int DeltaRatingReward;
-        internal int DeltaRatingUnreward;
+        public int DeltaRatingUnreward;
 
         public PlayerState(float maxLife, int bet)
         {

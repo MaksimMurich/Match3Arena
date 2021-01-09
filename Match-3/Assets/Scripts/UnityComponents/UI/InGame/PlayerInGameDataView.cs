@@ -8,6 +8,7 @@ namespace Match3.Assets.Scripts.UnityComponents.UI.InGame
         [HideInInspector] public Text Nick;
         [HideInInspector] public Text Rating;
 
+        public Text TurnTimer;
         public RectTransform LifeLine;
         public RectTransform IncreaseLifeLine;
         public RectTransform DecreaseLifeLine;

@@ -31,6 +31,7 @@ namespace Match3.Assets.Scripts.Systems.Game
 
             _needChangeActivePlayer = false;
             Global.Data.InGame.PlayerState.Active = !Global.Data.InGame.PlayerState.Active;
+            Global.Data.InGame.World.NewEntity().Set<ResetTurnTimerRequest>();
 
             if (!Global.Data.InGame.PlayerState.Active)
             {

@@ -72,15 +72,15 @@ namespace Match3
                 .Add(new SelectFirstPlayerSystem())
                 .Add(new SelectFirstPlayerAnimationSystem())
                 .Add(new HighlightFirstStepPlayerOutlineSystem())
-
+                
                 // ----------- user input event handlers --------------
                 //select cell user inputs
                 .Add(new UserSelectCellSystem())
                 .Add(new ScaleSelectedCellAnimationSystem())
                 .OneFrame<SelectCellAnimationRequest>()
 
-                .OneFrame<NextPlayerRequest>() // on user or bot swap cells
 
+                .OneFrame<NextPlayerRequest>() // on user or bot swap cells
                 // user swap
                 .Add(new UserSwapInputSystem())
 
@@ -146,11 +146,13 @@ namespace Match3
                 .Add(new AnimateCreatedViewSystem())
 
                 // time management
-                .Add(new ManageTurnTimeSystem())
+                .OneFrame<UpdateTurnTimerViewRequest>()
+                .Add(new ManageTurnTimeSystem())// processing NextPlayerRequest, UpdateTurnTimerViewRequest
                 .Add(new ManageTurnTimeViewSystem())
+                .OneFrame<ResetTurnTimerRequest>()
 
                 .OneFrame<PlayerChangedEvent>()
-                .Add(new ChangeActivePlayerSystem()) // processing NextPlayerRequest
+                .Add(new ChangeActivePlayerSystem()) // processing NextPlayerRequest, ResetTurnTimerRequest
                 .Add(new HighlightCurrentPlayerOutlineSystem())
 
                 // on round ended

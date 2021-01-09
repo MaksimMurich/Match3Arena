@@ -1,12 +1,51 @@
 using Leopotam.Ecs;
+using Match3.Components.Game.Events;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace Match3 {
-    sealed class ManageTurnTimeViewSystem : IEcsRunSystem {
-        // auto-injected fields.
-        readonly EcsWorld _world = null;
-        
-        void IEcsRunSystem.Run () {
-            // add your run code here.
+namespace Match3.Systems.Game {
+    sealed class ManageTurnTimeViewSystem : IEcsRunSystem, IEcsInitSystem {
+
+        private readonly EcsFilter<UpdateTurnTimerViewRequest> _updateTurnTimerRequestsFilter = null;
+
+        private bool _isTimerUpdateNeeded;
+        private const string _defaultTimerView = "0";
+        private float _timeToSignal = Global.Config.InGame.TurnTimerSignalTime;
+        private float _scaleCoefficient = Global.Config.InGame.TurnTimerScaleCoefficient;
+        private Text _botView = Global.Views.InGame.BotDataView.TurnTimer;
+        private Text _playerView = Global.Views.InGame.PlayerDataView.TurnTimer;
+        private string _debugTemp;
+
+		public void Init()
+		{
+			_botView.text = _defaultTimerView;
+			_playerView.text = _defaultTimerView;
         }
-    }
+
+        public void Run()
+        {
+			bool timeChanged = _updateTurnTimerRequestsFilter.GetEntitiesCount() > 0;
+			if (!timeChanged)
+            {
+                return;
+            }
+
+            UpdateTurnTimerViewRequest updateTurnTimerViewRequest = _updateTurnTimerRequestsFilter.Get1(0);
+            int timeRemain = (int)updateTurnTimerViewRequest.RemainTime;
+            int timeViewValue = timeRemain - Global.Config.InGame.UserStepDelay;
+            timeViewValue = Mathf.Max(timeViewValue, 0);
+
+            _botView.text = timeViewValue.ToString();
+            _playerView.text = timeViewValue.ToString();
+
+            bool isPlayerTime = Global.Data.InGame.PlayerState.Active;
+            _botView.gameObject.SetActive(!isPlayerTime);
+            _playerView.gameObject.SetActive(isPlayerTime);
+
+            if (timeRemain <= _timeToSignal)
+            {
+                //_currentTimerView. *= _scaleCoefficient;
+            }
+        }
+	}
 }

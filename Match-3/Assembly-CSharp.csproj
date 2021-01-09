@@ -62,7 +62,7 @@
     <Compile Include="Assets\Scripts\Components\Game\Events\Rewards\DemageRewardRequest.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Swap\SwapSystem.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Swap\Rewards\ActivateSwapRewardsSystem.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\CreateCellViewRequest.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\CreateCellViewRequest.cs" />
     <Compile Include="Assets\Scripts\Configurations\ArenaConfig.cs" />
     <Compile Include="Assets\Scripts\UnityComponents\UI\InGame\ScoreView.cs" />
     <Compile Include="Assets\Scripts\Components\Game\Events\Swap\SwapPossibility.cs" />
@@ -85,15 +85,15 @@
     <Compile Include="Assets\Scripts\Systems\Game\Initialization\FirstPlayer\SelectFirstPlayerAnimationSystem.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\InGameEcsStartup.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Other\UnrewardPlayerOnStartRoundSystem.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\EmptySpace.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\EmptySpace.cs" />
     <Compile Include="Assets\Scripts\Components\Game\Events\ActivateBonusRequest.cs" />
     <Compile Include="Assets\Scripts\UnityComponents\UI\InGame\CellRewardViewTable.cs" />
     <Compile Include="Assets\Scripts\UnityComponents\UI\InGame\CellRewardView.cs" />
     <Compile Include="Assets\Scripts\Components\Common\SetAudioEffectsActiveRequest.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\Selected.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\AnimateExplosion.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\Selected.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\AnimateExplosion.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\InGameViews.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\AnimateFallDownRequest.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\AnimateFallDownRequest.cs" />
     <Compile Include="Assets\Scripts\Configurations\CommonConfiguration.cs" />
     <Compile Include="Assets\Scripts\Configurations\InGameSoundsConfiguration.cs" />
     <Compile Include="Assets\Scripts\Data\InGame\GameField.cs" />
@@ -106,6 +106,7 @@
     <Compile Include="Assets\Scripts\Configurations\BotBehaviourConfiguration.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\CellsExplosion\DestroyExplodedCellsViewSystem.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\UI\RoundResultPopupSystem.cs" />
+    <Compile Include="Assets\Scripts\Systems\Game\Other\ManageTurnTimeViewSystem.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Swap\Bot\GenerateBotDifficultSystem.cs" />
     <Compile Include="Assets\Scripts\Services\GameFieldAnalyst.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Initialization\InitializeFieldSystem.cs" />
@@ -113,7 +114,7 @@
     <Compile Include="Assets\Scripts\Systems\Game\Swap\AnimateCreatedViewSystem.cs" />
     <Compile Include="Assets\Scripts\Configurations\UserStateConfiguration.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Swap\Bot\BotWaitSwapSystem.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\ChainEvent.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\ChainEvent.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Initialization\Bet\BetPulseScalesOnStartAnimationSystem.cs" />
     <Compile Include="Assets\Scripts\Services\Pool\IClone.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\UserInputs\DeselectCellSystem.cs" />
@@ -122,9 +123,9 @@
     <Compile Include="Assets\Scripts\Systems\Game\CellsExplosion\FallCellsToEmptySpacesSystem.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Other\ChangeActivePlayerSystem.cs" />
     <Compile Include="Assets\ExternalAssets\LeoEcs\EcsHelpers.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\Cell.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\Cell.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Initialization\ConfigurateCameraSystem.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\FirstPlayerSelectionAnimating.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\FirstPlayerSelectionAnimating.cs" />
     <Compile Include="Assets\Scripts\Components\Game\Events\Swap\SwapRewards.cs" />
     <Compile Include="Assets\Scripts\Configurations\CellConfiguration.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Initialization\Bet\BetAccumulationAnimationSystem.cs" />
@@ -169,9 +170,9 @@
     <Compile Include="Assets\Scripts\Systems\Game\UserInputs\UserSelectCellSystem.cs" />
     <Compile Include="Assets\Scripts\UnityComponents\UI\InGame\RoundResultPopupView.cs" />
     <Compile Include="Assets\Scripts\Services\SaveLoad\LocalSaveLoad.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\ChangeFieldAnimating.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\CellType.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\ChargedToExplosion.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\ChangeFieldAnimating.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\CellType.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\ChargedToExplosion.cs" />
     <Compile Include="Assets\Scripts\Components\Game\Events\PlayerChangedEvent.cs" />
     <Compile Include="Assets\Scripts\UnityComponents\UI\InGame\BetView.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Swap\AnimateSwapBackSystem.cs" />
@@ -182,7 +183,7 @@
     <Compile Include="Assets\ExternalAssets\LeoEcs\UnityIntegration\Runtime\EditorHelpers.cs" />
     <Compile Include="Assets\Scripts\UnityComponents\CellBackground.cs" />
     <Compile Include="Assets\Scripts\PlayerState.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\AnimateCreatedViewRequest.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\AnimateCreatedViewRequest.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Swap\RecordPlayerSwapsSystem.cs" />
     <Compile Include="Assets\Scripts\Components\Game\Events\EndRoundRequest.cs" />
     <Compile Include="Assets\Scripts\Components\Game\Events\Rewards\RewardRequest.cs" />
@@ -193,7 +194,8 @@
     <Compile Include="Assets\Scripts\Systems\Game\Swap\AnimateSwapSystem.cs" />
     <Compile Include="Assets\ExternalAssets\LeoEcs\EcsEntity.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Swap\Bot\BotMakeSwapDecision.cs" />
-    <Compile Include="Assets\Scripts\Systems\Game\Other\ManageTurnTimeViewSystem.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\ResetTurnTimerRequest.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\UpdateTurnTimerViewRequest.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\ExternalAssets\polyperfect\Fancy GUI Kit\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
