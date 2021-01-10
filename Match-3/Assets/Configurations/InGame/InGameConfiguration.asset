@@ -90,6 +90,9 @@ MonoBehaviour:
   _deltaRatingRewardMultiplayer: 0.3
   _saveUserSwapsCount: 100
   _maxTurnTime: 15
+  _turnTimerSignalTime: 5
+  _turnTimerScaleCoefficient: 10
+  _userStepDelay: 3
   _userStateConfiguration: {fileID: 11400000, guid: 5d5e88ac09769ff44b368af6a3e4ce67,
     type: 2}
   _animationsConfiguration:
