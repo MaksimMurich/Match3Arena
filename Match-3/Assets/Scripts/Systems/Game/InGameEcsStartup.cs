@@ -145,15 +145,15 @@ namespace Match3
                 .Add(new CreateCellsViewSystem())
                 .Add(new AnimateCreatedViewSystem())
 
+                .OneFrame<PlayerChangedEvent>()
+                .Add(new ChangeActivePlayerSystem()) // processing NextPlayerRequest and TurnTimeIsUpEvent
+                .Add(new HighlightCurrentPlayerOutlineSystem())
+
                 // time management
+                .OneFrame<TurnTimeIsUpEvent>()
                 .OneFrame<UpdateTurnTimerViewRequest>()
                 .Add(new ManageTurnTimeSystem())// processing NextPlayerRequest
                 .Add(new ManageTurnTimeViewSystem())
-
-                .OneFrame<ResetTurnTimerRequest>()
-                .OneFrame<PlayerChangedEvent>()
-                .Add(new ChangeActivePlayerSystem()) // processing NextPlayerRequest
-                .Add(new HighlightCurrentPlayerOutlineSystem())
 
                 // on round ended
                 .Add(new EndRoundRewardPlayerSystem())

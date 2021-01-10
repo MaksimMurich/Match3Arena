@@ -1,7 +1,6 @@
 ﻿using Leopotam.Ecs;
 using Match3.Components.Game;
 using Match3.Components.Game.Events;
-using UnityEngine;
 
 namespace Match3.Assets.Scripts.Systems.Game
 {
@@ -9,7 +8,8 @@ namespace Match3.Assets.Scripts.Systems.Game
     {
         private bool _needChangeActivePlayer;
 
-        private readonly EcsFilter<NextPlayerRequest> _filter = null;
+        private readonly EcsFilter<NextPlayerRequest> _nextPlayerRequestFilter = null;
+        private readonly EcsFilter<TurnTimeIsUpEvent> _timeIsUpFilter = null;
         private readonly EcsFilter<ChangeFieldAnimating> _fieldChangers = null;
         private readonly EcsFilter<AnimateExplosion> _explosionAnimations = null;
         private readonly EcsFilter<ChainEvent> _chains = null;
@@ -17,7 +17,7 @@ namespace Match3.Assets.Scripts.Systems.Game
 
         public void Run()
         {
-            if (_filter.GetEntitiesCount() > 0)
+            if (_nextPlayerRequestFilter.GetEntitiesCount() > 0 || _timeIsUpFilter.GetEntitiesCount() > 0)
             {
                 _needChangeActivePlayer = true;
                 return; // skip one frame before change active player for locker animations activation
@@ -32,14 +32,8 @@ namespace Match3.Assets.Scripts.Systems.Game
 
             _needChangeActivePlayer = false;
             Global.Data.InGame.PlayerState.Active = !Global.Data.InGame.PlayerState.Active;
-            Global.Data.InGame.World.NewEntity().Set<ResetTurnTimerRequest>();
-
-            if (!Global.Data.InGame.PlayerState.Active)
-            {
-                EcsEntity makeSwapRequest = Global.Data.InGame.World.NewEntity();
-                makeSwapRequest.Set<PlayerChangedEvent>();
-            }
-
+            Global.Data.InGame.World.NewEntity().Set<PlayerChangedEvent>();
+           
             foreach (int index in _selected)
             {
                 _selected.GetEntity(index).Unset<Selected>();

@@ -51,7 +51,7 @@ namespace Match3.Systems.Game {
 
             UpdateTurnTimerViewRequest updateTurnTimerViewRequest = _updateTurnTimerRequestsFilter.Get1(0);
             int timeRemain = (int)updateTurnTimerViewRequest.TimeRamain;
-            int timeViewValue = timeRemain - Global.Config.InGame.UserStepDelay;
+            int timeViewValue = timeRemain;
             timeViewValue = Mathf.Max(timeViewValue, 0);
 
             _botView.text = timeViewValue.ToString();
