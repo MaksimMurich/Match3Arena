@@ -9,7 +9,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
     public sealed class BotWaitSwapSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private readonly EcsFilter<PlayerChangedEvent> _playerChangeRequestsFilter = null;
+        private readonly EcsFilter<PlayerChangedEvent> _playerChangedEventFilter = null;
 
         private float _minBotThinkingTime;
         private float _maxBotThinkingTime;
@@ -31,7 +31,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
             bool botIsActive = !Global.Data.InGame.PlayerState.Active;
             bool roundEnded = Global.Data.InGame.PlayerState.CurrentLife <= 0 || OpponentState.CurrentLife <= 0;
 
-            if (roundEnded || _playerChangeRequestsFilter.GetEntitiesCount() == 0 || !botIsActive)
+            if (roundEnded || _playerChangedEventFilter.GetEntitiesCount() == 0 || !botIsActive)
             {
                 return;
             }

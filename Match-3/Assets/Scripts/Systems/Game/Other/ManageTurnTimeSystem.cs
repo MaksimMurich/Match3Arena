@@ -5,13 +5,13 @@ using Match3.Components.Game.Events;
 
 namespace Match3.Systems.Game {
     sealed class ManageTurnTimeSystem : IEcsRunSystem, IEcsInitSystem {
-		private readonly EcsFilter<ResetTurnTimerRequest> _resetTurnTimerRequestsfilter = null;
 		private readonly EcsFilter<SwapRequest> _swapFilter = null;
 		private readonly EcsFilter<PlayerChangedEvent> _playerChanged = null;
 
         private int _timeViewRemain = 0;
         private bool _isTimerActive = false;
-        private float _timeRemain = Global.Config.InGame.MaxTurnTime;
+        private static readonly int _expirationDelay = Global.Config.InGame.ExpirationDelay;
+        private float _timeRemain = Global.Config.InGame.MaxTurnTime + _expirationDelay;
 
 		public void Init()
 		{
@@ -47,20 +47,20 @@ namespace Match3.Systems.Game {
 
             if (_timeRemain <= 0)
             {
-                Global.Data.InGame.World.NewEntity().Set<NextPlayerRequest>();
+                Global.Data.InGame.World.NewEntity().Set<TurnTimeIsUpEvent>();
                 ResetTimeRemain();
             }
         }
 
         private void ResetTimeRemain()
         {
-            _timeRemain = Global.Config.InGame.MaxTurnTime;
+            _timeRemain = Global.Config.InGame.MaxTurnTime + _expirationDelay;
             UpdateView();
         }
 
         private void UpdateView()
 		{
-            _timeViewRemain = (int)_timeRemain;
+            _timeViewRemain = Mathf.Max(0, (int)_timeRemain - _expirationDelay);
             EcsEntity timerUpdateRequest = Global.Data.InGame.World.NewEntity();
             timerUpdateRequest.Set<UpdateTurnTimerViewRequest>().TimeRamain = _timeViewRemain;
         }
