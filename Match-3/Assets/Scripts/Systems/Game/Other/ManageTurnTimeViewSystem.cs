@@ -10,34 +10,47 @@ namespace Match3.Systems.Game {
         private readonly EcsFilter<UpdateTurnTimerViewRequest> _updateTurnTimerRequestsFilter = null;
         private readonly EcsFilter<NextPlayerRequest> _nextPlayerRequestsfilter = null;
 
-        private bool _isTimerUpdateNeeded;
         private const string _defaultTimerView = "0";
-        private float _timeToSignal = Global.Config.InGame.TurnTimerSignalTime;
-        private float _scaleCoefficient = Global.Config.InGame.TurnTimerScaleCoefficient;
+        private readonly float _timeToSignal = Global.Config.InGame.TurnTimerSignalTime;
+        private readonly float _scaleCoefficient = Global.Config.InGame.TurnTimerScaleCoefficient;
         private Text _botView = Global.Views.InGame.BotDataView.TurnTimer;
         private Text _playerView = Global.Views.InGame.PlayerDataView.TurnTimer;
-        private string _debugTemp;
+        private int _playerViewFontSizeOriginal;
+        private int _botViewFontSizeOriginal;
+        private float _playerViewFontSize;
+        private float _botViewFontSize;
 
 		public void Init()
 		{
+            // set timer`s init view
 			_botView.text = _defaultTimerView;
 			_playerView.text = _defaultTimerView;
+
+            // get views` size font
+            _playerViewFontSizeOriginal = _playerView.fontSize;
+            _botViewFontSizeOriginal = _botView.fontSize;
+            _playerViewFontSize = _playerViewFontSizeOriginal;
+            _botViewFontSize = _botViewFontSizeOriginal;
 
             Hide();
         }
 
         public void Run()
         {
+            // for debug:
+            _playerView.fontSize = 2;
+            _botView.fontSize = 2;
+            
             DeactivateIfNeed();
 
-			bool timeChanged = _updateTurnTimerRequestsFilter.GetEntitiesCount() > 0;
+            bool timeChanged = _updateTurnTimerRequestsFilter.GetEntitiesCount() > 0;
 			if (!timeChanged)
             {
                 return;
             }
 
             UpdateTurnTimerViewRequest updateTurnTimerViewRequest = _updateTurnTimerRequestsFilter.Get1(0);
-            int timeRemain = (int)updateTurnTimerViewRequest.RemainTime;
+            int timeRemain = (int)updateTurnTimerViewRequest.TimeRamain;
             int timeViewValue = timeRemain - Global.Config.InGame.UserStepDelay;
             timeViewValue = Mathf.Max(timeViewValue, 0);
 
@@ -50,7 +63,10 @@ namespace Match3.Systems.Game {
 
             if (timeRemain <= _timeToSignal)
             {
-                //_currentTimerView. *= _scaleCoefficient;
+                _playerViewFontSize *= _scaleCoefficient;
+                _botViewFontSize *= _scaleCoefficient;
+                _playerView.fontSize = (int)_playerViewFontSize;                
+                _botView.fontSize = (int)_botViewFontSize;                
             }
         }
 
@@ -59,6 +75,7 @@ namespace Match3.Systems.Game {
             if(_nextPlayerRequestsfilter.GetEntitiesCount() > 0)
             {
                 Hide();
+                ResetViewsFontSizes();
             }
         }
 
@@ -66,6 +83,16 @@ namespace Match3.Systems.Game {
         {
             _botView.gameObject.SetActive(false);
             _playerView.gameObject.SetActive(false);
+        }
+
+        private void ResetViewsFontSizes()
+		{
+            /*
+            _botView.fontSize = _botViewFontSizeOriginal;
+            _playerView.fontSize = _playerViewFontSizeOriginal;
+            _playerViewFontSize = _playerViewFontSizeOriginal;
+            _botViewFontSize = _botViewFontSizeOriginal;
+            */
         }
     }
 }

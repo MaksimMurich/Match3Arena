@@ -9,8 +9,9 @@ namespace Match3.Systems.Game {
 		private readonly EcsFilter<SwapRequest> _swapFilter = null;
 		private readonly EcsFilter<PlayerChangedEvent> _playerChanged = null;
 
-        private float _timeRamain = Global.Config.InGame.MaxTurnTime; // value>0 needed to avoid starting timer before starting turn
+        private int _timeViewRemain = 0;
         private bool _isTimerActive = false;
+        private float _timeRemain = Global.Config.InGame.MaxTurnTime;
 
 		public void Init()
 		{
@@ -36,12 +37,15 @@ namespace Match3.Systems.Game {
 
             if (_isTimerActive)
             {
-                _timeRamain -= Time.deltaTime;
-                EcsEntity timerUpdateRequest = Global.Data.InGame.World.NewEntity();
-                timerUpdateRequest.Set<UpdateTurnTimerViewRequest>().RemainTime = _timeRamain;
+                _timeRemain -= Time.deltaTime;
+                
+                if(_timeViewRemain != _timeRemain)
+				{
+                    UpdateView();
+                }
             }
 
-            if (_timeRamain <= 0)
+            if (_timeRemain <= 0)
             {
                 Global.Data.InGame.World.NewEntity().Set<NextPlayerRequest>();
                 ResetTimeRemain();
@@ -50,10 +54,15 @@ namespace Match3.Systems.Game {
 
         private void ResetTimeRemain()
         {
-            _timeRamain = Global.Config.InGame.MaxTurnTime; // additional time over the time, setted in config to make such time in-game
-            
+            _timeRemain = Global.Config.InGame.MaxTurnTime;
+            UpdateView();
+        }
+
+        private void UpdateView()
+		{
+            _timeViewRemain = (int)_timeRemain;
             EcsEntity timerUpdateRequest = Global.Data.InGame.World.NewEntity();
-            timerUpdateRequest.Set<UpdateTurnTimerViewRequest>().RemainTime = _timeRamain;
+            timerUpdateRequest.Set<UpdateTurnTimerViewRequest>().TimeRamain = _timeViewRemain;
         }
 	}
 }
