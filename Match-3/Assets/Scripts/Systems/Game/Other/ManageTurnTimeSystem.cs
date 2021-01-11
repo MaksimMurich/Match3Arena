@@ -38,8 +38,9 @@ namespace Match3.Systems.Game {
             if (_isTimerActive)
             {
                 _timeRemain -= Time.deltaTime;
-                
-                if(_timeViewRemain != _timeRemain)
+
+				bool needUpdateView = _timeViewRemain != (int)(_timeRemain - (float)_expirationDelay);
+				if (needUpdateView)
 				{
                     UpdateView();
                 }
@@ -54,13 +55,13 @@ namespace Match3.Systems.Game {
 
         private void ResetTimeRemain()
         {
-            _timeRemain = Global.Config.InGame.MaxTurnTime + _expirationDelay;
+            _timeRemain = Global.Config.InGame.MaxTurnTime + (float)_expirationDelay + (2*Time.deltaTime); // do not remove additional deltaTime. It will cause visual bug because of nums` roundings.
             UpdateView();
         }
 
         private void UpdateView()
 		{
-            _timeViewRemain = Mathf.Max(0, (int)_timeRemain - _expirationDelay);
+            _timeViewRemain = Mathf.Max(0, (int)(_timeRemain - (int)_expirationDelay));
             EcsEntity timerUpdateRequest = Global.Data.InGame.World.NewEntity();
             timerUpdateRequest.Set<UpdateTurnTimerViewRequest>().TimeRamain = _timeViewRemain;
         }

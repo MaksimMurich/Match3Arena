@@ -17,15 +17,16 @@ namespace Match3.Configurations
         [SerializeField] private float _minFieldPadding = 0.05f;
         [SerializeField] private int _minRewardableChain = 3;
         [SerializeField] private float _swapMinMouseOffset = .5f;
-        [SerializeField] private BotBehaviourConfiguration _botBehaviour = null;
         [SerializeField] private int _minDeltaRating = 10; // min delta player rating for win or lose round
         [SerializeField] private float _deltaRatingRewardMultiplayer = 0.1f;
         [SerializeField] private int _saveUserSwapsCount = 100;
         [SerializeField] private float _maxTurnTime = 30; // max time in seconds to make a turn before auto end of the turn
         [SerializeField] private float _turnTimerSignalTime = 5; // time in seconds under which turn`s timer should go red and pulse
-        [SerializeField] private float _turnTimerScaleCoefficient = 5; // coefficient to scale turns`s timer each tick
+        [SerializeField] private float _turnTimerScaleCoefficient = 1.5f; // coefficient to scale turns`s timer each second
+        [SerializeField] private float _turnTimerMaxScale = 4f;
         [SerializeField] private int _expirationDelay = 3;
 
+        [SerializeField] private BotBehaviourConfiguration _botBehaviour = null;
         [SerializeField] private UserStateConfiguration _userStateConfiguration = null;
         [SerializeField] private AnimationsConfiguration _animationsConfiguration = null;
         [SerializeField] private List<CellBackground> _cellViewBackgrounds = null;
@@ -33,7 +34,7 @@ namespace Match3.Configurations
         [SerializeField] private InGameSoundsConfiguration _sounds = null;
         [SerializeField] private CellConfiguration[] _cellConfigurations = null;
 
-        public int TargetFrameRate { get => _targetFrameRate; }
+		public int TargetFrameRate { get => _targetFrameRate; }
         public int LevelHeight { get => _levelHeight; }
         public int LevelWidth { get => _levelWidth; }
         internal float PlayersMaxLife { get => _playersMaxLife; }
@@ -56,5 +57,6 @@ namespace Match3.Configurations
 		public float TurnTimerSignalTime { get => _turnTimerSignalTime; }
 		public float TurnTimerScaleCoefficient { get => _turnTimerScaleCoefficient; }
 		public int ExpirationDelay { get => _expirationDelay; set => _expirationDelay = value; }
+		public float TurnTimerMaxScale { get => _turnTimerMaxScale; }
 	}
 }

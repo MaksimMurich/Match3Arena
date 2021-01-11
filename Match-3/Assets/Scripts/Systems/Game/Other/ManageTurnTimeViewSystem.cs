@@ -13,34 +13,29 @@ namespace Match3.Systems.Game {
         private const string _defaultTimerView = "0";
         private readonly float _timeToSignal = Global.Config.InGame.TurnTimerSignalTime;
         private readonly float _scaleCoefficient = Global.Config.InGame.TurnTimerScaleCoefficient;
+        private readonly float _maxTimerScale = Global.Config.InGame.TurnTimerMaxScale;
+        private readonly float _defaultTimerScale = 1f;
+        private readonly Color _botViewColorDefault = Global.Views.InGame.BotDataView.TurnTimer.color;
+        private readonly Color _playerViewColorDefault = Global.Views.InGame.PlayerDataView.TurnTimer.color;
+
         private Text _botView = Global.Views.InGame.BotDataView.TurnTimer;
         private Text _playerView = Global.Views.InGame.PlayerDataView.TurnTimer;
-        private int _playerViewFontSizeOriginal;
-        private int _botViewFontSizeOriginal;
-        private float _playerViewFontSize;
-        private float _botViewFontSize;
+        private Transform _playerViewTransform = Global.Views.InGame.PlayerDataView.TurnTimer.transform;
+        private Transform _botViewTransform = Global.Views.InGame.BotDataView.TurnTimer.transform;
 
-		public void Init()
+        public void Init()
 		{
             // set timer`s init view
 			_botView.text = _defaultTimerView;
 			_playerView.text = _defaultTimerView;
 
-            // get views` size font
-            _playerViewFontSizeOriginal = _playerView.fontSize;
-            _botViewFontSizeOriginal = _botView.fontSize;
-            _playerViewFontSize = _playerViewFontSizeOriginal;
-            _botViewFontSize = _botViewFontSizeOriginal;
-
+            ScaleViews();
+            SetViewsColor();
             Hide();
         }
 
         public void Run()
         {
-            // for debug:
-            _playerView.fontSize = 2;
-            _botView.fontSize = 2;
-            
             DeactivateIfNeed();
 
             bool timeChanged = _updateTurnTimerRequestsFilter.GetEntitiesCount() > 0;
@@ -48,6 +43,8 @@ namespace Match3.Systems.Game {
             {
                 return;
             }
+
+            Debug.Log("Timer updated...");
 
             UpdateTurnTimerViewRequest updateTurnTimerViewRequest = _updateTurnTimerRequestsFilter.Get1(0);
             int timeRemain = (int)updateTurnTimerViewRequest.TimeRamain;
@@ -61,21 +58,26 @@ namespace Match3.Systems.Game {
             _botView.gameObject.SetActive(!isPlayerTime);
             _playerView.gameObject.SetActive(isPlayerTime);
 
-            if (timeRemain <= _timeToSignal)
-            {
-                _playerViewFontSize *= _scaleCoefficient;
-                _botViewFontSize *= _scaleCoefficient;
-                _playerView.fontSize = (int)_playerViewFontSize;                
-                _botView.fontSize = (int)_botViewFontSize;                
+			if (timeRemain <= _timeToSignal)
+			{
+				ScaleViews(_scaleCoefficient);
+                SetViewsColor(Color.red);
+
             }
-        }
+			else
+			{
+                ScaleViews();
+                SetViewsColor();
+            }
+		}
 
         private void DeactivateIfNeed()
         {
             if(_nextPlayerRequestsfilter.GetEntitiesCount() > 0)
             {
+                ScaleViews();
+                SetViewsColor();
                 Hide();
-                ResetViewsFontSizes();
             }
         }
 
@@ -85,14 +87,37 @@ namespace Match3.Systems.Game {
             _playerView.gameObject.SetActive(false);
         }
 
-        private void ResetViewsFontSizes()
+        private void ScaleViews()
 		{
-            /*
-            _botView.fontSize = _botViewFontSizeOriginal;
-            _playerView.fontSize = _playerViewFontSizeOriginal;
-            _playerViewFontSize = _playerViewFontSizeOriginal;
-            _botViewFontSize = _botViewFontSizeOriginal;
-            */
+            _botViewTransform.localScale = new Vector3(_defaultTimerScale, _defaultTimerScale);
+            _playerViewTransform.localScale = new Vector3(_defaultTimerScale, _defaultTimerScale);
         }
+
+        private void ScaleViews(float scaleCoefficient)
+        {
+            Vector3 botNewScale = _botViewTransform.localScale * scaleCoefficient;
+            Vector3 playerNewScale = _playerViewTransform.localScale * scaleCoefficient;
+
+            _botViewTransform.localScale = new Vector3(botNewScale.x, botNewScale.y);
+            _playerViewTransform.localScale = new Vector3(playerNewScale.x, playerNewScale.y);
+
+            if(_botViewTransform.localScale.x > _maxTimerScale)
+			{
+                _botViewTransform.localScale = new Vector3(_maxTimerScale, _maxTimerScale);
+                _playerViewTransform.localScale = new Vector3(_maxTimerScale, _maxTimerScale);
+            }
+        }
+
+        private void SetViewsColor()
+		{
+            _playerView.color = _playerViewColorDefault;
+            _botView.color = _botViewColorDefault;
+		}
+
+        private void SetViewsColor(Color color)
+		{
+            _playerView.color = color;
+            _botView.color = color;
+		}
     }
 }

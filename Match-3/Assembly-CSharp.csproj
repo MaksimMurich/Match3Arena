@@ -119,6 +119,7 @@
     <Compile Include="Assets\Scripts\Components\Game\Events\ExplodedEvent.cs" />
     <Compile Include="Assets\Scripts\UnityComponents\UI\InGame\FirstPlayerSelectionView.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\InGameViews.cs" />
+    <Compile Include="Assets\Scripts\Components\Game\Events\TurnTimeIsUpEvent.cs" />
     <Compile Include="Assets\Scripts\Components\Game\Events\ChargedToExplosion.cs" />
     <Compile Include="Assets\Scripts\Components\Game\Events\EmptyViewEvent.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Other\CreateCellsViewSystem.cs" />
@@ -145,7 +146,6 @@
     <Compile Include="Assets\Scripts\Components\Game\Events\AnimateCreatedViewRequest.cs" />
     <Compile Include="Assets\Scripts\Systems\Common\AudioSystem.cs" />
     <Compile Include="Assets\Scripts\Components\Game\Events\Swap\SwapRewards.cs" />
-    <Compile Include="Assets\Scripts\Components\Game\Events\ResetTurnTimerRequest.cs" />
     <Compile Include="Assets\Scripts\Systems\Game\Initialization\InitializeCellRewardViewTable.cs" />
     <Compile Include="Assets\Scripts\Components\Game\Events\PlayerChangedEvent.cs" />
     <Compile Include="Assets\Scripts\Services\SaveLoad\PlayerPreferences.cs" />
