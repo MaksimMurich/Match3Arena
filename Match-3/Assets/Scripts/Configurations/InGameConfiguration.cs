@@ -23,7 +23,6 @@ namespace Match3.Configurations
         [SerializeField] private float _maxTurnTime = 30; // max time in seconds to make a turn before auto end of the turn
         [SerializeField] private float _turnTimerSignalTime = 5; // time in seconds under which turn`s timer should go red and pulse
         [SerializeField] private float _turnTimerScaleCoefficient = 1.5f; // coefficient to scale turns`s timer each second
-        [SerializeField] private float _turnTimerMaxScale = 4f;
         [SerializeField] private int _expirationDelay = 3;
 
         [SerializeField] private BotBehaviourConfiguration _botBehaviour = null;
@@ -57,6 +56,5 @@ namespace Match3.Configurations
 		public float TurnTimerSignalTime { get => _turnTimerSignalTime; }
 		public float TurnTimerScaleCoefficient { get => _turnTimerScaleCoefficient; }
 		public int ExpirationDelay { get => _expirationDelay; set => _expirationDelay = value; }
-		public float TurnTimerMaxScale { get => _turnTimerMaxScale; }
 	}
 }

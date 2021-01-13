@@ -1,7 +1,6 @@
 using DG.Tweening;
 using Leopotam.Ecs;
 using Match3.Components.Game.Events;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,19 +11,19 @@ namespace Match3.Systems.Game {
         private readonly EcsFilter<UpdateTurnTimerViewRequest> _updateTurnTimerRequestsFilter = null;
         private readonly EcsFilter<NextPlayerRequest> _nextPlayerRequestsfilter = null;
 
-        private const string _defaultTimerView = "0";
+        private readonly string _defaultTimerView = "0";
         private readonly float _timeToSignal = Global.Config.InGame.TurnTimerSignalTime;
         private readonly float _scaleCoefficient = Global.Config.InGame.TurnTimerScaleCoefficient;
-        private readonly float _maxTimerScale = Global.Config.InGame.TurnTimerMaxScale;
-        private readonly float _defaultTimerScale = 1f;
+        private readonly float _defaultScale = 1f;
+        private readonly float _animationDuration = 0.8f; // do not set more than 1
         private int _timeRemain = (int)Global.Config.InGame.MaxTurnTime;
+
         private readonly Color _botViewColorDefault = Global.Views.InGame.BotDataView.TurnTimer.color;
         private readonly Color _playerViewColorDefault = Global.Views.InGame.PlayerDataView.TurnTimer.color;
+        private readonly Color _singnalColor = Color.red;
 
         private Text _botView = Global.Views.InGame.BotDataView.TurnTimer;
         private Text _playerView = Global.Views.InGame.PlayerDataView.TurnTimer;
-        private Transform _playerViewTransform = Global.Views.InGame.PlayerDataView.TurnTimer.transform;
-        private Transform _botViewTransform = Global.Views.InGame.BotDataView.TurnTimer.transform;
 
         private Sequence _viewsAnimation = DOTween.Sequence();
 
@@ -33,7 +32,7 @@ namespace Match3.Systems.Game {
 			_botView.text = _defaultTimerView;
 			_playerView.text = _defaultTimerView;
 
-            SetScaleViewsDefaultIfNeeded();
+            SetScaleViewsDefault();
             SetViewsColor();
             Hide();
         }
@@ -49,7 +48,7 @@ namespace Match3.Systems.Game {
             }
 
             UpdateTurnTimerViewRequest updateTurnTimerViewRequest = _updateTurnTimerRequestsFilter.Get1(0);
-            _timeRemain = (int)updateTurnTimerViewRequest.TimeRamain;
+            _timeRemain = updateTurnTimerViewRequest.TimeRamain;
             int timeViewValue = _timeRemain;
             timeViewValue = Mathf.Max(timeViewValue, 0);
 
@@ -63,11 +62,11 @@ namespace Match3.Systems.Game {
 			if (_timeRemain <= _timeToSignal)
 			{
 				ScaleViews();
-                SetViewsColor(Color.red);
+                SetViewsColor(_singnalColor);
             }
 			else
 			{
-                SetScaleViewsDefaultIfNeeded();
+                SetScaleViewsDefault();
                 SetViewsColor();
             }
 		}
@@ -76,7 +75,7 @@ namespace Match3.Systems.Game {
         {
             if(_nextPlayerRequestsfilter.GetEntitiesCount() > 0)
             {
-                SetScaleViewsDefaultIfNeeded();
+                SetScaleViewsDefault();
                 SetViewsColor();
                 Hide();
             }
@@ -90,43 +89,31 @@ namespace Match3.Systems.Game {
 
         private void ScaleViews()
 		{
-            SetScaleViewsDefaultIfNeeded();
+            SetScaleViewsDefault();
 
-            Tween upscalingBot = _botView.transform.DOScale(new Vector3(_scaleCoefficient, _scaleCoefficient), 0.4f);
-            Tween upscalingPlayer = _playerView.transform.DOScale(new Vector3(_scaleCoefficient, _scaleCoefficient), 0.4f);
-            Tween downscalingBot = _botView.transform.DOScale(new Vector3(_defaultTimerScale, _defaultTimerScale), 0.4f);
-            Tween downscalingPlayer = _playerView.transform.DOScale(new Vector3(_defaultTimerScale, _defaultTimerScale), 0.4f);
-
-            if(_timeRemain > 0)
-			{
-                _viewsAnimation.Join(upscalingBot);
-                _viewsAnimation.Join(upscalingPlayer);
-                _viewsAnimation.Append(downscalingBot);
-                _viewsAnimation.Join(downscalingPlayer);
-            }
-			else
-			{
-                _viewsAnimation.Join(upscalingBot);
-                _viewsAnimation.Join(upscalingPlayer);
-            }
+            Tween upscalingBot = _botView.transform.DOScale(new Vector3(_scaleCoefficient, _scaleCoefficient), _animationDuration/2);
+            Tween downscalingBot = _botView.transform.DOScale(new Vector3(_defaultScale, _defaultScale), _animationDuration/2);
+            Tween upscalingPlayer = _playerView.transform.DOScale(new Vector3(_scaleCoefficient, _scaleCoefficient), _animationDuration/2);
+            Tween downscalingPlayer = _playerView.transform.DOScale(new Vector3(_defaultScale, _defaultScale), _animationDuration/2);
+            
+            _viewsAnimation.Join(upscalingBot);
+            _viewsAnimation.Join(upscalingPlayer);
+            _viewsAnimation.Append(downscalingBot);
+            _viewsAnimation.Join(downscalingPlayer);
         }
 
-        private void SetScaleViewsDefaultIfNeeded()
+        private void SetScaleViewsDefault()
 		{
-            if(_timeRemain > 0)
-			{
-                _viewsAnimation.Kill();
-                _viewsAnimation = DOTween.Sequence();
-                _botView.transform.localScale = new Vector3(_defaultTimerScale, _defaultTimerScale);
-                _playerView.transform.localScale = new Vector3(_defaultTimerScale, _defaultTimerScale);
-            }
-            
+            _viewsAnimation.Kill();
+            _viewsAnimation = DOTween.Sequence();
+            _botView.transform.localScale = new Vector3(_defaultScale, _defaultScale);
+            _playerView.transform.localScale = new Vector3(_defaultScale, _defaultScale);
 		}
 
         private void SetViewsColor()
 		{
-            _playerView.color = _playerViewColorDefault;
             _botView.color = _botViewColorDefault;
+            _playerView.color = _playerViewColorDefault;
 		}
 
         private void SetViewsColor(Color color)

@@ -2,6 +2,6 @@
 {
     public struct UpdateTurnTimerViewRequest
     {
-        public float TimeRamain;
+        public int TimeRamain;
     }
 }
