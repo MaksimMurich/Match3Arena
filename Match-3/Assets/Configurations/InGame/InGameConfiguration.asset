@@ -21,8 +21,14 @@ MonoBehaviour:
   _minFieldPadding: 0.02
   _minRewardableChain: 3
   _swapMinMouseOffset: 0.5
-  _combo4RewardMultiplayer: 2
-  _combo5RewardMultiplayer: 4
+  _minDeltaRating: 9
+  _deltaRatingRewardMultiplayer: 0.3
+  _saveUserSwapsCount: 100
+  _maxTurnTime: 15
+  _turnTimerSignalTime: 5
+  _turnTimerScaleCoefficient: 1.5
+  _turnTimerMaxScale: 2.5
+  _expirationDelay: 3
   _botBehaviour:
     _difficultPossibility:
       serializedVersion: 2
@@ -88,9 +94,6 @@ MonoBehaviour:
     _maxThinkingTime: 1.98
     _thinkingTimeDeviationProportion: 1.5
     _fromSelectToSwapDelay: 0.5
-  _minDeltaRating: 9
-  _deltaRatingRewardMultiplayer: 0.3
-  _saveUserSwapsCount: 100
   _userStateConfiguration: {fileID: 11400000, guid: 5d5e88ac09769ff44b368af6a3e4ce67,
     type: 2}
   _animationsConfiguration:
