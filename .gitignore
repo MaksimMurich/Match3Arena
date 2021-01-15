@@ -108,5 +108,9 @@ crashlytics-build.properties
 InitTestScene*.unity.meta
 InitTestScene*.unity
 
+#Additional files for ignore
+Assembly-CSharp.csproj
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp-firstpass.csproj
 
 # End of https://www.toptal.com/developers/gitignore/api/unity
