@@ -17,6 +17,7 @@ namespace Match3.Systems.Game {
         private readonly float _defaultScale = 1f;
         private readonly float _animationDuration = 0.8f; // do not set more than 1
         private int _timeRemain = (int)Global.Config.InGame.MaxTurnTime;
+        private bool _lastTickMade = false;
 
         private readonly Color _botViewColorDefault = Global.Views.InGame.BotDataView.TurnTimer.color;
         private readonly Color _playerViewColorDefault = Global.Views.InGame.PlayerDataView.TurnTimer.color;
@@ -46,6 +47,8 @@ namespace Match3.Systems.Game {
             {
                 return;
             }
+
+            Debug.Log("Timer has been updated...");
 
             UpdateTurnTimerViewRequest updateTurnTimerViewRequest = _updateTurnTimerRequestsFilter.Get1(0);
             _timeRemain = updateTurnTimerViewRequest.TimeRamain;
@@ -90,6 +93,19 @@ namespace Match3.Systems.Game {
         private void ScaleViews()
 		{
             SetScaleViewsDefault();
+
+            if(_timeRemain == 1)
+			{
+                _lastTickMade = false;
+			}
+            else if(_timeRemain <= 0 && _lastTickMade == true)
+			{
+                return;
+			}
+            else if(_timeRemain <= 0)
+			{
+                _lastTickMade = true;
+            }
 
             Tween upscalingBot = _botView.transform.DOScale(new Vector3(_scaleCoefficient, _scaleCoefficient), _animationDuration/2);
             Tween downscalingBot = _botView.transform.DOScale(new Vector3(_defaultScale, _defaultScale), _animationDuration/2);

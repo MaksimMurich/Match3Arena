@@ -12,7 +12,6 @@ namespace Match3.Systems.Game {
         private bool _isTimerActive = false;
         private static readonly int _expirationDelay = Global.Config.InGame.ExpirationDelay;
         private float _timeRemain = Global.Config.InGame.MaxTurnTime + _expirationDelay;
-        private float _lastTimeUpdate = 0;
 
 		public void Init()
 		{
@@ -41,11 +40,9 @@ namespace Match3.Systems.Game {
                 _timeRemain -= Time.deltaTime;
 
 				bool needUpdateView = _timeViewRemain != (int)(_timeRemain - (float)_expirationDelay);
-                needUpdateView = needUpdateView || ((Time.time-_lastTimeUpdate) > 1.07f); // force update if needed
 				if (needUpdateView)
 				{
                     UpdateView();
-                    _lastTimeUpdate = Time.time;
 				}
             }
 
@@ -64,7 +61,7 @@ namespace Match3.Systems.Game {
 
         private void UpdateView()
 		{
-            _timeViewRemain = (int)(_timeRemain - _expirationDelay);
+            _timeViewRemain = Mathf.Max((int)(_timeRemain - _expirationDelay), 0);
             EcsEntity timerUpdateRequest = Global.Data.InGame.World.NewEntity();
             timerUpdateRequest.Set<UpdateTurnTimerViewRequest>().TimeRamain = _timeViewRemain;
         }
