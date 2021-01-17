@@ -3,11 +3,9 @@ using Match3.UnityComponents;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Match3.Configurations
-{
+namespace Match3.Configurations {
     [CreateAssetMenu]
-    public class InGameConfiguration : ScriptableObject
-    {
+    public class InGameConfiguration : ScriptableObject {
         [SerializeField] private int _targetFrameRate = 50;
         [SerializeField] private int _levelWidth = 8;
         [SerializeField] private int _levelHeight = 8;

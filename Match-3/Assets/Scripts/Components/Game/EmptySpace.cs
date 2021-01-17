@@ -1,6 +1,4 @@
-﻿namespace Match3.Components.Game
-{
-    public struct EmptySpace
-    {
+﻿namespace Match3.Components.Game {
+    public struct EmptySpace {
     }
 }

@@ -1,7 +1,5 @@
-﻿namespace Match3.Components.Game
-{
-    public enum CellType
-    {
+﻿namespace Match3.Components.Game {
+    public enum CellType {
         Unknown = 0,
         Red = 1,
         Green = 2,

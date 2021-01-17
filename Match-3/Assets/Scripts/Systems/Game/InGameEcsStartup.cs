@@ -22,15 +22,12 @@ using Match3.Systems.Game.UserInputs;
 using UnityEngine;
 using static Global;
 
-namespace Match3
-{
-    sealed class InGameEcsStartup : MonoBehaviour
-    {
+namespace Match3 {
+    sealed class InGameEcsStartup : MonoBehaviour {
         [SerializeField] private InGameConfiguration _configuration = null;
         [SerializeField] private InGameViews _sceneData = null;
 
-        void Start()
-        {
+        void Start() {
             Global.Config.InGame = _configuration;
             Global.Views.InGame = _sceneData;
             Global.Data.InGame.PlayerState = new PlayerState(Global.Config.InGame.PlayersMaxLife, 100);
@@ -157,20 +154,17 @@ namespace Match3
                 .Init();
         }
 
-        void Update()
-        {
+        void Update() {
             Global.Data.InGame.Systems?.Run();
         }
 
-        void OnDestroy()
-        {
+        void OnDestroy() {
             Global.Config.InGame = null;
             Global.Views.InGame = null;
 
             LocalSaveLoad<PlayerData>.Save(Global.Data.Player);
 
-            if (Global.Data.InGame.Systems != null)
-            {
+            if (Global.Data.InGame.Systems != null) {
                 Global.Data.InGame.Systems.Destroy();
                 Global.Data.InGame.Systems = null;
                 Global.Data.InGame.World.Destroy();

@@ -4,16 +4,12 @@ using Match3.Configurations;
 using System.Linq;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
-{
-    public sealed class CreateRandomCellsToEmptySpacesSystem : IEcsRunSystem
-    {
+namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion {
+    public sealed class CreateRandomCellsToEmptySpacesSystem : IEcsRunSystem {
         private readonly EcsFilter<EmptySpace> _filter = null;
 
-        public void Run()
-        {
-            foreach (var index in _filter)
-            {
+        public void Run() {
+            foreach (var index in _filter) {
                 float random = Random.Range(0f, 100f);
                 CellConfiguration configuration = Global.Config.InGame.CellConfigurations.Where(c => c.CheckInSpawnRabge(random)).First();
 

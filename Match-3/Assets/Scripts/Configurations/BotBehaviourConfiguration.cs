@@ -1,11 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Configurations
-{
+namespace Match3.Assets.Scripts.Configurations {
     [Serializable]
-    public class BotBehaviourConfiguration
-    {
+    public class BotBehaviourConfiguration {
         [SerializeField] private AnimationCurve _difficultPossibility = AnimationCurve.Linear(0, 0, 1, 1);
         [SerializeField] private float _minThinkingTime = 0.87f;
         [SerializeField] private float _maxThinkingTime = 9;

@@ -1,7 +1,5 @@
-﻿namespace Match3.Components.Game
-{
-    public struct Selected
-    {
+﻿namespace Match3.Components.Game {
+    public struct Selected {
 
     }
 }

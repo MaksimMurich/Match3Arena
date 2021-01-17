@@ -2,12 +2,9 @@
 using Match3.Configurations;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Systems.Game.Initialization
-{
-    public sealed class ConfigurateCameraSystem : IEcsInitSystem
-    {
-        public void Init()
-        {
+namespace Match3.Assets.Scripts.Systems.Game.Initialization {
+    public sealed class ConfigurateCameraSystem : IEcsInitSystem {
+        public void Init() {
             InGameConfiguration config = Global.Config.InGame;
             InGameViews views = Global.Views.InGame;
 
@@ -18,8 +15,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization
             float cameraOffsetY = (config.TopMenuPadding - config.BottomPadding) * config.LevelHeight / 2;
             float cameraViewWidth = cameraSize * Screen.width / (float)Screen.height;
 
-            if (cameraViewWidth < config.LevelWidth / 2f)
-            {
+            if (cameraViewWidth < config.LevelWidth / 2f) {
                 cameraSize *= (1 + 2 * config.MinFieldPadding) * config.LevelWidth / 2f / cameraViewWidth;
             }
 

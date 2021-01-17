@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace Match3.Components.Game.Events
-{
+namespace Match3.Components.Game.Events {
     [Serializable]
-    public struct SwapPossibility
-    {
+    public struct SwapPossibility {
         public int FromX;
         public int FromY;
         public int ToX;

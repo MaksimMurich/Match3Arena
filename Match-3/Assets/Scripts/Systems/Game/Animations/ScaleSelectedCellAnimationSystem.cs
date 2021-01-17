@@ -5,18 +5,14 @@ using Match3.Components.Game.Events;
 using Match3.Configurations;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Systems.Game.Animations
-{
-    public sealed class ScaleSelectedCellAnimationSystem : IEcsRunSystem
-    {
+namespace Match3.Assets.Scripts.Systems.Game.Animations {
+    public sealed class ScaleSelectedCellAnimationSystem : IEcsRunSystem {
         private readonly EcsFilter<Cell, SelectCellAnimationRequest> _filter = null;
 
-        public void Run()
-        {
+        public void Run() {
             AnimationsConfiguration configuration = Global.Config.InGame.Animation;
 
-            foreach (int index in _filter)
-            {
+            foreach (int index in _filter) {
                 Transform view = _filter.Get1(index).View.transform;
                 view.transform.position += configuration.UpCellOnAnimate;
 

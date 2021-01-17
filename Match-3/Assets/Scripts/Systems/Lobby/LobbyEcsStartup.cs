@@ -5,17 +5,14 @@ using Match3.Assets.Scripts.Systems.Common;
 using Match3.Configurations;
 using UnityEngine;
 
-namespace Match3
-{
-    sealed class LobbyEcsStartup : MonoBehaviour
-    {
+namespace Match3 {
+    sealed class LobbyEcsStartup : MonoBehaviour {
         [SerializeField] private LobbyConfiguration _configuration = null;
         [SerializeField] private LobbyViews _sceneData = null;
 
         private EcsSystems _systems;
 
-        void Start()
-        {
+        void Start() {
             Global.Config.Lobby = _configuration;
             Global.Views.Lobby = _sceneData;
 
@@ -45,17 +42,14 @@ namespace Match3
                 .Init();
         }
 
-        void Update()
-        {
+        void Update() {
             _systems?.Run();
         }
 
-        void OnDestroy()
-        {
+        void OnDestroy() {
             LocalSaveLoad<PlayerData>.Save(Global.Data.Player);
 
-            if (_systems != null)
-            {
+            if (_systems != null) {
                 _systems.Destroy();
                 _systems = null;
                 Global.Data.Lobby.World.Destroy();

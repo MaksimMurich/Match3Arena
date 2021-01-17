@@ -8,17 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
-{
-    public sealed class BotMakeSwapDecision : IEcsRunSystem
-    {
+namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot {
+    public sealed class BotMakeSwapDecision : IEcsRunSystem {
         private readonly EcsFilter<BotMakeSwapDecisionRequest> _filter = null;
 
 
-        public void Run()
-        {
-            if (_filter.GetEntitiesCount() == 0)
-            {
+        public void Run() {
+            if (_filter.GetEntitiesCount() == 0) {
                 return;
             }
 
@@ -45,20 +41,17 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
             sequence.AppendCallback(() => SwapCells(cellId, direction));
         }
 
-        private void SelectSomeCell(Vector2Int cellId)
-        {
+        private void SelectSomeCell(Vector2Int cellId) {
             Global.Data.InGame.GameField.Cells[cellId].Set<Selected>();
             Global.Data.InGame.GameField.Cells[cellId].Set<SelectCellAnimationRequest>();
             Debug.Log("select cell vector2Int(2, 2)");
         }
 
-        private void SwapCells(Vector2Int cellId, Vector2Int direction)
-        {
+        private void SwapCells(Vector2Int cellId, Vector2Int direction) {
             EcsEntity cellEntity = Global.Data.InGame.GameField.Cells[cellId];
             cellEntity.Unset<Selected>();
             cellEntity.Set<DeselectCellAnimationRequest>();
-            cellEntity.Set<SwapRequest>() = new SwapRequest()
-            {
+            cellEntity.Set<SwapRequest>() = new SwapRequest() {
                 From = cellId,
                 To = cellId + direction
             };

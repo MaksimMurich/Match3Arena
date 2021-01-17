@@ -1,6 +1,4 @@
-﻿namespace Match3.Components.Game
-{
-    public struct AnimateFallDownRequest
-    {
+﻿namespace Match3.Components.Game {
+    public struct AnimateFallDownRequest {
     }
 }

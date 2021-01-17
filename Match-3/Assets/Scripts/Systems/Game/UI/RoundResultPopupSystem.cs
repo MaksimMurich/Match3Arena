@@ -3,25 +3,20 @@ using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using Match3.Components.Game.Events;
 using UnityEngine.SceneManagement;
 
-namespace Match3.Assets.Scripts.Systems.Game.UI
-{
-    public sealed class RoundResultPopupSystem : IEcsInitSystem, IEcsRunSystem
-    {
+namespace Match3.Assets.Scripts.Systems.Game.UI {
+    public sealed class RoundResultPopupSystem : IEcsInitSystem, IEcsRunSystem {
         private readonly EcsFilter<EndRoundRequest> _filter = null;
 
         private RoundResultPopupView _view;
 
-        public void Init()
-        {
+        public void Init() {
             _view = Global.Views.InGame.RoundResultPopupView;
             _view.Play.onClick.AddListener(PlayClickHandler);
             _view.BackToLobby.onClick.AddListener(BackToLobbyClickHandler);
         }
 
-        public void Run()
-        {
-            if (_filter.GetEntitiesCount() == 0)
-            {
+        public void Run() {
+            if (_filter.GetEntitiesCount() == 0) {
                 return;
             }
 
@@ -40,27 +35,25 @@ namespace Match3.Assets.Scripts.Systems.Game.UI
             _view.UpdateHeader(userWin);
         }
 
-        private void PlayClickHandler()
-        {
+        private void PlayClickHandler() {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        private void BackToLobbyClickHandler()
-        {
+        private void BackToLobbyClickHandler() {
             SceneManager.LoadScene("Lobby");
         }
 
         //TODO use this function when need close app
-//        private void CloseAppClickEventHandler()
-//        {
-//#if UNITY_EDITOR
-//            UnityEditor.EditorApplication.isPlaying = false;
-//#endif
+        //        private void CloseAppClickEventHandler()
+        //        {
+        //#if UNITY_EDITOR
+        //            UnityEditor.EditorApplication.isPlaying = false;
+        //#endif
 
-//            if (Application.platform != RuntimePlatform.WindowsEditor)
-//            {
-//                Application.Quit();
-//            }
-//        }
+        //            if (Application.platform != RuntimePlatform.WindowsEditor)
+        //            {
+        //                Application.Quit();
+        //            }
+        //        }
     }
 }

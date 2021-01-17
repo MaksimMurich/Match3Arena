@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Match3.Configurations
-{
+namespace Match3.Configurations {
     [CreateAssetMenu]
-    public class LobbyConfiguration : ScriptableObject
-    {
+    public class LobbyConfiguration : ScriptableObject {
         [SerializeField] private UserStateConfiguration _userStateConfiguration = null;
         [SerializeField] private ArenaConfig[] arenaConfig = null;
 

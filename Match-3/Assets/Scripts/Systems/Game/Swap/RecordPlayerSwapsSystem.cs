@@ -6,54 +6,45 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Match3.Systems.Game.Swap
-{
-    public sealed class RecordPlayerSwapsSystem : IEcsRunSystem, IEcsInitSystem
-    {
+namespace Match3.Systems.Game.Swap {
+    public sealed class RecordPlayerSwapsSystem : IEcsRunSystem, IEcsInitSystem {
         private readonly EcsFilter<Cell, Vector2Int, SwapRequest> _filter = null;
-        
+
         private List<SwapRecord> _userSwaps;
         private Global.InGameData _inGameData;
 
-        public void Init()
-        {
+        public void Init() {
             _userSwaps = Global.Data.Player.UserSwaps;
 
-            if (_userSwaps == null)
-            {
+            if (_userSwaps == null) {
                 _userSwaps = new List<SwapRecord>();
             }
         }
 
-        public void Run()
-        {
+        public void Run() {
             //@TODO check is correct swap and field didn't lock and only then record swap
             _inGameData = Global.Data.InGame;
 
-            if (!_inGameData.PlayerState.Active || _filter.GetEntitiesCount() == 0)
-            {
+            if (!_inGameData.PlayerState.Active || _filter.GetEntitiesCount() == 0) {
                 return;
             }
 
             SwapRequest swap = _filter.Get3(0);
             bool swapHasResult = GameFieldAnalyst.CheckIsCorrectSwap(swap.From, swap.To - swap.From, _inGameData.GameField.Cells);
 
-            if (!swapHasResult)
-            {
+            if (!swapHasResult) {
                 return;
             }
 
             SwapRecord record = GenerateSwapRecord(_filter.Get3(0));
             _userSwaps.Add(record);
 
-            if (_userSwaps.Count > Global.Config.InGame.SaveUserSwapsCount)
-            {
+            if (_userSwaps.Count > Global.Config.InGame.SaveUserSwapsCount) {
                 _userSwaps.RemoveRange(0, _userSwaps.Count - Global.Config.InGame.SaveUserSwapsCount);
             }
         }
 
-        private SwapRecord GenerateSwapRecord(SwapRequest swap)
-        {
+        private SwapRecord GenerateSwapRecord(SwapRequest swap) {
             SwapRecord result = new SwapRecord();
             int maxHealthReward = (int)(_inGameData.PlayerState.MaxLife - _inGameData.PlayerState.CurrentLife);
             List<SwapPossibility> possibilities = GameFieldAnalyst.GetAllSwapPossibilities(maxHealthReward, _inGameData.GameField);
@@ -67,8 +58,7 @@ namespace Match3.Systems.Game.Swap
             return result;
         }
 
-        private bool CompareSwaps(SwapRequest request, SwapPossibility possibility)
-        {
+        private bool CompareSwaps(SwapRequest request, SwapPossibility possibility) {
             bool result = true;
 
             result &= request.From.x == possibility.FromX;

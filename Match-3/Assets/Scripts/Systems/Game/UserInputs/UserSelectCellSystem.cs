@@ -4,14 +4,10 @@ using Match3.Components.Game.Events;
 using Match3.UnityComponents;
 using UnityEngine;
 
-namespace Match3.Systems.Game.UserInputs
-{
-    public sealed class UserSelectCellSystem : IEcsRunSystem
-    {
-        public void Run()
-        {
-            if (!Global.Data.InGame.PlayerState.Active || !Input.GetMouseButtonDown(0))
-            {
+namespace Match3.Systems.Game.UserInputs {
+    public sealed class UserSelectCellSystem : IEcsRunSystem {
+        public void Run() {
+            if (!Global.Data.InGame.PlayerState.Active || !Input.GetMouseButtonDown(0)) {
                 return;
             }
 
@@ -19,15 +15,13 @@ namespace Match3.Systems.Game.UserInputs
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
 
-            if (hit.collider == null)
-            {
+            if (hit.collider == null) {
                 return;
             }
 
             CellView cellView = hit.collider.GetComponent<CellView>();
 
-            if (cellView == null)
-            {
+            if (cellView == null) {
                 return;
             }
 

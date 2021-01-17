@@ -4,19 +4,16 @@ using Match3.Assets.Scripts.Configurations;
 using Match3.Components.Game.Events;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
-{
+namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot {
 
-    public sealed class BotWaitSwapSystem : IEcsInitSystem, IEcsRunSystem
-    {
+    public sealed class BotWaitSwapSystem : IEcsInitSystem, IEcsRunSystem {
         private readonly EcsFilter<PlayerChangedEvent> _playerChangeRequestsFilter = null;
 
         private float _minBotThinkingTime;
         private float _maxBotThinkingTime;
 
         // generate concrete bot behaviour
-        public void Init()
-        {
+        public void Init() {
             BotBehaviourConfiguration botBehaviour = Global.Config.InGame.BotBehaviour;
             float middleWhaitTime = Random.Range(botBehaviour.MinThinkingTime, botBehaviour.MaxThinkingTime);
 
@@ -26,13 +23,11 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
             _maxBotThinkingTime = Mathf.Min(_maxBotThinkingTime, botBehaviour.MaxThinkingTime);
         }
 
-        public void Run()
-        {
+        public void Run() {
             bool botIsActive = !Global.Data.InGame.PlayerState.Active;
             bool roundEnded = Global.Data.InGame.PlayerState.CurrentLife <= 0 || OpponentState.CurrentLife <= 0;
 
-            if (roundEnded || _playerChangeRequestsFilter.GetEntitiesCount() == 0 || !botIsActive)
-            {
+            if (roundEnded || _playerChangeRequestsFilter.GetEntitiesCount() == 0 || !botIsActive) {
                 return;
             }
 
@@ -42,8 +37,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
 
             Sequence sequence = DOTween.Sequence();
             sequence.SetDelay(swapDelay);
-            sequence.OnComplete(() =>
-            {
+            sequence.OnComplete(() => {
                 Global.Data.InGame.World.NewEntity().Set<BotMakeSwapDecisionRequest>();
             });
         }

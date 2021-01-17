@@ -3,21 +3,16 @@ using Match3.Components.Game;
 using Match3.Components.Game.Events;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
-{
-    public sealed class ChargeCellsToExplosionSystem : IEcsRunSystem
-    {
+namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion {
+    public sealed class ChargeCellsToExplosionSystem : IEcsRunSystem {
         private readonly EcsFilter<ChainEvent> _filter = null;
 
-        public void Run()
-        {
-            foreach (var index in _filter)
-            {
+        public void Run() {
+            foreach (var index in _filter) {
                 ChainEvent chain = _filter.Get1(index);
                 Vector2Int currentPosition = chain.Position;
 
-                for (int i = 0; i < chain.Size; i++)
-                {
+                for (int i = 0; i < chain.Size; i++) {
                     EcsEntity cellEntity = Global.Data.InGame.GameField.Cells[currentPosition];
                     currentPosition += chain.Direction;
 
@@ -26,8 +21,7 @@ namespace Match3.Assets.Scripts.Systems.Game.CellsExplosion
             }
         }
 
-        private void MarkCells(EcsEntity cellEntity)
-        {
+        private void MarkCells(EcsEntity cellEntity) {
             cellEntity.Set<AnimateExplosionRequest>();
             cellEntity.Set<ChargedToExplosion>();
         }

@@ -1,6 +1,4 @@
-﻿namespace Match3.Components.Game
-{
-    public struct AnimateCreatedViewRequest
-    {
+﻿namespace Match3.Components.Game {
+    public struct AnimateCreatedViewRequest {
     }
 }

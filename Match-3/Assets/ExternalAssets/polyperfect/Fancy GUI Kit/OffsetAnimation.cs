@@ -3,21 +3,18 @@
 #endif
 using UnityEngine;
 
-public class OffsetAnimation : MonoBehaviour
-{
+public class OffsetAnimation : MonoBehaviour {
 
     public Animator[] controllers;
 
     public float delay, startDelay;
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
         controllers = GetComponentsInChildren<Animator>();
 
         //controllers = controllers.Where(x => x.enabled = false)as Animator[];
 
-        for (int i = 0; i < controllers.Length; i++)
-        {
+        for (int i = 0; i < controllers.Length; i++) {
             controllers[i].enabled = false;
             controllers[i].gameObject.SetActive(false);
         }
@@ -25,11 +22,9 @@ public class OffsetAnimation : MonoBehaviour
         StartCoroutine(OffsetTime());
     }
 
-    IEnumerator OffsetTime()
-    {
+    IEnumerator OffsetTime() {
         yield return new WaitForSeconds(startDelay);
-        for (int i = 0; i < controllers.Length; i++)
-        {
+        for (int i = 0; i < controllers.Length; i++) {
             controllers[i].enabled = true;
             controllers[i].gameObject.SetActive(true);
             yield return new WaitForSeconds(delay);

@@ -2,10 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Match3.Assets.Scripts.UnityComponents.UI.InGame
-{
-    public class CellRewardViewTableItem : MonoBehaviour, IClone<CellRewardViewTableItem>
-    {
+namespace Match3.Assets.Scripts.UnityComponents.UI.InGame {
+    public class CellRewardViewTableItem : MonoBehaviour, IClone<CellRewardViewTableItem> {
         [SerializeField] private Image _cell = null;
         [SerializeField] private Text _demage = null;
         [SerializeField] private Text _demageShadow = null;
@@ -14,31 +12,26 @@ namespace Match3.Assets.Scripts.UnityComponents.UI.InGame
 
         private CellRewardViewTableItem _original;
 
-        public CellRewardViewTableItem GetOriginal()
-        {
+        public CellRewardViewTableItem GetOriginal() {
             return _original;
         }
 
-        public void Reset()
-        {
+        public void Reset() {
             gameObject.SetActive(true);
         }
 
-        public void SetOriginal(CellRewardViewTableItem value)
-        {
+        public void SetOriginal(CellRewardViewTableItem value) {
             _original = value;
         }
 
-        internal void SetValues(int health, int demage, Sprite sprite)
-        {
+        internal void SetValues(int health, int demage, Sprite sprite) {
             _cell.sprite = sprite;
 
             SetTextValue(health, _heath, _heathShadow);
             SetTextValue(demage, _demage, _demageShadow);
         }
 
-        private void SetTextValue(int value, Text text, Text shadow)
-        {
+        private void SetTextValue(int value, Text text, Text shadow) {
             text.gameObject.SetActive(value > 0);
             shadow.gameObject.SetActive(value > 0);
             text.text = value.ToString();

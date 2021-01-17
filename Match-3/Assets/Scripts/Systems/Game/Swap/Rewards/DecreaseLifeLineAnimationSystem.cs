@@ -4,16 +4,12 @@ using Match3.Assets.Scripts.Components.Game.Events.Rewards;
 using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
-{
-    public sealed class DecreaseLifeLineAnimationSystem : IEcsRunSystem
-    {
+namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards {
+    public sealed class DecreaseLifeLineAnimationSystem : IEcsRunSystem {
         private readonly EcsFilter<DemageRewardRequest> _filter = null;
 
-        public void Run()
-        {
-            if (_filter.GetEntitiesCount() == 0)
-            {
+        public void Run() {
+            if (_filter.GetEntitiesCount() == 0) {
                 return;
             }
 

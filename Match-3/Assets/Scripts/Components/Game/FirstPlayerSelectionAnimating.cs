@@ -1,7 +1,5 @@
-﻿namespace Match3.Components.Game
-{
-    public struct FirstPlayerSelectionAnimating
-    {
+﻿namespace Match3.Components.Game {
+    public struct FirstPlayerSelectionAnimating {
 
     }
 }

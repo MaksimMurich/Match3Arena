@@ -4,11 +4,9 @@ using Match3.UnityComponents;
 using System;
 using UnityEngine;
 
-namespace Match3.Configurations
-{
+namespace Match3.Configurations {
     [Serializable]
-    public class CellConfiguration
-    {
+    public class CellConfiguration {
         [SerializeField] private CellType _type;
         [Tooltip("weight of current cell, when choosing a random cell for spawn")]
         [SerializeField] private float _spawnWeight = 10;
@@ -29,14 +27,12 @@ namespace Match3.Configurations
         public CellRewardView HealthRewardView { get => _healthRewardView; }
         public CellRewardView DemageRewardView { get => _demageRewardView; }
 
-        public void SetSpawnRange(float minValue, float maxValue)
-        {
+        public void SetSpawnRange(float minValue, float maxValue) {
             _spawnRangeMin = minValue;
             _spawnRangeMax = maxValue;
         }
 
-        public bool CheckInSpawnRabge(float value)
-        {
+        public bool CheckInSpawnRabge(float value) {
             bool inRange = value >= _spawnRangeMin && value < _spawnRangeMax;
             return inRange;
         }

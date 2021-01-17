@@ -1,6 +1,4 @@
-﻿namespace Match3.Components.Game
-{
-    public struct ChargedToExplosion
-    {
+﻿namespace Match3.Components.Game {
+    public struct ChargedToExplosion {
     }
 }

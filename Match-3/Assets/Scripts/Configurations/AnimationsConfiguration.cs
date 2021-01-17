@@ -1,11 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Match3.Configurations
-{
+namespace Match3.Configurations {
     [Serializable]
-    public class AnimationsConfiguration
-    {
+    public class AnimationsConfiguration {
         [SerializeField] private float _explodedRewardUpAnimatingDuration = 1;
         [SerializeField] private int _randomAvatarsCount = 30;
         [SerializeField] private int _randomAvatarsDuration = 1;
