@@ -13,7 +13,6 @@ public class InGameViews : MonoBehaviour
     [SerializeField] private RoundResultPopupView _roundResultPopupView = null;
     [SerializeField] private Canvas _rewardsContainer = null;
     [SerializeField] private CellRewardViewTable _cellRewardViewTable = null;
-    //[SerializeField] private Text _turnTimer = null;
 
     public Camera Camera { get => _camera; }
     public Transform Background { get => _background; }
@@ -25,5 +24,4 @@ public class InGameViews : MonoBehaviour
     public RoundResultPopupView RoundResultPopupView { get => _roundResultPopupView; }
     public Canvas RewardsContainer { get => _rewardsContainer; }
     public CellRewardViewTable CellRewardViewTable { get => _cellRewardViewTable; }
-	//public TextAsset TurnTimer { get => _turnTimer; }
 }

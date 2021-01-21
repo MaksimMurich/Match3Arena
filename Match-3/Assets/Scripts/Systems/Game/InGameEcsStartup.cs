@@ -79,7 +79,6 @@ namespace Match3
                 .Add(new ScaleSelectedCellAnimationSystem())
                 .OneFrame<SelectCellAnimationRequest>()
 
-
                 .OneFrame<NextPlayerRequest>() // on user or bot swap cells
                 // user swap
                 .Add(new UserSwapInputSystem())

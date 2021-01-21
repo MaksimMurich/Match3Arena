@@ -57,7 +57,7 @@ namespace Match3.Systems.Game
 
 		private void ResetTimeRemain()
 		{
-			_timeRemain = Global.Config.InGame.MaxTurnTime + _expirationDelay + (2 * Time.deltaTime); // do not remove additional deltaTime. It will cause visual bug.
+			_timeRemain = Global.Config.InGame.MaxTurnTime + _expirationDelay + Time.deltaTime;
 			UpdateView();
 		}
 
