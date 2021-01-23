@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "774234788568",
+    "project_id": "match-3-arena",
+    "storage_bucket": "match-3-arena.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774234788568:android:601d0ef470db600985fdad",
+        "android_client_info": {
+          "package_name": "com.arenagames.match3arena"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774234788568-m8fietknbpb26valke0dma2tiv8dt7ln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm27-Cu6p2lgnr-RuquQLhaVVjdUxlx48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774234788568-m8fietknbpb26valke0dma2tiv8dt7ln.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "774234788568-4jemk77mi33p7dbjijprgske8bitssam.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.arenagames.match3arena"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

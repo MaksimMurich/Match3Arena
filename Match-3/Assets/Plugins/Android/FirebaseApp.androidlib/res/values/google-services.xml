@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="gcm_defaultSenderId" translatable="false">774234788568</string>
+  <string name="google_storage_bucket" translatable="false">match-3-arena.appspot.com</string>
+  <string name="project_id" translatable="false">match-3-arena</string>
+  <string name="google_api_key" translatable="false">AIzaSyAm27-Cu6p2lgnr-RuquQLhaVVjdUxlx48</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAm27-Cu6p2lgnr-RuquQLhaVVjdUxlx48</string>
+  <string name="google_app_id" translatable="false">1:774234788568:android:601d0ef470db600985fdad</string>
+  <string name="default_web_client_id" translatable="false">774234788568-m8fietknbpb26valke0dma2tiv8dt7ln.apps.googleusercontent.com</string>
+</resources>

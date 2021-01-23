@@ -16,6 +16,8 @@ namespace Match3
 
         void Start()
         {
+            Firebase.Analytics.FirebaseAnalytics.SetUserProperty("testName", "testProperty");
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("testLog");
             Global.Config.Lobby = _configuration;
             Global.Views.Lobby = _sceneData;
 
