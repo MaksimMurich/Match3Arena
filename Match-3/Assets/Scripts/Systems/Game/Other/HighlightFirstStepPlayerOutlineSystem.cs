@@ -29,7 +29,7 @@ namespace Match3.Assets.Scripts.Systems.Game {
             player.ActivateOutline(true);
             inactivePlayer.ActivateOutline(false);
 
-            if (_inGame.PlayerState.Active) {
+            if (Global.Data.Common.PlayerState.Active) {
                 _inGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.PlayerTurn);
             }
         }
@@ -37,7 +37,7 @@ namespace Match3.Assets.Scripts.Systems.Game {
         private PlayerInGameDataView GetActivePlayer() {
             PlayerInGameDataView activePlayer;
 
-            if (_inGame.PlayerState.Active) {
+            if (Global.Data.Common.PlayerState.Active) {
                 activePlayer = Global.Views.InGame.PlayerDataView;
             }
             else {
@@ -50,7 +50,7 @@ namespace Match3.Assets.Scripts.Systems.Game {
         private PlayerInGameDataView GetInactivePlayer() {
             PlayerInGameDataView inactivePlayer;
 
-            if (_inGame.PlayerState.Active) {
+            if (Global.Data.Common.PlayerState.Active) {
                 inactivePlayer = Global.Views.InGame.BotDataView;
             }
             else {

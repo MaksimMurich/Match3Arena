@@ -30,9 +30,8 @@ namespace Match3 {
         void Start() {
             Global.Config.InGame = _configuration;
             Global.Views.InGame = _sceneData;
-            Global.Data.InGame.PlayerState = new PlayerState(Global.Config.InGame.PlayersMaxLife, 100);
             Global.Data.Player = LocalSaveLoad<PlayerData>.Load();
-            Global.Data.Player = Data.Player != null ? Data.Player : new PlayerData(Global.Config.InGame.UserStateConfiguration.Rating, Global.Config.InGame.UserStateConfiguration.CoinsCount);
+            Global.Data.Player = Data.Player != null ? Data.Player : new PlayerData(Global.Config.Common.UserStateConfiguration.Rating, Global.Config.Common.UserStateConfiguration.CoinsCount);
 
             Global.Data.InGame.World = new EcsWorld();
             Global.Data.InGame.Systems = new EcsSystems(Global.Data.InGame.World);

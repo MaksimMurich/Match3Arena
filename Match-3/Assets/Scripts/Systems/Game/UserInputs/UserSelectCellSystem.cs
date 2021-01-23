@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Match3.Systems.Game.UserInputs {
     public sealed class UserSelectCellSystem : IEcsRunSystem {
         public void Run() {
-            if (!Global.Data.InGame.PlayerState.Active || !Input.GetMouseButtonDown(0)) {
+            if (!Global.Data.Common.PlayerState.Active || !Input.GetMouseButtonDown(0)) {
                 return;
             }
 

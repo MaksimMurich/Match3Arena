@@ -8,7 +8,7 @@ namespace Match3.Systems.Game.UserInputs {
         private readonly EcsFilter<Cell, Selected> _filter = null;
 
         public void Run() {
-            if (!Global.Data.InGame.PlayerState.Active || !Input.GetMouseButtonUp(0)) {
+            if (!Global.Data.Common.PlayerState.Active || !Input.GetMouseButtonUp(0)) {
                 return;
             }
 

@@ -10,8 +10,8 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot {
             OpponentState.Rating = (int)(Global.Data.Player.Rating * (0.5f + difficult));
             OpponentState.Rating += Random.Range(-100, 100);
             OpponentState.Rating = Mathf.Abs(OpponentState.Rating);
-            OpponentState.MaxLife = Global.Config.InGame.PlayersMaxLife;
-            OpponentState.CurrentLife = Global.Config.InGame.PlayersMaxLife;
+            OpponentState.MaxLife = Global.Config.Common.PlayersMaxLife;
+            OpponentState.CurrentLife = Global.Config.Common.PlayersMaxLife;
         }
     }
 }

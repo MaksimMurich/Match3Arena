@@ -8,7 +8,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards {
 
         public void Run() {
             foreach (int index in _filter) {
-                var state = Global.Data.InGame.PlayerState;
+                var state = Global.Data.Common.PlayerState;
                 EcsEntity entity = _filter.GetEntity(index);
                 HealthRewardRequest reward = _filter.Get1(index);
 
