@@ -10,8 +10,8 @@ namespace Match3.Configurations {
         [SerializeField] private UserStateConfiguration _userStateConfiguration = null;
         public int TargetFrameRate { get => _targetFrameRate; }
         public int MinDeltaRating { get => _minDeltaRating; }
-        internal float DeltaRatingRewardMultiplayer { get => _deltaRatingRewardMultiplayer; }
-        internal float PlayersMaxLife { get => _playersMaxLife; }
+        public float DeltaRatingRewardMultiplayer { get => _deltaRatingRewardMultiplayer; }
+        public float PlayersMaxLife { get => _playersMaxLife; }
         public UserStateConfiguration UserStateConfiguration { get => _userStateConfiguration; }
     }
 }

@@ -14,20 +14,19 @@ namespace Match3.Assets.Scripts.Systems {
         }
 
         private void ClickedPlayHandler(int id) {
-            ArenaConfig config = Global.Config.Lobby.ArenaConfigs.Where(config => config.ID == id).FirstOrDefault();
+            ArenaConfig configuration = Global.Config.Lobby.ArenaConfigs.Where(config => config.ID == id).FirstOrDefault();
 
-            if (config == null) {
+            if (configuration == null) {
                 Debug.LogError("Arena config is null.");
-                config = Global.Config.Lobby.DefaultArenaConfig;
+                configuration = Global.Config.Lobby.DefaultArenaConfig;
             }
 
-            // Use, when coins whould be configurated.
-            //if(Global.Data.Player.Coins < config.Bet) {
-            //    return;
-            //}
+            if(Global.Data.Player.Coins < configuration.Bet) {
+               return;
+            }
 
-            Debug.Log($"Bet id {config.Bet}. Launching game scene.");
-            Global.Data.Common.PlayerState.CurrentBet = config.Bet;
+            Debug.Log($"Bet id {configuration.Bet}. Launching game scene.");
+            Global.Data.Common.PlayerState.CurrentBet = configuration.Bet;
             SceneManager.LoadScene(SceneNameConstants.Game);
         }
     }
