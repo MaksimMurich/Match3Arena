@@ -1,8 +1,7 @@
 ﻿using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using UnityEngine;
 
-public class InGameViews : MonoBehaviour
-{
+public class InGameViews : MonoBehaviour {
     [SerializeField] private Camera _camera = null;
     [SerializeField] private Transform _background = null;
     [SerializeField] private NavigationView _navigationView = null;

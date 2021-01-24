@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Match3.Configurations
-{
+namespace Match3.Configurations {
     [CreateAssetMenu]
-    public class UserStateConfiguration : ScriptableObject
-    {
+    public class UserStateConfiguration : ScriptableObject {
         public string UserName;
         public long CoinsCount;
         public int Rating;

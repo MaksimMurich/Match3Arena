@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Services.Pool
-{
-    public class ObjectPool
-    {
+namespace Match3.Assets.Scripts.Services.Pool {
+    public class ObjectPool {
         private readonly Transform _rootContainer;
         private readonly Transform _stashedObjectsContainer;
         private readonly Transform _activeObjectsContainer;
@@ -13,8 +11,7 @@ namespace Match3.Assets.Scripts.Services.Pool
         private readonly Dictionary<MonoBehaviour, MonoBehaviour> _poolContainers = new Dictionary<MonoBehaviour, MonoBehaviour>();
         private readonly Dictionary<Type, Dictionary<MonoBehaviour, Queue<MonoBehaviour>>> _pool = new Dictionary<Type, Dictionary<MonoBehaviour, Queue<MonoBehaviour>>>();
 
-        public ObjectPool()
-        {
+        public ObjectPool() {
             _rootContainer = new GameObject().transform;
             _rootContainer.name = nameof(ObjectPool);
 
@@ -29,42 +26,35 @@ namespace Match3.Assets.Scripts.Services.Pool
 
         }
 
-        public void Stash<T>(T value) where T : MonoBehaviour, IClone<T>
-        {
+        public void Stash<T>(T value) where T : MonoBehaviour, IClone<T> {
             var type = typeof(T);
 
-            if (!_pool.ContainsKey(type))
-            {
+            if (!_pool.ContainsKey(type)) {
                 _pool.Add(type, new Dictionary<MonoBehaviour, Queue<MonoBehaviour>>());
             }
 
             T original = value.GetOriginal();
 
-            if (!_pool[type].ContainsKey(original))
-            {
+            if (!_pool[type].ContainsKey(original)) {
                 _pool[type].Add(original, new Queue<MonoBehaviour>());
             }
 
-            if (!_pool[type][original].Contains(value))
-            {
+            if (!_pool[type][original].Contains(value)) {
                 _pool[type][original].Enqueue(value);
             }
 
             value.transform.SetParent(_stashedObjectsContainer);
         }
 
-        public T Get<T>(T original) where T : MonoBehaviour, IClone<T>
-        {
+        public T Get<T>(T original) where T : MonoBehaviour, IClone<T> {
             T result;
             Type type = original.GetType();
             bool hasObjects = _pool.ContainsKey(type) && _pool[type].ContainsKey(original) && _pool[type][original].Count > 0;
 
-            if (hasObjects)
-            {
+            if (hasObjects) {
                 result = _pool[type][original].Dequeue() as T;
             }
-            else
-            {
+            else {
                 result = UnityEngine.Object.Instantiate(original);
                 result.SetOriginal(original);
             }

@@ -5,26 +5,21 @@ using Match3.Components.Game.Events;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Match3.Systems.Game.Swap
-{
-    public sealed class SwapSystem : IEcsRunSystem
-    {
+namespace Match3.Systems.Game.Swap {
+    public sealed class SwapSystem : IEcsRunSystem {
         private readonly EcsFilter<Cell, Vector2Int, SwapRequest> _filter = null;
         private readonly EcsFilter<ChangeFieldAnimating> _fieldChangers = null;
         private readonly EcsFilter<AnimateExplosion> _explosionAnimations = null;
         private readonly EcsFilter<ChainEvent> _chains = null;
 
-        public void Run()
-        {
+        public void Run() {
             bool swapLocked = _fieldChangers.GetEntitiesCount() > 0 || _chains.GetEntitiesCount() > 0 || _explosionAnimations.GetEntitiesCount() > 0;
 
-            if (swapLocked)
-            {
+            if (swapLocked) {
                 return;
             }
 
-            foreach (int index in _filter)
-            {
+            foreach (int index in _filter) {
                 var inGameData = Global.Data.InGame;
                 var cells = inGameData.GameField.Cells;
 
@@ -45,8 +40,7 @@ namespace Match3.Systems.Game.Swap
 
                 List<ChainEvent> chains = GameFieldAnalyst.GetChains(cells);
 
-                if (chains.Count == 0)
-                {
+                if (chains.Count == 0) {
                     cells[cellPosition] = swapCell;
                     cells[targetPosition] = secondCell;
 
@@ -62,10 +56,8 @@ namespace Match3.Systems.Game.Swap
                     secondRequest.TargetPosition = cellPosition;
                     secondCell.Set<AnimateSwapBackRequest>() = secondRequest;
                 }
-                else
-                {
-                    if (inGameData.PlayerState.Active)
-                    {
+                else {
+                    if (inGameData.PlayerState.Active) {
                         inGameData.PlayerState.StepsCount += 1;
                     }
 

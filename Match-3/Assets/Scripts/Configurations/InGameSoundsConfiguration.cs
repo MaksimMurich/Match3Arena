@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Match3.Configurations
-{
+namespace Match3.Configurations {
     [CreateAssetMenu]
-    public class InGameSoundsConfiguration : ScriptableObject
-    {
+    public class InGameSoundsConfiguration : ScriptableObject {
         [SerializeField] private AudioClip _swap = null;
         [SerializeField] private AudioClip _swapBack = null;
         [SerializeField] private AudioClip _cellsExplosion = null;

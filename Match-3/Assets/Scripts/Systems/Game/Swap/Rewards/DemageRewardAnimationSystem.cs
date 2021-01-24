@@ -4,22 +4,17 @@ using Match3.Assets.Scripts.Components.Game.Events.Rewards;
 using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
-{
-    public sealed class DemageRewardAnimationSystem : IEcsRunSystem
-    {
+namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards {
+    public sealed class DemageRewardAnimationSystem : IEcsRunSystem {
         private readonly EcsFilter<DemageRewardRequest> _filter = null;
 
-        public void Run()
-        {
+        public void Run() {
             var views = Global.Views.InGame;
 
-            foreach (int index in _filter)
-            {
+            foreach (int index in _filter) {
                 DemageRewardRequest request = _filter.Get1(index);
 
-                if (request.Value == 0)
-                {
+                if (request.Value == 0) {
                     continue;
                 }
 

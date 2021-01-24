@@ -4,20 +4,15 @@ using Match3.Assets.Scripts.Components.Game.Events.Rewards;
 using Match3.Assets.Scripts.UnityComponents.UI.InGame;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
-{
-    public sealed class HealthRewardAnimationSystem : IEcsRunSystem
-    {
+namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards {
+    public sealed class HealthRewardAnimationSystem : IEcsRunSystem {
         private readonly EcsFilter<HealthRewardRequest> _filter = null;
 
-        public void Run()
-        {
-            foreach (int index in _filter)
-            {
+        public void Run() {
+            foreach (int index in _filter) {
                 HealthRewardRequest request = _filter.Get1(index);
 
-                if (request.Value == 0)
-                {
+                if (request.Value == 0) {
                     continue;
                 }
 
@@ -45,16 +40,14 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards
             }
         }
 
-        public Vector3 ScreenToCanvasPosition(Canvas canvas, Vector3 screenPosition)
-        {
+        public Vector3 ScreenToCanvasPosition(Canvas canvas, Vector3 screenPosition) {
             var viewportPosition = new Vector3(screenPosition.x / Screen.width,
                                                screenPosition.y / Screen.height,
                                                0);
             return ViewportToCanvasPosition(canvas, viewportPosition);
         }
 
-        public Vector3 ViewportToCanvasPosition(Canvas canvas, Vector3 viewportPosition)
-        {
+        public Vector3 ViewportToCanvasPosition(Canvas canvas, Vector3 viewportPosition) {
             var centerBasedViewPortPosition = viewportPosition - new Vector3(0.5f, 0.5f, 0);
             var canvasRect = canvas.GetComponent<RectTransform>();
             var scale = canvasRect.sizeDelta;

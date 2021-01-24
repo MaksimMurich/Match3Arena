@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Match3.Assets.Scripts.UnityComponents.UI.InGame
-{
-    public class PlayerInGameDataView : MonoBehaviour
-    {
+namespace Match3.Assets.Scripts.UnityComponents.UI.InGame {
+    public class PlayerInGameDataView : MonoBehaviour {
         [HideInInspector] public Text Nick;
         [HideInInspector] public Text Rating;
 
@@ -15,8 +13,7 @@ namespace Match3.Assets.Scripts.UnityComponents.UI.InGame
 
         [SerializeField] private GameObject _outline = null;
 
-        public void ActivateOutline(bool value)
-        {
+        public void ActivateOutline(bool value) {
             _outline.SetActive(value);
         }
     }

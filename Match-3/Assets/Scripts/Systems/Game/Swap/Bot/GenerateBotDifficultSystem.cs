@@ -1,12 +1,9 @@
 ﻿using Leopotam.Ecs;
 using UnityEngine;
 
-namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot
-{
-    public sealed class GenerateBotDifficultSystem : IEcsInitSystem
-    {
-        public void Init()
-        {
+namespace Match3.Assets.Scripts.Systems.Game.Swap.Bot {
+    public sealed class GenerateBotDifficultSystem : IEcsInitSystem {
+        public void Init() {
             float difficultPossibilityPoint = Random.Range(0f, 1f);
             float difficult = Global.Config.InGame.BotBehaviour.DifficultPossibility.Evaluate(difficultPossibilityPoint);
             OpponentState.Difficult = difficult;

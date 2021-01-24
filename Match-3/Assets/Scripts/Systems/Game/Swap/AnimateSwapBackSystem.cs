@@ -5,21 +5,16 @@ using Match3.Components.Game;
 using Match3.Components.Game.Events;
 using UnityEngine;
 
-namespace Match3.Systems.Game.Swap
-{
-    public sealed class AnimateSwapBackSystem : IEcsRunSystem
-    {
+namespace Match3.Systems.Game.Swap {
+    public sealed class AnimateSwapBackSystem : IEcsRunSystem {
         private readonly EcsFilter<Cell, Vector2Int, AnimateSwapRequest, AnimateSwapBackRequest> _filter = null;
 
-        public void Run()
-        {
-            if (_filter.GetEntitiesCount() > 0)
-            {
+        public void Run() {
+            if (_filter.GetEntitiesCount() > 0) {
                 Global.Data.InGame.World.NewEntity().Set<PlaySoundRequest>() = new PlaySoundRequest(Global.Config.InGame.Sounds.SwapBack);
             }
 
-            foreach (int index in _filter)
-            {
+            foreach (int index in _filter) {
                 EcsEntity entity = _filter.GetEntity(index);
                 entity.Set<ChangeFieldAnimating>();
                 float zPosition = _filter.Get3(index).MainCell ? -1 : 0;
@@ -37,8 +32,7 @@ namespace Match3.Systems.Game.Swap
             }
         }
 
-        private void OnSwapBackCompleate(EcsEntity entity, Transform view)
-        {
+        private void OnSwapBackCompleate(EcsEntity entity, Transform view) {
             entity.Unset<ChangeFieldAnimating>();
             view.transform.position -= new Vector3(0, 0, view.transform.position.z);
         }

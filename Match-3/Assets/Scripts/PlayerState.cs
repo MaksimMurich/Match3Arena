@@ -1,7 +1,5 @@
-﻿namespace Match3
-{
-    public class PlayerState
-    {
+﻿namespace Match3 {
+    public class PlayerState {
         public readonly float MaxLife;
 
         public int Score;
@@ -14,8 +12,7 @@
         public int DeltaRatingReward;
         public int DeltaRatingUnreward;
 
-        public PlayerState(float maxLife, int bet)
-        {
+        public PlayerState(float maxLife, int bet) {
             MaxLife = maxLife;
             CurrentLife = maxLife;
             CurrentBet = bet;

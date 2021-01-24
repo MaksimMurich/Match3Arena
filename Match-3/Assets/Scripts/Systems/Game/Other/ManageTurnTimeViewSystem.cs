@@ -4,136 +4,115 @@ using Match3.Components.Game.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace Match3.Systems.Game {
+    sealed class ManageTurnTimeViewSystem : IEcsRunSystem, IEcsInitSystem {
+        private readonly EcsFilter<UpdateTurnTimerViewRequest> _updateTurnTimerRequestsFilter = null;
+        private readonly EcsFilter<NextPlayerRequest> _nextPlayerRequestsfilter = null;
 
-namespace Match3.Systems.Game
-{
-	sealed class ManageTurnTimeViewSystem : IEcsRunSystem, IEcsInitSystem
-	{
+        private int _timeRemain = (int)Global.Config.InGame.MaxTurnTime;
+        private bool _lastTickMade = false;
+        private readonly string _defaultTimerView = "0";
+        private readonly float _timeToSignal = Global.Config.InGame.TurnTimerSignalTime;
+        private readonly float _scaleCoefficient = Global.Config.InGame.Animation.TurnTimerScaleCoefficient;
+        private readonly float _defaultScale = 1f;
+        private readonly float _animationDuration = 0.8f; // 0 < value < 1
+        private Sequence _viewsAnimation = DOTween.Sequence();
 
-		private readonly EcsFilter<UpdateTurnTimerViewRequest> _updateTurnTimerRequestsFilter = null;
-		private readonly EcsFilter<NextPlayerRequest> _nextPlayerRequestsfilter = null;
+        private readonly Text _botView = Global.Views.InGame.BotDataView.TurnTimer;
+        private readonly Text _playerView = Global.Views.InGame.PlayerDataView.TurnTimer;
+        private readonly Color _botViewColorDefault = Global.Views.InGame.BotDataView.TurnTimer.color;
+        private readonly Color _playerViewColorDefault = Global.Views.InGame.PlayerDataView.TurnTimer.color;
+        private readonly Color _singnalColor = Color.red;
 
-		private readonly string _defaultTimerView = "0";
-		private readonly float _timeToSignal = Global.Config.InGame.TurnTimerSignalTime;
-		private readonly float _scaleCoefficient = Global.Config.InGame.TurnTimerScaleCoefficient;
-		private readonly float _defaultScale = 1f;
-		private readonly float _animationDuration = 0.8f; // 0 < value < 1
-		private int _timeRemain = (int)Global.Config.InGame.MaxTurnTime;
-		private bool _lastTickMade = false;
+        public void Init() {
+            _botView.text = _defaultTimerView;
+            _playerView.text = _defaultTimerView;
 
-		private readonly Color _botViewColorDefault = Global.Views.InGame.BotDataView.TurnTimer.color;
-		private readonly Color _playerViewColorDefault = Global.Views.InGame.PlayerDataView.TurnTimer.color;
-		private readonly Color _singnalColor = Color.red;
+            SetScaleViewsDefault();
+            SetViewsColor();
+            Hide();
+        }
 
-		private Text _botView = Global.Views.InGame.BotDataView.TurnTimer;
-		private Text _playerView = Global.Views.InGame.PlayerDataView.TurnTimer;
+        public void Run() {
+            DeactivateIfNeed();
 
-		private Sequence _viewsAnimation = DOTween.Sequence();
+            bool timeChanged = _updateTurnTimerRequestsFilter.GetEntitiesCount() > 0;
+            if (!timeChanged) {
+                return;
+            }
 
-		public void Init()
-		{
-			_botView.text = _defaultTimerView;
-			_playerView.text = _defaultTimerView;
+            UpdateTurnTimerViewRequest updateTurnTimerViewRequest = _updateTurnTimerRequestsFilter.Get1(0);
+            _timeRemain = updateTurnTimerViewRequest.TimeRamain;
 
-			SetScaleViewsDefault();
-			SetViewsColor();
-			Hide();
-		}
+            _botView.text = _timeRemain.ToString();
+            _playerView.text = _timeRemain.ToString();
 
-		public void Run()
-		{
-			DeactivateIfNeed();
+            bool isPlayerTime = Global.Data.InGame.PlayerState.Active;
+            _botView.gameObject.SetActive(!isPlayerTime);
+            _playerView.gameObject.SetActive(isPlayerTime);
 
-			bool timeChanged = _updateTurnTimerRequestsFilter.GetEntitiesCount() > 0;
-			if (!timeChanged)
-			{
-				return;
-			}
+            if (_timeRemain <= _timeToSignal) {
+                ScaleViews();
+                SetViewsColor(_singnalColor);
+            }
+            else {
+                SetScaleViewsDefault();
+                SetViewsColor();
+            }
+        }
 
-			UpdateTurnTimerViewRequest updateTurnTimerViewRequest = _updateTurnTimerRequestsFilter.Get1(0);
-			_timeRemain = updateTurnTimerViewRequest.TimeRamain;
+        private void DeactivateIfNeed() {
+            if (_nextPlayerRequestsfilter.GetEntitiesCount() > 0) {
+                SetScaleViewsDefault();
+                SetViewsColor();
+                Hide();
+            }
+        }
 
-			_botView.text = _timeRemain.ToString();
-			_playerView.text = _timeRemain.ToString();
+        private void Hide() {
+            _botView.gameObject.SetActive(false);
+            _playerView.gameObject.SetActive(false);
+        }
 
-			bool isPlayerTime = Global.Data.InGame.PlayerState.Active;
-			_botView.gameObject.SetActive(!isPlayerTime);
-			_playerView.gameObject.SetActive(isPlayerTime);
+        private void ScaleViews() {
+            SetScaleViewsDefault();
 
-			if (_timeRemain <= _timeToSignal)
-			{
-				ScaleViews();
-				SetViewsColor(_singnalColor);
-			}
-			else
-			{
-				SetScaleViewsDefault();
-				SetViewsColor();
-			}
-		}
+            if (_timeRemain == 1) {
+                _lastTickMade = false;
+            }
+            else if (_timeRemain <= 0 && _lastTickMade == true) {
+                return;
+            }
+            else if (_timeRemain <= 0) {
+                _lastTickMade = true;
+            }
 
-		private void DeactivateIfNeed()
-		{
-			if (_nextPlayerRequestsfilter.GetEntitiesCount() > 0)
-			{
-				SetScaleViewsDefault();
-				SetViewsColor();
-				Hide();
-			}
-		}
+            Tween upscalingBot = _botView.transform.DOScale(new Vector3(_scaleCoefficient, _scaleCoefficient), _animationDuration / 2);
+            Tween downscalingBot = _botView.transform.DOScale(new Vector3(_defaultScale, _defaultScale), _animationDuration / 2);
+            Tween upscalingPlayer = _playerView.transform.DOScale(new Vector3(_scaleCoefficient, _scaleCoefficient), _animationDuration / 2);
+            Tween downscalingPlayer = _playerView.transform.DOScale(new Vector3(_defaultScale, _defaultScale), _animationDuration / 2);
 
-		private void Hide()
-		{
-			_botView.gameObject.SetActive(false);
-			_playerView.gameObject.SetActive(false);
-		}
+            _viewsAnimation.Join(upscalingBot);
+            _viewsAnimation.Join(upscalingPlayer);
+            _viewsAnimation.Append(downscalingBot);
+            _viewsAnimation.Join(downscalingPlayer);
+        }
 
-		private void ScaleViews()
-		{
-			SetScaleViewsDefault();
+        private void SetScaleViewsDefault() {
+            _viewsAnimation.Kill();
+            _viewsAnimation = DOTween.Sequence();
+            _botView.transform.localScale = new Vector3(_defaultScale, _defaultScale);
+            _playerView.transform.localScale = new Vector3(_defaultScale, _defaultScale);
+        }
 
-			if (_timeRemain == 1)
-			{
-				_lastTickMade = false;
-			}
-			else if (_timeRemain <= 0 && _lastTickMade == true)
-			{
-				return;
-			}
-			else if (_timeRemain <= 0)
-			{
-				_lastTickMade = true;
-			}
+        private void SetViewsColor() {
+            _botView.color = _botViewColorDefault;
+            _playerView.color = _playerViewColorDefault;
+        }
 
-			Tween upscalingBot = _botView.transform.DOScale(new Vector3(_scaleCoefficient, _scaleCoefficient), _animationDuration / 2);
-			Tween downscalingBot = _botView.transform.DOScale(new Vector3(_defaultScale, _defaultScale), _animationDuration / 2);
-			Tween upscalingPlayer = _playerView.transform.DOScale(new Vector3(_scaleCoefficient, _scaleCoefficient), _animationDuration / 2);
-			Tween downscalingPlayer = _playerView.transform.DOScale(new Vector3(_defaultScale, _defaultScale), _animationDuration / 2);
-
-			_viewsAnimation.Join(upscalingBot);
-			_viewsAnimation.Join(upscalingPlayer);
-			_viewsAnimation.Append(downscalingBot);
-			_viewsAnimation.Join(downscalingPlayer);
-		}
-
-		private void SetScaleViewsDefault()
-		{
-			_viewsAnimation.Kill();
-			_viewsAnimation = DOTween.Sequence();
-			_botView.transform.localScale = new Vector3(_defaultScale, _defaultScale);
-			_playerView.transform.localScale = new Vector3(_defaultScale, _defaultScale);
-		}
-
-		private void SetViewsColor()
-		{
-			_botView.color = _botViewColorDefault;
-			_playerView.color = _playerViewColorDefault;
-		}
-
-		private void SetViewsColor(Color color)
-		{
-			_playerView.color = color;
-			_botView.color = color;
-		}
-	}
+        private void SetViewsColor(Color color) {
+            _playerView.color = color;
+            _botView.color = color;
+        }
+    }
 }

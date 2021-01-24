@@ -3,12 +3,9 @@ using Match3.Assets.Scripts.Services.SaveLoad;
 using Match3.Configurations;
 using System;
 
-namespace Match3.Assets.Scripts.Systems.Game.UI
-{
-    public sealed class UnrewardPlayerOnStartRoundSystem : IEcsInitSystem
-    {
-        public void Init()
-        {
+namespace Match3.Assets.Scripts.Systems.Game.UI {
+    public sealed class UnrewardPlayerOnStartRoundSystem : IEcsInitSystem {
+        public void Init() {
             Global.Data.Player.Coins -= Global.Data.InGame.PlayerState.CurrentBet;
             int playerRating = Global.Data.Player.Rating;
             InGameConfiguration inGame = Global.Config.InGame;

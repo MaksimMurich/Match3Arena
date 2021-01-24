@@ -1,11 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Match3.Configurations
-{
+namespace Match3.Configurations {
     [Serializable]
-    public class AnimationsConfiguration
-    {
+    public class AnimationsConfiguration {
         [SerializeField] private float _explodedRewardUpAnimatingDuration = 1;
         [SerializeField] private int _randomAvatarsCount = 30;
         [SerializeField] private int _randomAvatarsDuration = 1;
@@ -18,6 +16,7 @@ namespace Match3.Configurations
         [SerializeField] private float _startGameBetAccumulationDurationSec = 3;
         [SerializeField] private float _updateLifeTime = 1;
         [SerializeField] private Vector3 _upCellOnAnimate = new Vector3(0, 0, -.1f);
+        [SerializeField] private float _turnTimerScaleCoefficient = 1.5f; // coefficient to scale turns`s timer each second
 
         public float ExplodedRewardUpAnimatingDuration { get => _explodedRewardUpAnimatingDuration; }
         public int SelectFirstPlayerAvatarsCount => _randomAvatarsCount; // count of avatar images in select first user animation 
@@ -31,5 +30,6 @@ namespace Match3.Configurations
         public float StartGameBetAccumulationDurationSec { get => _startGameBetAccumulationDurationSec; }
         public float UpdateLifeTime { get => _updateLifeTime; }
         public Vector3 UpCellOnAnimate => _upCellOnAnimate;
+        public float TurnTimerScaleCoefficient { get => _turnTimerScaleCoefficient; }
     }
 }

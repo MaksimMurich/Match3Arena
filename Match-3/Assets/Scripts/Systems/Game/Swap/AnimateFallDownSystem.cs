@@ -3,16 +3,12 @@ using Leopotam.Ecs;
 using Match3.Components.Game;
 using UnityEngine;
 
-namespace Match3.Systems.Game.Swap
-{
-    public sealed class AnimateFallDownSystem : IEcsRunSystem
-    {
+namespace Match3.Systems.Game.Swap {
+    public sealed class AnimateFallDownSystem : IEcsRunSystem {
         private readonly EcsFilter<Cell, Vector2Int, AnimateFallDownRequest> _filter = null;
 
-        public void Run()
-        {
-            foreach (int index in _filter)
-            {
+        public void Run() {
+            foreach (int index in _filter) {
                 EcsEntity entity = _filter.GetEntity(index);
                 entity.Set<ChangeFieldAnimating>();
                 float zPosition = 1;
@@ -26,8 +22,7 @@ namespace Match3.Systems.Game.Swap
             }
         }
 
-        private void OnFallenDown(EcsEntity entity, Transform view, bool playAudio)
-        {
+        private void OnFallenDown(EcsEntity entity, Transform view, bool playAudio) {
             entity.Unset<ChangeFieldAnimating>();
             view.transform.position -= new Vector3(0, 0, view.transform.position.z);
         }
