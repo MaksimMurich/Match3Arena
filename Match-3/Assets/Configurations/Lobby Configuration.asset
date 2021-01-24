@@ -14,10 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp:Match3.Configurations:LobbyConfiguration
   _userStateConfiguration: {fileID: 11400000, guid: 5d5e88ac09769ff44b368af6a3e4ce67,
     type: 2}
-  arenaConfig:
-  - _name: easy
-    _bet: 100
-  - _name: medium
-    _bet: 1000
-  - _name: epic
-    _bet: 10000
+  defaultArenaConfig:
+    Name: default
+    ID: 1
+    Bet: 100
+  arenaConfigs:
+  - Name: Easy
+    ID: 1
+    Bet: 100
+  - Name: Medium
+    ID: 2
+    Bet: 1000
+  - Name: Epic
+    ID: 3
+    Bet: 10000

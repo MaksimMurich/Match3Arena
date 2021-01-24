@@ -20,7 +20,7 @@ namespace Match3.Assets.Scripts.Systems.Game.UI {
                 return;
             }
 
-            PlayerState state = Global.Data.InGame.PlayerState;
+            PlayerState state = Global.Data.Common.PlayerState;
 
             _view.gameObject.SetActive(true);
             _view.SetStepsCount(state.StepsCount);

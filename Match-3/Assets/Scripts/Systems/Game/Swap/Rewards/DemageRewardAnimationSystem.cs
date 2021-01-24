@@ -23,7 +23,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards {
                 float widthProportion = canvasRect.sizeDelta.x / Screen.width;
                 float heightProportion = canvasRect.sizeDelta.y / Screen.height;
 
-                PlayerInGameDataView dataView = Global.Data.InGame.PlayerState.Active ? views.PlayerDataView : views.BotDataView;
+                PlayerInGameDataView dataView = Global.Data.Common.PlayerState.Active ? views.PlayerDataView : views.BotDataView;
                 CellRewardView rewardView = Global.Services.Pool.Get(request.View);
                 rewardView.SetValue(request.Value);
                 rewardView.transform.SetParent(views.RewardsContainer.transform);

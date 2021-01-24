@@ -8,7 +8,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization {
             InGameConfiguration config = Global.Config.InGame;
             InGameViews views = Global.Views.InGame;
 
-            Application.targetFrameRate = config.TargetFrameRate;
+            Application.targetFrameRate = Global.Config.Common.TargetFrameRate;
 
             float fillScreenPart = 1 / (1 + 2 * config.MinFieldPadding);
             float cameraSize = config.LevelHeight * (1 + config.TopMenuPadding + config.BottomPadding) / fillScreenPart / 2f;

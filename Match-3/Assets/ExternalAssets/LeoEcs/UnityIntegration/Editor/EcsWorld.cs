@@ -8,13 +8,10 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Leopotam.Ecs.UnityIntegration.Editor
-{
+namespace Leopotam.Ecs.UnityIntegration.Editor {
     [CustomEditor(typeof(EcsWorldObserver))]
-    sealed class EcsWorldObserverInspector : UnityEditor.Editor
-    {
-        public override void OnInspectorGUI()
-        {
+    sealed class EcsWorldObserverInspector : UnityEditor.Editor {
+        public override void OnInspectorGUI() {
             var observer = (EcsWorldObserver)target;
             var stats = observer.GetStats();
             var guiEnabled = GUI.enabled;

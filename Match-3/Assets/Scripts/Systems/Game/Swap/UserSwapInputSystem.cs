@@ -8,7 +8,7 @@ namespace Match3.Systems.Game.Swap {
         private readonly EcsFilter<Cell, Vector2Int, Selected> _filter = null;
 
         public void Run() {
-            if (!Global.Data.InGame.PlayerState.Active) {
+            if (!Global.Data.Common.PlayerState.Active) {
                 return;
             }
 

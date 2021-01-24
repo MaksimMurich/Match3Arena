@@ -13,7 +13,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards {
                 return;
             }
 
-            PlayerState playerState = Global.Data.InGame.PlayerState;
+            PlayerState playerState = Global.Data.Common.PlayerState;
             InGameViews inGame = Global.Views.InGame;
 
             PlayerInGameDataView dataView = playerState.Active == false ? inGame.PlayerDataView : inGame.BotDataView;

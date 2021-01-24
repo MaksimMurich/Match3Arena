@@ -21,6 +21,7 @@ namespace Match3.Systems.Game.Swap {
 
             foreach (int index in _filter) {
                 var inGameData = Global.Data.InGame;
+                var commonData = Global.Data.Common;
                 var cells = inGameData.GameField.Cells;
 
                 Vector2Int cellPosition = _filter.Get2(index);
@@ -57,8 +58,8 @@ namespace Match3.Systems.Game.Swap {
                     secondCell.Set<AnimateSwapBackRequest>() = secondRequest;
                 }
                 else {
-                    if (inGameData.PlayerState.Active) {
-                        inGameData.PlayerState.StepsCount += 1;
+                    if (commonData.PlayerState.Active) {
+                        commonData.PlayerState.StepsCount += 1;
                     }
 
                     inGameData.World.NewEntity().Set<NextPlayerRequest>();

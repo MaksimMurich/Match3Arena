@@ -8,15 +8,12 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Leopotam.Ecs.UnityIntegration.Editor
-{
+namespace Leopotam.Ecs.UnityIntegration.Editor {
     [CustomEditor(typeof(EcsSystemsObserver))]
-    sealed class EcsSystemsObserverInspector : UnityEditor.Editor
-    {
+    sealed class EcsSystemsObserverInspector : UnityEditor.Editor {
         EcsSystemsObserver _observer;
 
-        public override void OnInspectorGUI()
-        {
+        public override void OnInspectorGUI() {
             var savedState = GUI.enabled;
             GUI.enabled = true;
             var systemsGroup = _observer.GetSystems();
@@ -39,29 +36,23 @@ namespace Leopotam.Ecs.UnityIntegration.Editor
             GUI.enabled = savedState;
         }
 
-        void OnEnable()
-        {
+        void OnEnable() {
             _observer = (EcsSystemsObserver)target;
         }
 
-        void OnDisable()
-        {
+        void OnDisable() {
             _observer = null;
         }
 
-        void OnInitSystemsGUI(EcsSystems systemsGroup)
-        {
+        void OnInitSystemsGUI(EcsSystems systemsGroup) {
             var systems = systemsGroup.GetAllSystems();
             EditorGUI.indentLevel++;
-            for (var i = 0; i < systems.Count; i++)
-            {
+            for (var i = 0; i < systems.Count; i++) {
                 var item = systems.Items[i];
-                if (item is IEcsInitSystem)
-                {
+                if (item is IEcsInitSystem) {
                     var asSystems = item as EcsSystems;
                     EditorGUILayout.LabelField(asSystems != null ? $"[{asSystems.Name ?? asSystems.GetType().Name}]" : systems.Items[i].GetType().Name);
-                    if (asSystems != null)
-                    {
+                    if (asSystems != null) {
                         OnInitSystemsGUI(asSystems);
                     }
                 }
@@ -69,34 +60,27 @@ namespace Leopotam.Ecs.UnityIntegration.Editor
             EditorGUI.indentLevel--;
         }
 
-        void OnRunSystemsGUI(EcsSystems systemsGroup)
-        {
+        void OnRunSystemsGUI(EcsSystems systemsGroup) {
             var systems = systemsGroup.GetRunSystems();
             EditorGUI.indentLevel++;
-            for (var i = 0; i < systems.Count; i++)
-            {
+            for (var i = 0; i < systems.Count; i++) {
                 var runItem = systems.Items[i];
                 var asSystems = runItem.System as EcsSystems;
                 string systemName;
                 var type = runItem.System.GetType();
-                if (asSystems != null)
-                {
+                if (asSystems != null) {
                     systemName = $"[{type.Name}]";
                 }
-                else
-                {
+                else {
                     systemName = type.Name;
-                    if (type.IsGenericType)
-                    {
+                    if (type.IsGenericType) {
                         var tilda = systemName.IndexOf('`');
-                        if (tilda > 0)
-                        {
+                        if (tilda > 0) {
                             systemName = systemName.Remove(tilda);
                         }
                         systemName += "<";
                         var args = type.GetGenericArguments();
-                        for (var ii = 0; ii < args.Length; ii++)
-                        {
+                        for (var ii = 0; ii < args.Length; ii++) {
                             // systemName += $",{args[ii].Name}";
                             systemName += ii == 0 ? args[ii].Name : $",{args[ii].Name}";
                         }
@@ -104,27 +88,22 @@ namespace Leopotam.Ecs.UnityIntegration.Editor
                     }
                 }
                 runItem.Active = EditorGUILayout.ToggleLeft(systemName, runItem.Active);
-                if (asSystems != null && runItem.Active)
-                {
+                if (asSystems != null && runItem.Active) {
                     OnRunSystemsGUI(asSystems);
                 }
             }
             EditorGUI.indentLevel--;
         }
 
-        void OnDestroySystemsGUI(EcsSystems systemsGroup)
-        {
+        void OnDestroySystemsGUI(EcsSystems systemsGroup) {
             var systems = systemsGroup.GetAllSystems();
             EditorGUI.indentLevel++;
-            for (var i = 0; i < systems.Count; i++)
-            {
+            for (var i = 0; i < systems.Count; i++) {
                 var item = systems.Items[i];
-                if (item is IEcsDestroySystem)
-                {
+                if (item is IEcsDestroySystem) {
                     var asSystems = item as EcsSystems;
                     EditorGUILayout.LabelField(asSystems != null ? $"[{asSystems.Name ?? asSystems.GetType().Name}]" : systems.Items[i].GetType().Name);
-                    if (asSystems != null)
-                    {
+                    if (asSystems != null) {
                         OnDestroySystemsGUI(asSystems);
                     }
                 }

@@ -22,7 +22,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization.FirstPlaer {
                 GenerateItem(avatars[avatarId], i.ToString());
             }
 
-            if (Global.Data.InGame.PlayerState.Active) {
+            if (Global.Data.Common.PlayerState.Active) {
                 GenerateItem(Global.Views.InGame.FirstPlayerSelectionView.PlayerAvatarItemExample, " Origin");
             }
             else {
@@ -43,7 +43,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Initialization.FirstPlaer {
             Global.Views.InGame.FirstPlayerSelectionView.gameObject.SetActive(false);
             Global.Data.InGame.World.NewEntity().Unset<FirstPlayerSelectionAnimating>();
 
-            if (!Global.Data.InGame.PlayerState.Active) {
+            if (!Global.Data.Common.PlayerState.Active) {
                 EcsEntity makeSwapRequest = Global.Data.InGame.World.NewEntity();
                 makeSwapRequest.Set<BotMakeSwapDecisionRequest>();
             }

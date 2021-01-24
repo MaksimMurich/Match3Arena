@@ -29,12 +29,12 @@ public static class Global {
     public class Configurations {
         public InGameConfiguration InGame;
         public LobbyConfiguration Lobby;
+        public CommonConfiguration Common;
     }
 
     public class InGameData {
         public EcsWorld World;
         public EcsSystems Systems;
-        public PlayerState PlayerState;
         public GameField GameField = new GameField();
     }
 
@@ -43,7 +43,7 @@ public static class Global {
     }
 
     public class CommonData {
-
+        public PlayerState PlayerState;
     }
 
     public class ViewsContainer {

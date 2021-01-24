@@ -26,7 +26,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards {
                 Vector2 screenPosition = views.Camera.WorldToScreenPoint(position);
                 Vector2 canvasPosition = new Vector2(screenPosition.x * widthProportion, screenPosition.y * heightProportion);
 
-                PlayerInGameDataView dataView = Global.Data.InGame.PlayerState.Active ? views.PlayerDataView : views.BotDataView;
+                PlayerInGameDataView dataView = Global.Data.Common.PlayerState.Active ? views.PlayerDataView : views.BotDataView;
                 CellRewardView rewardView = Global.Services.Pool.Get(request.View);
                 rewardView.SetValue(request.Value);
                 rewardView.transform.SetParent(views.RewardsContainer.transform);

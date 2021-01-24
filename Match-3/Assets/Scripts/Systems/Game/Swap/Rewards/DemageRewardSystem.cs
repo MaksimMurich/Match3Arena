@@ -14,7 +14,7 @@ namespace Match3.Assets.Scripts.Systems.Game.Swap.Rewards {
                 return;
             }
 
-            var state = Global.Data.InGame.PlayerState;
+            var state = Global.Data.Common.PlayerState;
 
             foreach (int index in _filter) {
                 EcsEntity entity = _filter.GetEntity(index);

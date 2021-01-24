@@ -25,9 +25,9 @@ namespace Match3.Assets.Scripts.Systems.Game {
             }
 
             _needChangeActivePlayer = false;
-            Global.Data.InGame.PlayerState.Active = !Global.Data.InGame.PlayerState.Active;
+            Global.Data.Common.PlayerState.Active = !Global.Data.Common.PlayerState.Active;
 
-            if (!Global.Data.InGame.PlayerState.Active) {
+            if (!Global.Data.Common.PlayerState.Active) {
                 EcsEntity makeSwapRequest = Global.Data.InGame.World.NewEntity();
                 makeSwapRequest.Set<PlayerChangedEvent>();
             }
