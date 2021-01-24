@@ -6,15 +6,14 @@ namespace Match3.Assets.Scripts.Systems.Game {
     public sealed class ChangeActivePlayerSystem : IEcsRunSystem {
         private bool _needChangeActivePlayer;
 
-        private readonly EcsFilter<NextPlayerRequest> _nextPlayerRequestFilter = null;
-        private readonly EcsFilter<TurnTimeIsUpEvent> _timeIsUpFilter = null;
+        private readonly EcsFilter<NextPlayerRequest> _filter = null;
         private readonly EcsFilter<ChangeFieldAnimating> _fieldChangers = null;
         private readonly EcsFilter<AnimateExplosion> _explosionAnimations = null;
         private readonly EcsFilter<ChainEvent> _chains = null;
         private readonly EcsFilter<Selected> _selected = null;
 
         public void Run() {
-            if (_nextPlayerRequestFilter.GetEntitiesCount() > 0 || _timeIsUpFilter.GetEntitiesCount() > 0) {
+            if (_filter.GetEntitiesCount() > 0) {
                 _needChangeActivePlayer = true;
                 return; // skip one frame before change active player for locker animations activation
             }
@@ -27,7 +26,11 @@ namespace Match3.Assets.Scripts.Systems.Game {
 
             _needChangeActivePlayer = false;
             Global.Data.InGame.PlayerState.Active = !Global.Data.InGame.PlayerState.Active;
-            Global.Data.InGame.World.NewEntity().Set<PlayerChangedEvent>();
+
+            if (!Global.Data.InGame.PlayerState.Active) {
+                EcsEntity makeSwapRequest = Global.Data.InGame.World.NewEntity();
+                makeSwapRequest.Set<PlayerChangedEvent>();
+            }
 
             foreach (int index in _selected) {
                 _selected.GetEntity(index).Unset<Selected>();

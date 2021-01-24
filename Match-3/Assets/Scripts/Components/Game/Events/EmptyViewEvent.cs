@@ -1,6 +1,4 @@
-﻿namespace Match3.Components.Game.Events
-{
-    public struct EmptyViewEvent
-    {
+﻿namespace Match3.Components.Game.Events {
+    public struct EmptyViewEvent {
     }
 }

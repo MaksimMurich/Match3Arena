@@ -1,6 +1,4 @@
-﻿namespace Match3.Components.Game.Events
-{
-    public struct ExplosionRequest
-    {
+﻿namespace Match3.Components.Game.Events {
+    public struct ExplosionRequest {
     }
 }

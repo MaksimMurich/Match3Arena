@@ -1,7 +1,5 @@
-﻿namespace Match3.Components.Game
-{
-    public struct ChangeFieldAnimating
-    {
+﻿namespace Match3.Components.Game {
+    public struct ChangeFieldAnimating {
 
     }
 }
